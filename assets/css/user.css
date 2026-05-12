@@ -1,0 +1,91 @@
+
+        body {
+            background: #F9FAFB;
+            font-size: 14px;
+        }
+
+        /* Topbar */
+        .topbar {
+            height: 56px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .topbar h6 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* Container mobile */
+        .container-mobile {
+            padding: 16px;
+            padding-bottom: 90px;
+            /* space untuk navbar */
+        }
+
+        /* Card */
+        .card-custom {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Button primary */
+        .btn-primary-custom {
+            background: #0d6efd;
+            border: none;
+            border-radius: 12px;
+            height: 48px;
+            font-weight: 500;
+        }
+
+        /* Navbar bottom */
+        .bottom-navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: #fff;
+            /* border-top: 1px solid #e5e7eb; */
+            border-top: 1px solid #d9dee3;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-item-mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            text-decoration: none;
+            padding: 8px 12px;
+            color: #6c757d;
+            font-size: 12px;
+        }
+
+        .nav-item-mobile i {
+            font-size: 18px;
+        }
+
+        /* .nav-item-mobile.active {
+            color: #0d6efd;
+            background-color: rgba(13, 110, 253, 0.12);
+            border-radius: 16px;
+            transform: scale(1.05);
+        } */
+        .nav-item-mobile.active {
+            color: var(--bs-primary);
+            background-color: rgba(105, 108, 255, 0.12);
+            /* warna default sneat */
+            border-radius: 12px;
+        }

@@ -1,0 +1,583 @@
+Role (4 Aktor)
+
+1. Owner → pemilik (monitoring & keputusan)
+2. Admin → operasional (kelola data & transaksi)
+3. Petugas Reservasi (Kasir) → handle walk-in & check-in
+4. User (Member) → pelanggan yang booking online
+
+---
+
+1. MENU UNTUK OWNER
+
+Fokus: monitoring & laporan
+
+Menu:
+
+* Dashboard
+
+  * total transaksi
+  * pendapatan harian/bulanan
+  * grafik penggunaan lapangan
+
+* Laporan
+
+  * laporan transaksi
+  * laporan pendapatan
+  * laporan penggunaan lapangan
+
+* Manajemen Member
+
+  * lihat data member
+  * statistik member aktif
+
+* Setting (opsional)
+
+  * tarif member & non-member
+
+
+2. MENU UNTUK ADMIN
+
+Fokus: manajemen sistem
+
+Menu:
+
+* Dashboard
+
+* Manajemen Lapangan
+
+  * tambah/edit lapangan
+  * status lapangan
+
+* Manajemen Jadwal
+
+  * set jam operasional
+  * blok jadwal (maintenance/event)
+
+* Manajemen Member
+
+  * tambah/edit/hapus member
+
+* Manajemen Reservasi
+
+  * lihat semua booking
+  * ubah status
+
+* Manajemen Pembayaran
+
+  * verifikasi pembayaran
+  * lihat status (pending, paid, expired)
+
+* Laporan
+
+  * transaksi
+  * pendapatan
+
+
+3. MENU PETUGAS RESERVASI (KASIR)
+
+Fokus: operasional lapangan & walk-in
+
+Menu:
+
+* Dashboard sederhana
+
+* Jadwal Lapangan (REALTIME)
+
+  * lihat slot kosong/terisi
+
+* Booking Walk-in
+
+  * input manual booking non-member
+  * pilih jam & lapangan
+
+* Check-in
+
+  * scan QR / input kode booking
+
+* Transaksi Kas
+
+  * pembayaran cash
+  * pencatatan transaksi
+
+* Riwayat Transaksi
+
+  * transaksi hari ini
+
+
+4. MENU USER (MEMBER)
+
+Fokus: booking & pembayaran
+
+Menu:
+
+* Dashboard / Beranda
+
+* Jadwal Lapangan
+
+  * lihat ketersediaan real-time
+
+* Booking Lapangan
+
+  * pilih tanggal & jam
+  * pilih lapangan
+
+* Pembayaran
+
+  * QRIS
+  * status pembayaran
+
+* Riwayat Booking
+
+  * status: pending, paid, expired
+
+* Profil
+
+  * data diri
+  * ubah password
+
+---
+
+# 🔥 BONUS (biar sistemmu kelihatan “niat” 😈)
+
+## ✨ Status yang harus ada
+
+* available
+* pending
+* paid
+* expired
+* cancelled
+* checked_in
+* completed
+
+---
+
+## ✨ Fitur tambahan (nilai plus skripsi)
+
+* countdown pembayaran (5 menit)
+* auto cancel (cron job)
+* QR Code check-in
+* webhook pembayaran (QRIS)
+* filter jadwal (tanggal/lapangan)
+
+
+Supaya desainmu rapi, pakai pola ini:
+
+* **Dashboard**
+* **Data Master**
+* **Transaksi**
+* **Laporan**
+* **Pengaturan / Profil**
+
+Jadi tiap role nanti tinggal disesuaikan.
+
+---
+
+# 1) OWNER
+
+Fokus: **monitoring semua cabang, laporan, keputusan**
+
+## Menu sidebar Owner
+
+1. **Dashboard**
+2. **Cabang**
+3. **Laporan**
+4. **Pengguna**
+
+## Detail halaman
+
+### 1. Dashboard
+
+Isi:
+
+* total cabang
+* total reservasi
+* total pendapatan
+* jumlah member
+* grafik reservasi
+* grafik pendapatan
+* ringkasan lapangan terpakai
+
+### 2. Cabang
+
+Isi:
+
+* daftar cabang
+* tambah cabang
+* edit cabang
+* detail cabang
+
+### 3. Laporan
+
+Submenu:
+
+* laporan reservasi
+* laporan pembayaran
+* laporan pendapatan
+* laporan penggunaan lapangan
+
+
+### 4. Pengguna
+
+Isi:
+
+* daftar admin cabang
+* tambah admin cabang
+
+
+
+# 2) ADMIN CABANG
+
+Fokus: **mengelola operasional satu cabang**
+
+## Menu sidebar Admin
+
+1. **Dashboard**
+2. **Lapangan**
+3. **Jadwal**
+4. **Reservasi**
+5. **Pembayaran**
+6. **Member**
+7. **Petugas**
+8. **Laporan**
+
+
+## Detail halaman
+
+### 1. Dashboard
+
+Isi:
+
+* total booking hari ini
+* total pembayaran hari ini
+* jadwal aktif hari ini
+* slot kosong / terisi
+
+### 2. Lapangan
+
+Isi:
+
+* daftar lapangan
+* tambah lapangan
+* edit lapangan
+* status lapangan
+
+### 3. Jadwal
+
+Isi:
+
+* kalender / tabel jadwal
+* set jam operasional
+* blok jadwal
+* filter per lapangan
+* filter per tanggal
+
+### 4. Reservasi
+
+Isi:
+
+* daftar reservasi
+* detail reservasi
+* cari booking
+* filter status
+
+### 5. Pembayaran
+
+Isi:
+
+* daftar pembayaran
+ - order id/no invoice
+ - nama user
+ - status pembayaran
+ - detail pembayaran
+ - metode pembayaran (qris, cash)
+* filter pembayaran status/tanggal
+
+### 6. Member
+
+Isi:
+
+* daftar member
+* tambah member
+* edit member
+* detail member
+
+### 7. Petugas
+
+Isi:
+
+* daftar petugas reservasi
+* tambah petugas
+* edit petugas
+
+### 8. Laporan
+
+Isi:
+
+* laporan reservasi
+* laporan pembayaran
+* laporan pendapatan cabang
+
+# 3) PETUGAS RESERVASI / KASIR
+
+Fokus: operasional harian, walk-in, check-in, transaksi
+
+## Menu sidebar Petugas
+
+1. **Dashboard**
+2. **Jadwal Lapangan**
+3. **Booking Walk-in**
+4. **Check-in**
+5. **Transaksi/riwayat
+
+## Detail halaman
+
+### 1. Dashboard
+
+Isi:
+
+* booking hari ini
+* check-in hari ini
+* transaksi hari ini
+* slot aktif sekarang
+
+### 2. Jadwal Lapangan
+
+Isi:
+
+* jadwal realtime
+* status slot (tersedia, pending, terisi)
+* filter tanggal/lapangan
+
+### 3. Booking Walk-in
+
+Isi:
+
+* form booking non-member
+* pilih lapangan
+* pilih tanggal
+* pilih jam
+* hitung biaya otomatis
+
+### 4. Check-in
+
+Isi:
+
+* scan QR code/input kode booking manual
+* tampilkan detail booking
+* tombol konfirmasi check-in
+
+### 5. Transaksi
+
+Isi:
+
+* tambah transaksi walk-in
+* riwayat transaksi
+* detail transaksi
+
+---
+
+# 4) USER / MEMBER
+
+Fokus: lihat jadwal, booking, bayar, riwayat
+
+Menu:
+Beranda
+Jadwal
+Booking
+Riwayat
+Profil
+1. Beranda
+banner
+booking aktif
+tombol booking
+info tarif
+2. Jadwal
+jadwal realtime
+filter tanggal/lapangan
+status slot
+3. Booking
+pilih cabang & lapangan
+pilih tanggal & jam
+durasi
+QRIS + countdown
+4. Riwayat
+daftar booking
+status (pending/paid/expired/selesai)
+detail
+5. Profil
+data diri
+ubah password
+logout
+
+## Status reservasi
+
+* `pending`
+* `confirmed`
+* `checked_in`
+* `completed`
+* `cancelled`
+* `expired`
+
+## Status pembayaran
+
+* `unpaid`
+* `pending`
+* `paid`
+* `failed`
+* `expired`
+
+## Status slot jadwal
+
+* `available`
+* `booked`
+* `in_use`
+* `closed`
+
+Ini lebih rapi buat database dan UI.
+
+---
+
+# Rekomendasi tampilan sidebar
+
+Supaya mudah didesain, pakai pola seperti ini:
+
+## Owner
+
+* Dashboard
+* Cabang
+* Member
+* Pengguna
+* Laporan
+* Pengaturan
+
+## Admin
+
+* Dashboard
+* Lapangan
+* Jadwal
+* Reservasi
+* Pembayaran
+* Member
+* Petugas
+* Laporan
+
+## Petugas
+
+* Dashboard
+* Jadwal Lapangan
+* Booking Walk-in
+* Check-in
+* Transaksi
+* Riwayat
+
+## User
+
+* Beranda
+* Jadwal
+* Reservasi
+* Pembayaran
+* Riwayat
+* Profil
+
+---
+
+# Supaya UI-mu tidak terlalu penuh
+
+Saran penting:
+
+## Jangan taruh terlalu banyak submenu di sidebar
+
+Lebih baik:
+
+* sidebar = menu utama
+* isi submenu ditampilkan sebagai **tab** atau **button section** di halaman
+
+Contoh:
+**Menu: Reservasi**
+Di dalam halaman reservasi ada tab:
+
+* Semua
+* Pending
+* Paid
+* Expired
+
+Jadi UI lebih bersih.
+
+---
+
+# Versi paling siap untuk kamu jadikan desain
+
+## OWNER
+
+* Dashboard
+* Cabang
+* Member
+* Pengguna
+* Laporan
+* Pengaturan
+
+## ADMIN
+
+* Dashboard
+* Lapangan
+* Jadwal
+* Reservasi
+* Pembayaran
+* Member
+* Petugas
+* Laporan
+
+## PETUGAS RESERVASI
+
+* Dashboard
+* Jadwal Lapangan
+* Booking Walk-in
+* Check-in
+* Transaksi
+* Riwayat
+
+## USER
+
+* Beranda
+* Jadwal
+* Reservasi
+* Pembayaran
+* Riwayat
+* Profil
+
+---
+
+# Saran layout UI
+
+Untuk dashboard admin/owner:
+
+* **Sidebar kiri**
+* **Topbar atas**
+* **Card statistik**
+* **Tabel data**
+* **Grafik ringkas**
+
+Untuk user:
+
+* mobile-friendly
+* navbar bawah atau top menu sederhana
+* fokus ke:
+
+  * jadwal
+  * booking
+  * pembayaran
+
+---
+
+# Kesimpulan
+
+Kalau tujuanmu sekarang **membuat design UI**, maka struktur menu yang paling aman dipakai adalah:
+
+* **Owner:** Dashboard, Cabang, Member, Pengguna, Laporan, Pengaturan
+* **Admin:** Dashboard, Lapangan, Jadwal, Reservasi, Pembayaran, Member, Petugas, Laporan
+* **Petugas:** Dashboard, Jadwal Lapangan, Booking Walk-in, Check-in, Transaksi, Riwayat
+* **User:** Beranda, Jadwal, Reservasi, Pembayaran, Riwayat, Profil
+
+Kalau kamu mau, next aku bisa bantu bikin:
+**wireframe susunan dashboard per role**
+misalnya bentuk kotak-kotak halaman **Owner, Admin, Petugas, dan User** supaya kamu tinggal gambar di Figma.
