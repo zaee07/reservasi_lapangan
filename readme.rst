@@ -1,71 +1,274 @@
-###################
-What is CodeIgniter
-###################
+# Sistem Reservasi Lapangan Badminton GOR Harmoni
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+Sistem Reservasi Lapangan Badminton GOR Harmoni adalah aplikasi berbasis web yang digunakan untuk mengelola reservasi lapangan badminton secara digital dengan dukungan multi cabang, multi lapangan, multi role, serta pembayaran QRIS.
 
-*******************
-Release Information
-*******************
+Project ini dibuat menggunakan framework CodeIgniter 3 dan dirancang untuk mempermudah pengelolaan reservasi, jadwal lapangan, transaksi pembayaran, serta manajemen pengguna pada setiap cabang.
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+# Features
 
-**************************
-Changelog and New Features
-**************************
+* Multi Role User
+* Multi Cabang
+* Multi Lapangan
+* Reservasi Lapangan
+* Payment QRIS (Pakasir)
+* Cetak Invoice PDF (DOMPDF)
+* QR Code Tiket / Reservasi
+* Kamera untuk scan/verifikasi
+* Dashboard Statistik
+* Manajemen Jadwal Lapangan
+* Manajemen Member
+* Riwayat Reservasi
+* Validasi Booking
+* Sistem Login dan Hak Akses
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+# Roles
 
-*******************
-Server Requirements
-*******************
+## Owner
 
-PHP version 5.6 or newer is recommended.
+* Mengelola seluruh cabang
+* Mengelola admin cabang
+* Monitoring reservasi seluruh cabang
+* Monitoring transaksi
+* Melihat laporan
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+## Admin Cabang
 
-************
-Installation
-************
+* Mengelola lapangan pada cabang masing-masing
+* Mengelola petugas reservasi
+* Melihat reservasi cabang
+* Mengatur jadwal lapangan
 
-Please see the `installation section <https://codeigniter.com/userguide3/installation/index.html>`_
-of the CodeIgniter User Guide.
+## Petugas Reservasi
 
-*******
-License
-*******
+* Input reservasi
+* Verifikasi pembayaran
+* Scan QR reservasi
+* Check-in member
 
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+## Member
 
-*********
-Resources
-*********
+* Melakukan booking lapangan
+* Melihat jadwal lapangan
+* Melihat riwayat reservasi
+* Melakukan pembayaran QRIS
 
--  `User Guide <https://codeigniter.com/docs>`_
--  `Contributing Guide <https://github.com/bcit-ci/CodeIgniter/blob/develop/contributing.md>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community Slack Channel <https://codeigniterchat.slack.com>`_
+# Technology Stack
 
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
+## Backend
 
-***************
-Acknowledgement
-***************
+* PHP
+* CodeIgniter 3
+* MySQL / MariaDB
 
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+## Frontend
+
+* Bootstrap
+* jQuery
+* HTML5
+* CSS3
+* JavaScript
+
+## Library & Integration
+
+* DOMPDF
+* QRCode Generator
+* Kamera / Webcam Scanner
+* Pakasir QRIS Payment
+
+# Project Structure
+
+::
+
+```
+application/
+├── controllers/
+├── models/
+├── views/
+├── libraries/
+├── helpers/
+└── config/
+
+assets/
+├── css/
+├── js/
+├── images/
+└── uploads/
+
+system/
+vendor/
+```
+
+# Installation
+
+1. Clone Repository
+
+---
+
+::
+
+```
+git clone https://github.com/username/repository-name.git
+```
+
+## 2. Masuk ke Folder Project
+
+::
+
+```
+cd repository-name
+```
+
+## 3. Pindahkan Project ke Web Server
+
+Contoh:
+
+* XAMPP : `htdocs`
+* Laragon : `www`
+* Linux : `/var/www/html`
+
+4. Import Database
+
+---
+
+* Buat database baru di MySQL / MariaDB
+* Import file SQL ke database
+
+5. Konfigurasi Database
+
+---
+
+Edit file:
+
+::
+
+```
+application/config/database.php
+```
+
+Sesuaikan:
+
+::
+
+```
+'hostname' => 'localhost',
+'username' => 'root',
+'password' => '',
+'database' => 'gor_harmoni',
+```
+
+## 6. Konfigurasi Base URL
+
+Edit file:
+
+::
+
+```
+application/config/config.php
+```
+
+::
+
+```
+$config['base_url'] = 'http://localhost/gor-harmoni/';
+```
+
+## 7. Jalankan Project
+
+Buka browser:
+
+::
+
+```
+http://localhost/gor-harmoni/
+```
+
+# QRIS Payment Integration
+
+Project ini mendukung integrasi pembayaran QRIS menggunakan layanan Pakasir.
+
+Fitur pembayaran:
+
+* Generate QRIS otomatis
+* Verifikasi pembayaran
+* Status transaksi realtime
+* Riwayat pembayaran
+
+# Camera & QR Verification
+
+Sistem mendukung penggunaan kamera/webcam untuk:
+
+* Scan QR reservasi
+* Validasi tiket booking
+* Check-in member
+
+# Default Roles Access
+
++-------------------+-------------------------------+
+| Role              | Hak Akses                     |
++===================+===============================+
+| Owner             | Semua akses sistem            |
++-------------------+-------------------------------+
+| Admin Cabang      | Kelola cabang masing-masing   |
++-------------------+-------------------------------+
+| Petugas Reservasi | Reservasi dan verifikasi      |
++-------------------+-------------------------------+
+| Member            | Booking lapangan              |
++-------------------+-------------------------------+
+
+# Screenshots
+
+Tambahkan screenshot project pada folder:
+
+::
+
+```
+screenshots/
+```
+
+Contoh:
+
+::
+
+```
+screenshots/dashboard.png
+screenshots/booking.png
+screenshots/payment.png
+```
+
+Lalu tampilkan pada README.
+
+Example:
+
+::
+
+```
+.. image:: screenshots/dashboard.png
+   :alt: Dashboard
+   :width: 800px
+```
+
+# Future Development
+
+* Notifikasi WhatsApp
+* Mobile App Android
+* Membership Subscription
+* Voucher dan Promo
+* Integrasi Midtrans
+* Export Laporan Excel
+* Auto Check-In
+
+# Contributing
+
+Pull request dan kontribusi sangat terbuka untuk pengembangan project ini.
+
+# License
+
+This project is licensed under the MIT License.
+
+# Author
+
+Muhammad Ihza Sofyansyah
+
+* Universitas Peradaban
+* Sistem Informasi
+* Web Developer
