@@ -60,6 +60,7 @@ $route['logout'] = 'auth/logout';
 
 // $route['home'] = 'home/index';
 // $route['jadwal'] = 'jadwal/index';
+$route['jadwal_lapangan'] = 'member/jadwal/index';
 // $route['booking'] = 'booking/index';
 // $route['booking/detail/(:num)'] = 'booking/detail/$1';
 // $route['pembayaran/(:num)'] = 'pembayaran/index/$1';
@@ -67,13 +68,17 @@ $route['logout'] = 'auth/logout';
 // $route['profil'] = 'profil/index';
 
 $route['admin_cabang_dashboard'] = 'admin/dashboard';
-// $route['admin/jadwal'] = 'admin/jadwal/index';
 $route['lapangan'] = 'admin/lapangan/index';
 $route['lapangan/create']          = 'admin/lapangan/create';
 $route['lapangan/store']           = 'admin/lapangan/store';
 $route['lapangan/edit/(:num)']     = 'admin/lapangan/edit/$1';
 $route['lapangan/update/(:num)']   = 'admin/lapangan/update/$1';
 $route['lapangan/delete/(:num)']   = 'admin/lapangan/delete/$1';
+$route['jadwal']                     = 'admin/jadwal/index';
+$route['jadwal/generate']            = 'admin/jadwal/generate';
+$route['jadwal/store_generate']      = 'admin/jadwal/store_generate';
+$route['jadwal/edit/(:num)']         = 'admin/jadwal/edit/$1';
+$route['jadwal/update/(:num)']       = 'admin/jadwal/update/$1';
 // $route['admin/booking'] = 'admin/booking/index';
 // $route['admin/pembayaran'] = 'admin/pembayaran/index';
 // $route['admin/user'] = 'admin/user/index';
