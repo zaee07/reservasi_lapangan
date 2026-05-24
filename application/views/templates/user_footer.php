@@ -8,7 +8,7 @@
         <span>Home</span>
     </a>
 
-    <a href="<?= base_url('jadwal') ?>" class="nav-item-mobile d-flex flex-column align-items-center justify-content-center <?= ($active == 'jadwal') ? 'active' : '' ?>">
+    <a href="<?= base_url('jadwal_lapangan') ?>" class="nav-item-mobile d-flex flex-column align-items-center justify-content-center <?= ($active == 'jadwal') ? 'active' : '' ?>">
         <i class="bi bi-calendar fs-5"></i>
         <span>Jadwal</span>
     </a>
