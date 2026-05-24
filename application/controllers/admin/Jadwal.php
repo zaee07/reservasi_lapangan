@@ -17,10 +17,7 @@ class Jadwal extends Admin_Controller
 
     public function index()
     {
-        // $cabang_id = $this->session->userdata('cabang_id');
         $cabang_id = $this->pengguna->get_admin_cabang_by_id($this->session->userdata('id'))->cabang_id;
-
-
         $tanggal = $this->input->get('tanggal');
 
         if (!$tanggal) {
@@ -55,7 +52,6 @@ class Jadwal extends Admin_Controller
         $this->load->view('templates/header', $data);
     }
 
-    // proses generate slot
     public function store_generate()
     {
         $cabang_id = $this->pengguna->get_admin_cabang_by_id($this->session->userdata('id'))->cabang_id;
@@ -112,8 +108,7 @@ class Jadwal extends Admin_Controller
     // edit status slot
     public function edit($id)
     {
-        $cabang_id = $this->session->userdata('cabang_id');
-
+        $cabang_id = $this->pengguna->get_admin_cabang_by_id($this->session->userdata('id'))->cabang_id;
         $jadwal = $this->jadwal->get_by_id($id);
 
         if (!$jadwal || $jadwal->cabang_id != $cabang_id) {
@@ -129,11 +124,9 @@ class Jadwal extends Admin_Controller
         $this->load->view('templates/header', $data);
     }
 
-    // update status
     public function update($id)
     {
-        $cabang_id = $this->session->userdata('cabang_id');
-
+        $cabang_id = $this->pengguna->get_admin_cabang_by_id($this->session->userdata('id'))->cabang_id;
         $jadwal = $this->jadwal->get_by_id($id);
 
         if (!$jadwal || $jadwal->cabang_id != $cabang_id) {
@@ -141,7 +134,7 @@ class Jadwal extends Admin_Controller
         }
 
         $data = [
-            'status' => $this->input->post('status')
+            'status_slot' => $this->input->post('status')
         ];
 
         $this->jadwal->update($id, $data);

@@ -24,19 +24,19 @@
 
                         <option
                             value="tersedia"
-                            <?= $jadwal->status == 'tersedia' ? 'selected' : '' ?>>
+                            <?= $jadwal->status_slot == 'available' ? 'selected' : '' ?>>
                             Tersedia
                         </option>
 
                         <option
                             value="maintenance"
-                            <?= $jadwal->status == 'maintenance' ? 'selected' : '' ?>>
+                            <?= $jadwal->status_slot == 'booked' ? 'selected' : '' ?>>
                             Maintenance
                         </option>
 
                         <option
                             value="tutup"
-                            <?= $jadwal->status == 'tutup' ? 'selected' : '' ?>>
+                            <?= $jadwal->status_slot == 'closed' ? 'selected' : '' ?>>
                             Tutup
                         </option>
 

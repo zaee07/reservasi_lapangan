@@ -88,19 +88,19 @@ foreach ($jadwal as $j) :
                             Tersedia
                         </span>
 
-                    <?php elseif ($j->status == 'booked') : ?>
+                    <?php elseif ($j->status_slot == 'booked') : ?>
 
                         <span class="badge bg-primary">
                             Dipesan
                         </span>
 
-                    <?php elseif ($j->status == 'in_use') : ?>
+                    <?php elseif ($j->status_slot == 'in_use') : ?>
 
                         <span class="badge bg-warning text-dark">
                             Maintenance
                         </span>
 
-                    <?php elseif ($j->status == 'closed') : ?>
+                    <?php elseif ($j->status_slot == 'closed') : ?>
 
                         <span class="badge bg-warning text-dark">
                             Tutup

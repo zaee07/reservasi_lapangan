@@ -94,13 +94,13 @@
                                         Tersedia
                                     </span>
 
-                                <?php elseif ($j->status == 'booked') : ?>
+                                <?php elseif ($j->status_slot == 'booked') : ?>
 
                                     <span class="badge bg-label-primary">
                                         Dipesan
                                     </span>
 
-                                <?php elseif ($j->status == 'closed') : ?>
+                                <?php elseif ($j->status_slot == 'closed') : ?>
 
                                     <span class="badge bg-label-warning">
                                         Maintenance
