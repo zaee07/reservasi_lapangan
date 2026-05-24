@@ -86,8 +86,8 @@
 
         <?php //if (has_role([1, 2, 3, 4])) : 
         ?>
-        <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
-          <a href="<?= base_url('transaksi') ?>" class="menu-link">
+        <li class="menu-item <?= ($active == 'jadwal') ? 'active' : ''; ?>">
+          <a href="<?= base_url('jadwal') ?>" class="menu-link">
             <i class="menu-icon tf-icons bx bx-cart"></i>
             <div data-i18n="Basic">Jadwal</div>
           </a>
