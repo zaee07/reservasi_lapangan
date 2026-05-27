@@ -4,11 +4,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Jadwal extends Member_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
-
         $this->load->model('Jadwal_model', 'jadwal');
     }
 

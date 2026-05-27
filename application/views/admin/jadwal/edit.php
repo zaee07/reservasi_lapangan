@@ -23,20 +23,20 @@
                         class="form-select">
 
                         <option
-                            value="tersedia"
+                            value="available"
                             <?= $jadwal->status_slot == 'available' ? 'selected' : '' ?>>
                             Tersedia
                         </option>
 
                         <option
-                            value="maintenance"
+                            value="booked"
                             <?= $jadwal->status_slot == 'booked' ? 'selected' : '' ?>>
-                            Maintenance
+                            Booking
                         </option>
 
                         <option
-                            value="tutup"
-                            <?= $jadwal->status_slot == 'closed' ? 'selected' : '' ?>>
+                            value="closed/maintenance"
+                            <?= $jadwal->status_slot == 'closed/maintenance' ? 'selected' : '' ?>>
                             Tutup
                         </option>
 
