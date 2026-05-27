@@ -79,7 +79,7 @@
 
         <li class="menu-item <?= ($active == 'lapangan') ? 'active' : ''; ?>">
           <a href="<?= base_url('lapangan') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-receipt"></i>
+            <i class="menu-icon tf-icons bx bx-buildings"></i>
             <div data-i18n="Basic">Lapangan</div>
           </a>
         </li>
@@ -88,31 +88,31 @@
         ?>
         <li class="menu-item <?= ($active == 'jadwal') ? 'active' : ''; ?>">
           <a href="<?= base_url('jadwal') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-cart"></i>
+            <i class="menu-icon tf-icons bx bx-calendar"></i>
             <div data-i18n="Basic">Jadwal</div>
           </a>
         </li>
         <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
           <a href="<?= base_url('transaksi') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-cart"></i>
+            <i class="menu-icon tf-icons bx bx-credit-card"></i>
             <div data-i18n="Basic">Pembayaran</div>
           </a>
         </li>
         <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
           <a href="<?= base_url('transaksi') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-cart"></i>
+            <i class="menu-icon tf-icons bx bx-user"></i>
             <div data-i18n="Basic">Member</div>
           </a>
         </li>
         <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
           <a href="<?= base_url('transaksi') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-cart"></i>
+            <i class="menu-icon tf-icons bx bx-group"></i>
             <div data-i18n="Basic">Petugas</div>
           </a>
         </li>
         <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
           <a href="<?= base_url('transaksi') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-cart"></i>
+            <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
             <div data-i18n="Basic">Laporan</div>
           </a>
         </li>
@@ -123,7 +123,7 @@
         <!-- Layouts -->
         <li class="menu-item <?= ($active == 'cabang') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-box"></i>
+            <i class="menu-icon tf-icons bx bx-map-pin"></i>
             <div data-i18n="Layouts">Cabang</div>
           </a>
 
