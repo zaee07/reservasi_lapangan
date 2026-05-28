@@ -67,7 +67,7 @@ class Jadwal_model extends CI_Model
             ->result();
     }
 
-    public function get_jadwal_by_tgl($tanggal)
+    public function get_jadwal_by_tgl($tanggal, $kode_cabang)
     {
         return $this->db
             ->select('
@@ -79,6 +79,7 @@ class Jadwal_model extends CI_Model
             ->join('lapangan', 'lapangan.id = jadwal_slot.lapangan_id')
             ->join('cabang', 'cabang.id = jadwal_slot.cabang_id')
             ->where('jadwal_slot.tanggal', $tanggal)
+            ->where('cabang.kode_cabang', $kode_cabang)
             ->order_by('lapangan.nama_lapangan', 'ASC')
             ->order_by('jadwal_slot.jam_mulai', 'ASC')
             ->get()
