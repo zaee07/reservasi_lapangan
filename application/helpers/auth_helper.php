@@ -59,3 +59,13 @@ if (!function_exists('has_role')) {
         return in_array($user_role, (array)$role_id_allowed);
     }
 }
+if (!function_exists('foto_user')) {
+    function foto_user($foto = null)
+    {
+        if ($foto && file_exists('./uploads/user/' . $foto)) {
+            return base_url('uploads/user/' . $foto);
+        }
+
+        return base_url('assets/img/avatars/def.png');
+    }
+}

@@ -76,34 +76,28 @@
             </a>
           </li>
         <?php endif; ?>
-
-        <li class="menu-item <?= ($active == 'lapangan') ? 'active' : ''; ?>">
-          <a href="<?= base_url('lapangan') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-buildings"></i>
-            <div data-i18n="Basic">Lapangan</div>
-          </a>
-        </li>
-
-        <?php //if (has_role([1, 2, 3, 4])) : 
+        <?php if (has_role([2, 3, 4])) :
         ?>
-        <li class="menu-item <?= ($active == 'jadwal') ? 'active' : ''; ?>">
-          <a href="<?= base_url('jadwal') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-calendar"></i>
-            <div data-i18n="Basic">Jadwal</div>
-          </a>
-        </li>
-        <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
-          <a href="<?= base_url('transaksi') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-credit-card"></i>
-            <div data-i18n="Basic">Pembayaran</div>
-          </a>
-        </li>
-        <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
-          <a href="<?= base_url('transaksi') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-user"></i>
-            <div data-i18n="Basic">Member</div>
-          </a>
-        </li>
+          <li class="menu-item <?= ($active == 'lapangan') ? 'active' : ''; ?>">
+            <a href="<?= base_url('lapangan') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-buildings"></i>
+              <div data-i18n="Basic">Lapangan</div>
+            </a>
+          </li>
+          <li class="menu-item <?= ($active == 'jadwal') ? 'active' : ''; ?>">
+            <a href="<?= base_url('jadwal') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-calendar"></i>
+              <div data-i18n="Basic">Jadwal</div>
+            </a>
+          </li>
+          <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
+            <a href="<?= base_url('transaksi') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-credit-card"></i>
+              <div data-i18n="Basic">Pembayaran</div>
+            </a>
+          </li>
+        <?php endif;
+        ?>
         <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
           <a href="<?= base_url('transaksi') ?>" class="menu-link">
             <i class="menu-icon tf-icons bx bx-group"></i>
@@ -116,31 +110,40 @@
             <div data-i18n="Basic">Laporan</div>
           </a>
         </li>
-        <?php //endif; 
+        <?php if (has_role([1])) :
         ?>
-        <?php //if (has_role([1])) : 
-        ?>
-        <!-- Layouts -->
-        <li class="menu-item <?= ($active == 'cabang') ? 'active' : ''; ?>">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-map-pin"></i>
-            <div data-i18n="Layouts">Cabang</div>
-          </a>
+          <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
+            <a href="<?= base_url('transaksi') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-user"></i>
+              <div data-i18n="Basic">Member</div>
+            </a>
+          </li>
+          <li class="menu-item <?= ($active == 'cabang') ? 'active' : ''; ?>">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-map-pin"></i>
+              <div data-i18n="Layouts">Cabang</div>
+            </a>
 
-          <ul class="menu-sub">
-            <li class="menu-item <?= ($active == 'cabang') ? 'active' : ''; ?>">
-              <a href="<?= base_url('cabang') ?>" class="menu-link">
-                <div data-i18n="Without menu">Daftar Cabang</div>
-              </a>
-            </li>
-            <li class="menu-item <?= ($active == 'admin_cabang') ? 'active' : ''; ?>">
-              <a href="<?= base_url('admin_cabang') ?>" class="menu-link">
-                <div data-i18n="Without navbar">Daftar Admin Cabang</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <?php //endif; 
+            <ul class="menu-sub">
+              <li class="menu-item <?= ($active == 'cabang') ? 'active' : ''; ?>">
+                <a href="<?= base_url('cabang') ?>" class="menu-link">
+                  <div data-i18n="Without menu">Daftar Cabang</div>
+                </a>
+              </li>
+              <li class="menu-item <?= ($active == 'admin_cabang') ? 'active' : ''; ?>">
+                <a href="<?= base_url('admin_cabang') ?>" class="menu-link">
+                  <div data-i18n="Without navbar">Daftar Admin Cabang</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item <?= ($active == 'dokumentasi') ? 'active' : ''; ?>">
+            <a href="<?= base_url('dokumentasi') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-book"></i>
+              <div data-i18n="Basic">Dokumentasi</div>
+            </a>
+          </li>
+        <?php endif;
         ?>
 
         <!-- <li class="menu-header small text-uppercase">
@@ -399,12 +402,6 @@
             </li> -->
         <!-- Misc -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-        <li class="menu-item <?= ($active == 'dokumentasi') ? 'active' : ''; ?>">
-          <a href="<?= base_url('dokumentasi') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-book"></i>
-            <div data-i18n="Basic">Dokumentasi</div>
-          </a>
-        </li>
         <li class="menu-item <?= ($this->uri->segment(2) == 'ubah_password') ? 'active' : '' ?>">
           <a href="<?= base_url('auth/ubah_password') ?>" class="menu-link">
             <i class="menu-icon tf-icons bx bx-lock-alt"></i>
@@ -490,7 +487,7 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                  <img src="<?= base_url('assets/img/avatars/def.png') ?>" alt class="w-px-40 h-auto rounded-circle" />
+                  <img src="<?= foto_user($this->session->userdata['foto']) ?>" alt class="w-px-40 h-auto rounded-circle" />
                 </div>
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
@@ -499,7 +496,7 @@
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
-                          <img src="<?= base_url('assets/img/avatars/1.png') ?>" alt class="w-px-40 h-auto rounded-circle" />
+                          <img src="<?= foto_user($this->session->userdata['foto']) ?>" alt class="w-px-40 h-auto rounded-circle" />
                         </div>
                       </div>
                       <div class="flex-grow-1">
