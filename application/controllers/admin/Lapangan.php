@@ -52,7 +52,6 @@ class Lapangan extends Admin_Controller
         );
 
         if ($this->form_validation->run() == FALSE) {
-
             $this->create();
         } else {
 
@@ -62,7 +61,7 @@ class Lapangan extends Admin_Controller
 
                 $config['upload_path']   = './uploads/lapangan/';
                 $config['allowed_types'] = 'jpg|jpeg|png';
-                $config['max_size']      = 2048;
+                $config['max_size']      = 102400000; //2048;
                 $config['encrypt_name']  = TRUE;
 
                 $this->load->library('upload', $config);
@@ -133,7 +132,7 @@ class Lapangan extends Admin_Controller
 
             $config['upload_path']   = './uploads/lapangan/';
             $config['allowed_types'] = 'jpg|jpeg|png';
-            $config['max_size']      = 2048;
+            $config['max_size']      = 1000000; //2048;
             $config['encrypt_name']  = TRUE;
 
             $this->load->library('upload', $config);

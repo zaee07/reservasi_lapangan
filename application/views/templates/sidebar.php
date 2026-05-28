@@ -98,8 +98,8 @@
           </li>
         <?php endif;
         ?>
-        <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
-          <a href="<?= base_url('transaksi') ?>" class="menu-link">
+        <li class="menu-item <?= ($active == 'petugas') ? 'active' : ''; ?>">
+          <a href="<?= base_url('petugas_cabang') ?>" class="menu-link">
             <i class="menu-icon tf-icons bx bx-group"></i>
             <div data-i18n="Basic">Petugas</div>
           </a>
