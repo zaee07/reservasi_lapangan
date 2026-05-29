@@ -83,6 +83,7 @@
                             type="file"
                             name="foto"
                             class="form-control">
+                        <small class="text-muted">Format: JPG, JPEG, PNG maks file 2MB</small>
                     </div>
                     <?php if ($petugas->foto) : ?>
                         <div class="col-md-12 mb-3">
@@ -101,7 +102,7 @@
                         Update
                     </button>
                     <a
-                        href="<?= base_url('admin_cabang') ?>"
+                        href="<?= base_url('petugas_cabang') ?>"
                         class="btn btn-secondary">
                         Kembali
                     </a>

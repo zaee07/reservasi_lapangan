@@ -11,7 +11,7 @@ function badge_status_slot($status)
             return '<span class="badge bg-label-primary">Dipesan</span>';
 
         case STATUS_SLOT_IN_USED:
-            return '<span class="badge bg-label-warning">In Use</span>';
+            return '<span class="badge bg-label-warning">Sedang dipakai</span>';
 
         case STATUS_SLOT_CLOSED:
             return '<span class="badge bg-label-danger">Maintenance/Tutup</span>';

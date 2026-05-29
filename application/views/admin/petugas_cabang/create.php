@@ -45,7 +45,7 @@
                             type="file"
                             name="foto"
                             class="form-control">
-                        <small class="text-muted">Format: JPG, JPEG, PNG</small>
+                        <small class="text-muted">Format: JPG, JPEG, PNG maks file 2MB</small>
                     </div>
                 </div>
                 <div class="mt-4">
@@ -56,7 +56,7 @@
                         Simpan
                     </button>
                     <a
-                        href="<?= base_url('admin_cabang') ?>"
+                        href="<?= base_url('petugas_cabang') ?>"
                         class="btn btn-secondary">
                         Kembali
                     </a>
