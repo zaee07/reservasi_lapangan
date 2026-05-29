@@ -91,5 +91,15 @@ defined('EXIT__AUTO_MAX')      or define('EXIT__AUTO_MAX', 125); // highest auto
 
 defined('STATUS_SLOT_AVAILABLE') or define('STATUS_SLOT_AVAILABLE', 'available');
 defined('STATUS_SLOT_BOOKED') or define('STATUS_SLOT_BOOKED', 'booked');
-defined('STATUS_SLOT_IN_USED') or define('STATUS_SLOT_IN_USED', 'in_used');
+defined('STATUS_SLOT_IN_USED') or define('STATUS_SLOT_IN_USED', 'in_use');
 defined('STATUS_SLOT_CLOSED') or define('STATUS_SLOT_CLOSED', 'closed/maintenance');
+
+defined('BOOKING_TYPE_ONLINE') or define('BOOKING_TYPE_ONLINE', 'online');
+defined('BOOKING_TYPE_OFFLINE') or define('BOOKING_TYPE_OFFLINE', 'offline');
+
+defined('STATUS_BOOKING_PENDING') or define('STATUS_BOOKING_PENDING', 'pending');
+defined('STATUS_BOOKING_CONFIRMED') or define('STATUS_BOOKING_CONFIRMED', 'confirmed');
+defined('STATUS_BOOKING_CHECKIN') or define('STATUS_BOOKING_CHECKIN', 'checked_in');
+defined('STATUS_BOOKING_COMPLETED') or define('STATUS_BOOKING_COMPLETED', 'completed');
+defined('STATUS_BOOKING_CANCELLED') or define('STATUS_BOOKING_CANCELLED', 'cancelled');
+defined('STATUS_BOOKING_EXPIRED') or define('STATUS_BOOKING_EXPIRED', 'expired');
