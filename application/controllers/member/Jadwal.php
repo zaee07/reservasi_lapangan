@@ -19,8 +19,9 @@ class Jadwal extends Member_Controller
         if (!$tanggal) {
             $tanggal = date('Y-m-d');
         }
-        if (!$kode_cabang) {
-            $kode_cabang = 'ktm';
+        $cabang = $this->jadwal->get_cabang();
+        if (!$kode_cabang && !empty($cabang)) {
+            $kode_cabang = $cabang[0]->kode_cabang;
         }
 
         $data = [
@@ -29,10 +30,10 @@ class Jadwal extends Member_Controller
             'main_view'   => 'user/jadwal/index',
             'tanggal'     => $tanggal,
             'kode_cabang' => $kode_cabang,
-            'cabang'      => $this->jadwal->get_cabang(),
-            'jadwal'      => $this->jadwal->get_jadwal_by_tgl($tanggal, $kode_cabang)
+            'cabang'      => $cabang,
+            'jadwal'      => $this->jadwal->get_jadwal_slot_by_tgl($tanggal, $kode_cabang) //get_jadwal_by_tgl($tanggal, $kode_cabang)
         ];
-        // var_dump($cabang);
+        // var_dump($data['jadwal']);
         // die();
 
         $this->load->view('templates/user_header', $data);

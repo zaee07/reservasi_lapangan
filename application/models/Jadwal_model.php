@@ -85,4 +85,25 @@ class Jadwal_model extends CI_Model
             ->get()
             ->result();
     }
+    public function get_jadwal_slot_by_tgl($tanggal, $kode_cabang)
+    {
+        $result = $this->db
+            ->select('jadwal_slot.*,lapangan.nama_lapangan,cabang.nama_cabang')
+            ->from('jadwal_slot')
+            ->join('lapangan', 'lapangan.id = jadwal_slot.lapangan_id')
+            ->join('cabang', 'cabang.id = jadwal_slot.cabang_id')
+            ->where('jadwal_slot.tanggal', $tanggal)
+            ->where('cabang.kode_cabang', $kode_cabang)
+            ->where('jadwal_slot.status_slot !=', STATUS_SLOT_CLOSED)
+            ->order_by('cabang.nama_cabang', 'ASC')
+            ->order_by('lapangan.nama_lapangan', 'ASC')
+            ->order_by('jadwal_slot.jam_mulai', 'ASC')
+            ->get()
+            ->result();
+        $grouped = [];
+        foreach ($result as $row) {
+            $grouped[$row->nama_cabang][$row->nama_lapangan][] = $row;
+        }
+        return $grouped;
+    }
 }

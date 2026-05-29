@@ -24,48 +24,42 @@
     </form>
 </div>
 <?php if (empty($jadwal)) : ?>
-    <div class="alert alert-warning">
-        Jadwal belum tersedia
-    </div>
+    <div class="alert alert-warning"> Jadwal belum tersedia </div>
 <?php endif; ?>
-<?php
-$current_lapangan = '';
-foreach ($jadwal as $j) :
-    if ($current_lapangan != $j->nama_lapangan) :
-        $current_lapangan = $j->nama_lapangan;
-?>
-        <div class="card mb-3 shadow-sm">
-            <div class="card-header">
-                <div class="fw-bold">
-                    <?= $j->nama_lapangan ?>
-                </div>
-                <small class="text-muted">
-                    <?= $j->nama_cabang ?>
-                </small>
-            </div>
-            <div class="card-body">
-            <?php endif; ?>
-            <div
-                class="d-flex justify-content-between align-items-center border rounded p-2 mb-2">
-                <div>
-                    <div class="fw-semibold">
-                        <?= substr($j->jam_mulai, 0, 5) ?>
-                        -
-                        <?= substr($j->jam_selesai, 0, 5) ?>
-                    </div>
-                </div>
-                <div>
-                    <?= badge_status_slot($j->status_slot) ?><!--badge bg-success -->
-                </div>
-            </div>
-            <?php
-            $next = next($jadwal);
-            if (
-                !$next ||
-                $next->nama_lapangan != $current_lapangan
-            ) :
-            ?>
+
+<?php foreach ($jadwal as $nama_cabang => $lapangan) : ?>
+    <div class="card border-0 shadow-sm mb-4">
+        <div
+            class="card-header bg-white">
+            <div class="fw-bold fs-6">
+                <?= $nama_cabang ?>
             </div>
         </div>
-    <?php endif; ?>
+        <div class="card-body">
+            <?php foreach ($lapangan as $nama_lapangan => $slots) : ?>
+                <div class="mb-4">
+                    <div class="fw-semibold mb-2">
+                        <?= $nama_lapangan ?>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                        <?php foreach ($slots as $slot) : ?>
+                            <div
+                                class="border rounded-3 px-3 py-2 bg-white"
+                                style="min-width:110px;">
+                                <div
+                                    class="fw-semibold small mb-1">
+                                    <?= substr($slot->jam_mulai, 0, 5) ?>
+                                    -
+                                    <?= substr($slot->jam_selesai, 0, 5) ?>
+                                </div>
+                                <div>
+                                    <?= badge_status_slot($slot->status_slot) ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
 <?php endforeach; ?>
