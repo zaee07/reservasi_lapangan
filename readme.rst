@@ -79,7 +79,6 @@ Project ini dibuat menggunakan framework CodeIgniter 3 dan dirancang untuk mempe
 
 ::
 
-```
 application/
 ├── controllers/
 ├── models/
@@ -96,7 +95,6 @@ assets/
 
 system/
 vendor/
-```
 
 # Installation
 
@@ -106,17 +104,13 @@ vendor/
 
 ::
 
-```
-git clone https://github.com/username/repository-name.git
-```
+git clone https://github.com/zaee07/reservasi_lapangan.git
 
 ## 2. Masuk ke Folder Project
 
 ::
 
-```
-cd repository-name
-```
+cd reservasi_lapangan
 
 ## 3. Pindahkan Project ke Web Server
 
@@ -141,20 +135,16 @@ Edit file:
 
 ::
 
-```
 application/config/database.php
-```
 
 Sesuaikan:
 
 ::
 
-```
 'hostname' => 'localhost',
 'username' => 'root',
 'password' => '',
 'database' => 'gor_harmoni',
-```
 
 ## 6. Konfigurasi Base URL
 
@@ -162,15 +152,11 @@ Edit file:
 
 ::
 
-```
 application/config/config.php
-```
 
 ::
 
-```
 $config['base_url'] = 'http://localhost/gor-harmoni/';
-```
 
 ## 7. Jalankan Project
 
@@ -178,9 +164,7 @@ Buka browser:
 
 ::
 
-```
 http://localhost/gor-harmoni/
-```
 
 # QRIS Payment Integration
 
@@ -221,19 +205,15 @@ Tambahkan screenshot project pada folder:
 
 ::
 
-```
 screenshots/
-```
 
 Contoh:
 
 ::
 
-```
 screenshots/dashboard.png
 screenshots/booking.png
 screenshots/payment.png
-```
 
 Lalu tampilkan pada README.
 
@@ -241,11 +221,9 @@ Example:
 
 ::
 
-```
 .. image:: screenshots/dashboard.png
    :alt: Dashboard
    :width: 800px
-```
 
 # Future Development
 
