@@ -581,3 +581,251 @@ Kalau tujuanmu sekarang **membuat design UI**, maka struktur menu yang paling am
 Kalau kamu mau, next aku bisa bantu bikin:
 **wireframe susunan dashboard per role**
 misalnya bentuk kotak-kotak halaman **Owner, Admin, Petugas, dan User** supaya kamu tinggal gambar di Figma.
+
+
+
+# Aturan bisnis
+
+## 1. Booking belum dibayar
+
+User masih boleh:
+
+* membatalkan booking
+* membiarkan booking sampai expired
+
+Efek sistem:
+
+* status booking jadi **Cancelled** atau **Expired**
+* slot lapangan kembali tersedia
+
+## 2. Booking sudah dibayar
+
+User **tidak bisa membatalkan**
+Efek sistem:
+
+* booking tetap aktif
+* slot tetap terkunci
+* tidak ada refund
+* tidak ada saldo internal
+
+---
+
+# Menu yang cocok setelah aturan ini
+
+## User
+
+### 1. Beranda
+
+* info lapangan
+* promo
+* tombol booking
+
+### 2. Jadwal Lapangan
+
+* pilih tanggal
+* pilih jam
+* pilih lapangan
+* lihat slot tersedia
+
+### 3. Booking Saya
+
+Isi:
+
+* booking menunggu pembayaran
+* booking aktif
+* booking selesai
+* booking expired
+
+Aksi:
+
+* **Bayar sekarang** untuk yang belum dibayar
+* **Batalkan** hanya untuk yang belum dibayar
+* **Lihat detail**
+
+### 4. Riwayat Transaksi
+
+* daftar pembayaran QRIS
+* status pembayaran
+* invoice
+
+### 5. Profil
+
+* data akun
+* ubah password
+* logout
+
+### 6. Bantuan / Syarat Ketentuan
+
+* aturan booking
+* aturan pembatalan
+* kontak admin
+
+---
+
+## Admin
+
+### 1. Dashboard
+
+* booking hari ini
+* booking pending
+* booking lunas
+* pendapatan
+
+### 2. Kelola Booking
+
+* lihat semua booking
+* filter status
+* detail booking
+* check-in pemain
+* ubah status selesai
+
+Aksi pembatalan:
+
+* admin bisa membatalkan **booking yang belum dibayar** bila perlu
+* booking yang sudah dibayar tidak bisa dibatalkan dari sisi user
+
+### 3. Kelola Pembayaran
+
+* daftar transaksi QRIS
+* status paid, pending, expired
+* sinkronisasi status
+
+### 4. Kelola Jadwal
+
+* atur slot
+* blokir jadwal
+* maintenance
+
+### 5. Kelola Lapangan
+
+* tambah/edit/hapus lapangan
+* atur harga
+* jam operasional
+
+### 6. Data User
+
+* daftar user
+* riwayat booking user
+
+### 7. Notifikasi
+
+* booking baru
+* pembayaran berhasil
+* booking expired
+
+---
+
+## Owner
+
+### 1. Dashboard Owner
+
+* total booking
+* total pendapatan
+* performa lapangan
+
+### 2. Laporan Booking
+
+* booking per hari/bulan
+* lapangan paling ramai
+* jam paling ramai
+
+### 3. Laporan Keuangan
+
+* pendapatan harian
+* mingguan
+* bulanan
+
+### 4. Pengaturan Sistem
+
+* harga
+* jam operasional
+* kebijakan pembatalan
+* integrasi QRIS
+
+### 5. Kelola Admin
+
+* tambah admin
+* atur hak akses
+
+---
+
+# Status yang sebaiknya dipakai
+
+## Status booking
+
+* Pending Payment
+* Confirmed
+* Checked In
+* Completed
+* Cancelled
+* Expired
+
+## Status pembayaran
+
+* Unpaid
+* Pending
+* Paid
+* Expired
+
+# Alur sistem yang benar sekarang
+
+## Alur user
+
+1. User pilih jadwal
+2. User buat booking
+3. Sistem buat invoice QRIS
+4. Jika user bayar:
+
+   * pembayaran = **Paid**
+   * booking = **Confirmed**
+   * booking tidak bisa dibatalkan
+5. Jika user tidak bayar:
+
+   * user bisa klik batal, atau
+   * sistem otomatis expired setelah batas waktu habis
+
+---
+
+# Tombol yang tampil di Booking Saya
+
+## Jika belum dibayar
+
+Tampilkan:
+
+* **Bayar Sekarang**
+* **Batalkan**
+
+## Jika sudah dibayar
+
+Tampilkan:
+
+* **Lihat Detail**
+* **Lihat Invoice**
+
+Jangan tampilkan tombol batal.
+
+---
+
+# Teks kebijakan yang bisa dipasang di sistem
+
+Kamu bisa pakai kalimat ini:
+
+> Booking yang belum dibayar dapat dibatalkan sebelum batas waktu pembayaran berakhir. Booking yang sudah berhasil dibayar tidak dapat dibatalkan atau diuangkan kembali.
+
+Kalau mau versi yang lebih formal:
+
+> Pembatalan hanya dapat dilakukan pada reservasi dengan status belum dibayar. Reservasi yang telah berhasil dibayarkan melalui sistem tidak dapat dibatalkan dan pembayaran tidak dapat dikembalikan.
+
+---
+
+# Saran tambahan
+
+Supaya user tidak komplain, di halaman pembayaran dan detail booking kasih peringatan jelas:
+
+**“Setelah pembayaran berhasil, booking tidak dapat dibatalkan.”**
+
+Letakkan di:
+
+* halaman detail booking
+* halaman pembayaran QRIS
+* syarat & ketentuan
