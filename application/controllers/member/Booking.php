@@ -218,6 +218,19 @@ class Booking extends Member_Controller
 
         $booking_id = $this->booking->insert_booking($booking);
 
+        $this->booking->insert_status_history([
+
+            'booking_id'          => $booking_id,
+
+            'status_booking'      => STATUS_BOOKING_PENDING,
+
+            'keterangan'          => 'Booking dibuat member',
+
+            'diubah_oleh_user_id' =>
+            $this->session->userdata('user_id')
+
+        ]);
+
         foreach ($slots as $slot) {
             // insert booking slot
             $this->booking->insert_booking_slot([

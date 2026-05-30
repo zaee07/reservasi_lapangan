@@ -75,8 +75,8 @@
               <div data-i18n="Analytics">Dashboard</div>
             </a>
           </li>
-        <?php endif; ?>
-        <?php if (has_role([2, 3, 4])) :
+        <?php endif;
+        if (has_role([2])) :
         ?>
           <li class="menu-item <?= ($active == 'lapangan') ? 'active' : ''; ?>">
             <a href="<?= base_url('lapangan') ?>" class="menu-link">
@@ -90,27 +90,65 @@
               <div data-i18n="Basic">Jadwal</div>
             </a>
           </li>
+          <li class="menu-item <?= ($active == 'reservasi') ? 'active' : ''; ?>">
+            <a href="<?= base_url('reservasi') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-calendar"></i>
+              <div data-i18n="Basic">Reservasi</div>
+            </a>
+          </li>
           <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
             <a href="<?= base_url('transaksi') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-credit-card"></i>
               <div data-i18n="Basic">Pembayaran</div>
             </a>
           </li>
+          <li class="menu-item <?= ($active == 'petugas') ? 'active' : ''; ?>">
+            <a href="<?= base_url('petugas_cabang') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-group"></i>
+              <div data-i18n="Basic">Petugas</div>
+            </a>
+          </li>
+          <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
+            <a href="<?= base_url('transaksi') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+              <div data-i18n="Basic">Laporan</div>
+            </a>
+          </li>
         <?php endif;
-        ?>
-        <li class="menu-item <?= ($active == 'petugas') ? 'active' : ''; ?>">
-          <a href="<?= base_url('petugas_cabang') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-group"></i>
-            <div data-i18n="Basic">Petugas</div>
-          </a>
-        </li>
-        <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
-          <a href="<?= base_url('transaksi') ?>" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
-            <div data-i18n="Basic">Laporan</div>
-          </a>
-        </li>
-        <?php if (has_role([1])) :
+        if (has_role([3])) : ?>
+          <li class="menu-item <?= ($active == 'jadwal') ? 'active' : ''; ?>">
+            <a href="<?= base_url('jadwal') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-calendar"></i>
+              <div data-i18n="Basic">Jadwal Lapangan</div>
+            </a>
+          </li>
+          <li class="menu-item <?= ($active == 'reservasi') ? 'active' : ''; ?>">
+            <a href="<?= base_url('reservasi') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-calendar"></i>
+              <div data-i18n="Basic">Booking Walk-In</div>
+            </a>
+          </li>
+          <li class="menu-item <?= ($active == 'checkin') ? 'active' : ''; ?>">
+            <a href="<?= base_url('petugas_cabang') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-group"></i>
+              <div data-i18n="Basic">CheckIn</div>
+            </a>
+          </li>
+          <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
+            <a href="<?= base_url('transaksi') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-credit-card"></i>
+              <div data-i18n="Basic">Transaksi</div>
+            </a>
+          </li>
+          <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
+            <a href="<?= base_url('transaksi') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+              <div data-i18n="Basic">Riwayat</div>
+            </a>
+          </li>
+
+        <?php endif;
+        if (has_role([1])) :
         ?>
           <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
             <a href="<?= base_url('transaksi') ?>" class="menu-link">

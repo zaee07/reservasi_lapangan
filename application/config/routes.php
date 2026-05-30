@@ -57,6 +57,7 @@ $route['default_controller'] = 'auth';
 $route['login'] = 'auth/login';
 $route['register'] = 'auth/register';
 $route['logout'] = 'auth/logout';
+$route['cron/expired-booking'] = 'cron/expired_booking';
 
 // $route['home'] = 'home/index';
 // $route['jadwal'] = 'jadwal/index';
@@ -64,6 +65,9 @@ $route['jadwal_lapangan'] = 'member/jadwal/index';
 $route['booking']                    = 'member/booking/index';
 $route['booking/proses']      = 'member/booking/proses';
 $route['booking/sukses/(:num)']      = 'member/booking/sukses/$1';
+$route['riwayat'] = 'member/riwayat/index';
+$route['riwayat/detail/(:num)'] = 'member/riwayat/detail/$1';
+$route['riwayat/cancel/(:num)'] = 'member/riwayat/cancel/$1';
 // $route['booking/detail/(:num)'] = 'booking/detail/$1';
 // $route['pembayaran/(:num)'] = 'pembayaran/index/$1';
 // $route['riwayat'] = 'riwayat/index';
