@@ -90,14 +90,14 @@
               <div data-i18n="Basic">Jadwal</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'reservasi') ? 'active' : ''; ?>">
-            <a href="<?= base_url('reservasi') ?>" class="menu-link">
+          <li class="menu-item <?= ($active == 'admin/reservasi') ? 'active' : ''; ?>">
+            <a href="<?= base_url('admin/reservasi') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-calendar"></i>
               <div data-i18n="Basic">Reservasi</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
-            <a href="<?= base_url('transaksi') ?>" class="menu-link">
+          <li class="menu-item <?= ($active == 'admin/transaksi') ? 'active' : ''; ?>">
+            <a href="<?= base_url('admin/transaksi') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-credit-card"></i>
               <div data-i18n="Basic">Pembayaran</div>
             </a>

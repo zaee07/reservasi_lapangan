@@ -31,31 +31,6 @@ class Home extends Member_Controller
 		$data['title'] = 'Home';
 		$data['main_view'] = 'user/home';
 		$data['active'] = 'home';
-		$data['user'] = [
-			'nama' => 'Iza'
-		];
-
-		$data['booking_aktif'] = 2;
-		$data['booking_pending'] = 1;
-
-		$data['lapangan'] = [
-			[
-				'id' => 1,
-				'nama_lapangan' => 'Lapangan 1',
-				'jenis_lantai' => 'Vinyl',
-				'harga' => 50000,
-				'foto' => '',
-				'status' => 'Tersedia'
-			],
-			[
-				'id' => 2,
-				'nama_lapangan' => 'Lapangan 2',
-				'jenis_lantai' => 'Karpet',
-				'harga' => 60000,
-				'foto' => '',
-				'status' => 'Tersedia'
-			]
-		];
 		$this->load->view('templates/user_header', $data);
 	}
 	/**

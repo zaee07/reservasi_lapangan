@@ -26,11 +26,15 @@
  *
  * ==== Tambahkan model kalian di bawah ini ====
  * @property Pengguna_model        $pengguna
- * @property Produk_model          $produk
- * @property Transaksi_model       $transaksi
- * @property Transaksi_model       $trx
- * @property DetailTransaksi_model $detail
- * @property DetailTransaksi_model $trx
+ * @property Admin_cabang_model          $admin
+ * @property Petugas_cabang_model          $petugas
+ * @property Booking_model       $booking
+ * @property Cabang_model       $cabang
+ * @property Jadwal_model $jadwal
+ * @property Lapangan_model $lapangan
+ * @property Pembayaran_model $pembayaran
+ * @property Reservasi_model $reservasi
+ * @property Riwayat_model $riwayat
  * @property Pdf                   $pdf
  */
 class CI_Controller {}

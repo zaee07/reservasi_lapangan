@@ -86,7 +86,7 @@ function badge_status_pembayaran($status)
             Paid
         </span>';
 
-        case 'pending':
+        case 'unpaid':
 
             return '
         <span class="badge bg-warning">

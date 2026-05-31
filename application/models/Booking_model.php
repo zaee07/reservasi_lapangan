@@ -28,16 +28,13 @@ class Booking_model extends CI_Model
     public function get_slot_by_id($id)
     {
         return $this->db
-            ->get_where('jadwal_slot', [
-                'id' => $id
-            ])
+            ->get_where('jadwal_slot', ['id' => $id])
             ->row();
     }
 
     public function insert_booking($data)
     {
         $this->db->insert('booking', $data);
-
         return $this->db->insert_id();
     }
 
@@ -58,50 +55,46 @@ class Booking_model extends CI_Model
         $this->db
             ->where('id', $id)
             ->where('status_slot', STATUS_SLOT_AVAILABLE)
-            ->update('jadwal_slot', [
-                'status_slot' => STATUS_SLOT_BOOKED
-            ]);
-
+            ->update('jadwal_slot', ['status_slot' => STATUS_SLOT_BOOKED]);
         return $this->db->affected_rows();
     }
+
     public function get_expired_booking()
     {
         return $this->db
             ->select('booking.*')
-
             ->from('booking')
-
             ->join(
                 'pembayaran',
                 'pembayaran.booking_id = booking.id',
                 'left'
             )
-
             ->where(
                 'booking.status_booking',
                 STATUS_BOOKING_PENDING
             )
-
             ->group_start()
-
             ->where(
                 'pembayaran.status_pembayaran IS NULL',
                 null,
                 false
             )
-
             ->or_where(
                 'pembayaran.status_pembayaran !=',
                 STATUS_PEMBAYARAN_PAID
             )
-
+            ->or_where_in(
+                'pembayaran.status_pembayaran',
+                [
+                    STATUS_PEMBAYARAN_UNPAID,
+                    STATUS_PEMBAYARAN_FAILED
+                ]
+            )
             ->group_end()
-
             ->where(
                 'booking.expired_at <',
                 date('Y-m-d H:i:s')
             )
-
             ->get()
             ->result();
     }
@@ -109,10 +102,7 @@ class Booking_model extends CI_Model
     public function insert_status_history($data)
     {
         return $this->db
-            ->insert(
-                'riwayat_status_booking',
-                $data
-            );
+            ->insert('riwayat_status_booking', $data);
     }
 
     public function get_booking_by_id($id)
@@ -134,28 +124,18 @@ class Booking_model extends CI_Model
     public function release_slot($booking_id)
     {
         $slots = $this->db
-            ->get_where('booking_slot', [
-                'booking_id' => $booking_id
-            ])
+            ->get_where('booking_slot', ['booking_id' => $booking_id])
             ->result();
-
         foreach ($slots as $slot) {
-
             $this->db
                 ->where('id', $slot->jadwal_slot_id)
-                ->update('jadwal_slot', [
-                    'status_slot' => STATUS_SLOT_AVAILABLE
-                ]);
+                ->update('jadwal_slot', ['status_slot' => STATUS_SLOT_AVAILABLE]);
         }
     }
-    public function update_booking_status(
-        $booking_id,
-        $status
-    ) {
+    public function update_booking_status($booking_id, $status)
+    {
         return $this->db
             ->where('id', $booking_id)
-            ->update('booking', [
-                'status_booking' => $status
-            ]);
+            ->update('booking', ['status_booking' => $status]);
     }
 }
