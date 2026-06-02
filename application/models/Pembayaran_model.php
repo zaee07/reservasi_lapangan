@@ -3,11 +3,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Pembayaran_model extends CI_Model
 {
-    public function get_pembayaran(
-        $cabang_id,
-        $tanggal,
-        $status = null
-    ) {
+    public function get_pembayaran($cabang_id, $tanggal, $status = null)
+    {
         $this->db
             ->select('
                 pembayaran.*,
@@ -132,5 +129,14 @@ class Pembayaran_model extends CI_Model
             ->update('pembayaran', [
                 'status_pembayaran' => $status
             ]);
+    }
+    public function update_status_by_booking($booking_id, $data)
+    {
+        return $this->db
+            ->where('booking_id', $booking_id)
+            ->update('pembayaran', $data);
+        // ->update('pembayaran', [
+        //     'status_pembayaran' => $status
+        // ]);
     }
 }

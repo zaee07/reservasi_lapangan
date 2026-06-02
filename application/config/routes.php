@@ -87,6 +87,7 @@ $route['jadwal/edit/(:num)']         = 'admin/jadwal/edit/$1';
 $route['jadwal/update/(:num)']       = 'admin/jadwal/update/$1';
 $route['admin/reservasi'] = 'admin/reservasi/index';
 $route['admin/reservasi/detail/(:num)'] = 'admin/reservasi/detail/$1';
+$route['admin/reservasi/confirm/(:num)'] = 'admin/reservasi/confirm/$1';
 $route['admin/transaksi'] = 'admin/pembayaran/index';
 $route['admin/transaksi/detail/(:num)'] = 'admin/pembayaran/detail/$1';
 $route['petugas_cabang']                 = 'admin/petugas_cabang/index';

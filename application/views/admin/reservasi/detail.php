@@ -34,5 +34,24 @@
                 <?= substr($slot->jam_mulai, 0, 5) ?>-<?= substr($slot->jam_selesai, 0, 5) ?>
             </div>
         <?php endforeach; ?>
+        <?php if (
+            $booking->status_booking
+            ==
+            STATUS_BOOKING_PENDING
+        ) : ?>
+
+            <a
+                href="<?= base_url(
+                            'admin/reservasi/confirm/' .
+                                $booking->id
+                        ) ?>"
+                onclick="return confirm(
+            'Konfirmasi booking ini?'
+        )"
+                class="btn btn-success">
+                Confirm Booking
+            </a>
+
+        <?php endif; ?>
     </div>
 </div>
