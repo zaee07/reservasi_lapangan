@@ -1,10 +1,12 @@
-
-        body {
-            background: #F9FAFB;
-            font-size: 14px;
-        }
-
-        /* Topbar */
+:root{
+    --bottom-nav-height:76px;
+}
+body {
+    background: #F9FAFB;
+    font-size: 14px;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: contain
+}
         .topbar {
             height: 56px;
             background: #fff;
@@ -20,16 +22,28 @@
         .topbar h6 {
             margin: 0;
             font-weight: 600;
+            padding-top: env(safe-area-inset-top);
         }
 
-        /* Container mobile */
-        .container-mobile {
-            padding: 16px;
-            padding-bottom: 90px;
-            /* space untuk navbar */
-        }
+        /* #container-mobile{
+            padding-bottom:var(--bottom-nav-height);
+        } */
+#container-mobile{
+    margin-bottom:
+        calc(
+            var(--bottom-nav-height)
+            + 20px
+        );
+    min-height:100vh;
+}
 
         /* Card */
+        .card{
+            border-radius:16px;
+        }
+        .card-body{
+            padding:18px;
+        }
         .card-custom {
             border-radius: 12px;
             border: none;
@@ -46,20 +60,21 @@
         }
 
         /* Navbar bottom */
-        .bottom-navbar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            background: #fff;
-            /* border-top: 1px solid #e5e7eb; */
-            border-top: 1px solid #d9dee3;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 1000;
-        }
+.bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height:var(--bottom-nav-height);
+    padding-bottom:env(safe-area-inset-bottom);
+    background: #fff;
+    /* border-top: 1px solid #e5e7eb; */
+    border-top: 1px solid #d9dee3;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+}
 
         .nav-item-mobile {
             display: flex;
@@ -88,4 +103,20 @@
             background-color: rgba(105, 108, 255, 0.12);
             /* warna default sneat */
             border-radius: 12px;
+        }
+
+        .nav-item-mobile.active i{
+            transform:translateY(-2px);
+        }
+
+        .btn{
+            border-radius:12px;
+            min-height:44px;
+        }
+
+        .qr-section{
+            background:#fff;
+            border-radius:16px;
+            padding:20px;
+            border:1px dashed #d9dee3;
         }

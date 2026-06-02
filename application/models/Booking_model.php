@@ -43,6 +43,13 @@ class Booking_model extends CI_Model
         return $this->db->insert('booking_slot', $data);
     }
 
+    public function update_booking($booking_id, $data)
+    {
+        return $this->db
+            ->where('id', $booking_id)
+            ->update('booking', $data);
+    }
+
     public function update_slot($id, $data)
     {
         return $this->db
@@ -111,12 +118,39 @@ class Booking_model extends CI_Model
             ->select('
                 booking.*,
                 lapangan.nama_lapangan,
-                cabang.nama_cabang
+                cabang.nama_cabang,
+                pembayaran.id as pembayaran_id,
+                pembayaran.invoice_no,
+                pembayaran.metode_bayar,
+                pembayaran.status_pembayaran
             ')
             ->from('booking')
             ->join('lapangan', 'lapangan.id = booking.lapangan_id')
             ->join('cabang', 'cabang.id = booking.cabang_id')
+            ->join('pembayaran', 'pembayaran.booking_id = booking.id')
             ->where('booking.id', $id)
+            ->get()
+            ->row();
+    }
+
+    public function get_last_booking_by_user_id($uid)
+    {
+        return $this->db
+            ->select('
+                booking.*,
+                lapangan.nama_lapangan,
+                cabang.nama_cabang,
+                pembayaran.id as pembayaran_id,
+                pembayaran.invoice_no,
+                pembayaran.metode_bayar,
+                pembayaran.status_pembayaran
+            ')
+            ->from('booking')
+            ->join('lapangan', 'lapangan.id = booking.lapangan_id')
+            ->join('cabang', 'cabang.id = booking.cabang_id')
+            ->join('pembayaran', 'pembayaran.booking_id = booking.id')
+            ->where('booking.user_id', $uid)
+            ->order_by('booking.id', 'DESC')
             ->get()
             ->row();
     }

@@ -26,12 +26,10 @@ function badge_status_booking($status)
     switch ($status) {
 
         case STATUS_BOOKING_PENDING:
-
             return '
             <span class="badge bg-warning">
                 Pending
             </span>';
-
         case STATUS_BOOKING_CONFIRMED:
 
             return '
@@ -90,7 +88,7 @@ function badge_status_pembayaran($status)
 
             return '
         <span class="badge bg-warning">
-            Pending
+            Unpaid
         </span>';
 
         case 'expired':

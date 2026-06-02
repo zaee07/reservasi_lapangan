@@ -99,6 +99,17 @@ class Booking extends Member_Controller
         $cabang = $this->cabang->get_by_id($first_slot->cabang_id);
 
         /*
+        validasi booking berulang (pending)
+        */
+        $user_booking = $this->booking->get_last_booking_by_user_id($this->user['id']);
+        // var_dump($user_booking->);
+        // die();
+        if ($user_booking->user_id == $this->user['id'] && $user_booking->status_booking == STATUS_BOOKING_PENDING) {
+            $this->session->set_flashdata('error', 'selesai pembayaran booking sebelumnya');
+            redirect('booking');
+        }
+
+        /*
     |--------------------------------------------------------------------------
     | PERHITUNGAN 
     |--------------------------------------------------------------------------

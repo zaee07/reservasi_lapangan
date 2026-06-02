@@ -32,7 +32,7 @@
     </div>
 
     <!-- CONTENT -->
-    <div class="container py-3 #container-mobiled">
+    <div class="container-fluid px-3 py-3" id="container-mobile">
         <?php
         $this->load->view($main_view);
         $this->load->view('templates/user_footer');
