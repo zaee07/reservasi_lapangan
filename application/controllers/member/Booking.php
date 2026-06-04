@@ -104,8 +104,12 @@ class Booking extends Member_Controller
         $user_booking = $this->booking->get_last_booking_by_user_id($this->user['id']);
         // var_dump($user_booking->);
         // die();
-        if ($user_booking->user_id == $this->user['id'] && $user_booking->status_booking == STATUS_BOOKING_PENDING) {
-            $this->session->set_flashdata('error', 'selesai pembayaran booking sebelumnya');
+        // if ($user_booking->user_id == $this->user['id'] && $user_booking->status_booking == STATUS_BOOKING_PENDING) {
+        //     $this->session->set_flashdata('error', 'selesai pembayaran booking sebelumnya');
+        //     redirect('booking');
+        // }
+        if ($this->booking->has_pending_booking($this->user['id'])) {
+            $this->session->set_flashdata('error', 'Selesaikan pembayaran booking sebelumnya terlebih dahulu');
             redirect('booking');
         }
 

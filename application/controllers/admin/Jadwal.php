@@ -65,6 +65,10 @@ class Jadwal extends Admin_Controller
         $start = strtotime($jam_buka);
         $end   = strtotime($jam_tutup);
 
+        /*
+        validasi jadwal slot pernah dibuat
+        */
+
         while ($start < $end) {
 
             $jam_mulai = date('H:i:s', $start);

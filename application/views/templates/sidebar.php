@@ -55,14 +55,12 @@
               </g>
             </svg>
           </span>
-          <span class="app-brand-text demo menu-text fw-bolder ms-2">GOR Harmoni</span>
+          <span class="#app-brand-text demo menu-text fw-bolder ms-2"><?= $this->session->userdata('cabang_id') ? $this->session->userdata('nama_cabang') : 'GOR Harmoni' ?></span>
         </a>
-
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
           <i class="bx bx-chevron-left bx-sm align-middle"></i>
         </a>
       </div>
-
       <div class="menu-inner-shadow"></div>
       <?php $active = $this->uri->segment(1); ?>
       <ul class="menu-inner py-1">

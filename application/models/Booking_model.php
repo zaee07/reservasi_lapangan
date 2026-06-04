@@ -148,11 +148,21 @@ class Booking_model extends CI_Model
             ->from('booking')
             ->join('lapangan', 'lapangan.id = booking.lapangan_id')
             ->join('cabang', 'cabang.id = booking.cabang_id')
-            ->join('pembayaran', 'pembayaran.booking_id = booking.id')
+            ->join('pembayaran', 'pembayaran.booking_id = booking.id', 'left')
             ->where('booking.user_id', $uid)
             ->order_by('booking.id', 'DESC')
             ->get()
             ->row();
+    }
+
+    public function has_pending_booking($user_id)
+    {
+        return $this->db
+            ->from('')
+            ->where('user_id', $user_id)
+            ->where('status_booking', STATUS_BOOKING_PENDING)
+            ->where('expired_at >', date('Y-m-d H:i:s'))
+            ->count_all_results('booking') > 0;
     }
 
     public function release_slot($booking_id)
