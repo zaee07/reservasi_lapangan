@@ -5,6 +5,11 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <h4 class="mb-0">Tambah Admin Cabang</h4>
         </div>
+        <?php if ($this->session->flashdata('error')) : ?>
+            <div class="alert alert-danger">
+                <?= $this->session->flashdata('error') ?>
+            </div>
+        <?php endif; ?>
 
         <div class="card-body">
 
@@ -43,6 +48,7 @@
                             type="email"
                             name="email"
                             class="form-control"
+                            autocomplete="off"
                             value="<?= set_value('email') ?>">
 
                         <small class="text-danger">
@@ -52,20 +58,40 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-                            Password
-                        </label>
-
-                        <input
-                            type="password"
-                            name="password"
-                            class="form-control">
-
+                        <label class="form-label">Password</label>
+                        <div class="input-group input-group-merge">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="form-control"
+                                autocomplete="new-password"
+                                required
+                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                aria-describedby="password" />
+                            <span class="input-group-text cursor-pointer toggle-password"><i class="bx bx-hide"></i></span>
+                        </div>
                         <small class="text-danger">
                             <?= form_error('password') ?>
                         </small>
-
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Password Konfirmasi</label>
+                        <div class="input-group input-group-merge">
+                            <input
+                                type="password"
+                                id="password_konfirmasi"
+                                name="password_konfirmasi"
+                                class="form-control"
+                                autocomplete="new-password"
+                                required
+                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                aria-describedby="password" />
+                            <span class="input-group-text cursor-pointer toggle-password"><i class="bx bx-hide"></i></span>
+                        </div>
+                        <small class="text-danger">
+                            <?= form_error('password_konfirmasi') ?>
+                        </small>
                     </div>
 
                     <div class="col-md-6 mb-3">

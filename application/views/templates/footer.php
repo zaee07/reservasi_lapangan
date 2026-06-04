@@ -63,6 +63,23 @@
 <!-- filtering -->
 <!-- ajax -->
 <script>
+  document.querySelectorAll('.toggle-password').forEach(function(toggle) {
+    toggle.addEventListener('click', function() {
+      const input = this.parentElement.querySelector('input');
+      const icon = this.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('bx-hide');
+        icon.classList.add('bx-show');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('bx-show');
+        icon.classList.add('bx-hide');
+      }
+    });
+  });
+</script>
+<script>
   $(document).ready(function() {
     $('#kategori').on('change', function() {
       let kategori = $(this).val();

@@ -114,6 +114,7 @@ $route['admin_cabang/create']          = 'owner/admin_cabang/create';
 $route['admin_cabang/store']           = 'owner/admin_cabang/store';
 $route['admin_cabang/edit/(:num)']     = 'owner/admin_cabang/edit/$1';
 $route['admin_cabang/update/(:num)']   = 'owner/admin_cabang/update/$1';
+$route['admin_cabang/password/(:num)']   = 'owner/admin_cabang/password/$1';
 $route['admin_cabang/delete/(:num)']   = 'owner/admin_cabang/delete/$1';
 // $route['owner/laporan'] = 'owner/laporan/index';
 // $route['owner/pengaturan'] = 'owner/pengaturan/index';
