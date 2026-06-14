@@ -228,4 +228,24 @@ class Booking_model extends CI_Model
                 ]
             );
     }
+
+    public function get_booking_to_complete()
+    {
+        $now = date('Y-m-d H:i:s');
+        return $this->db
+            ->where('status_booking', STATUS_BOOKING_CHECKIN)
+            ->where("TIMESTAMP(tanggal_main, jam_selesai) < '{$now}'", null, false)
+            ->get('booking')
+            ->result();
+    }
+
+    public function complete_booking($booking_id)
+    {
+        return $this->db
+            ->where('id', $booking_id)
+            ->update(
+                'booking',
+                ['status_booking' => STATUS_BOOKING_COMPLETED, 'completed_at' => date('Y-m-d H:i:s')]
+            );
+    }
 }

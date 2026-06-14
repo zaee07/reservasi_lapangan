@@ -58,6 +58,7 @@ $route['login'] = 'auth/login';
 $route['register'] = 'auth/register';
 $route['logout'] = 'auth/logout';
 $route['cron/expired-booking'] = 'cron/expired_booking';
+$route['cron/completed-booking'] = 'cron/complete_booking';
 
 /**
  * route member
