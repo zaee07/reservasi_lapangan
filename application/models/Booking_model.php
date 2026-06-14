@@ -133,6 +133,28 @@ class Booking_model extends CI_Model
             ->row();
     }
 
+    public function get_booking_by_id_and_code($id, $kode_booking)
+    {
+        return $this->db
+            ->select('booking.*,pembayaran.status_pembayaran, nama_lapangan')
+            ->from('booking')
+            ->join(
+                'pembayaran',
+                'pembayaran.booking_id = booking.id',
+                'left'
+            )
+            ->join(
+                'lapangan',
+                'lapangan.id = booking.lapangan_id',
+                'left'
+            )
+            ->where('booking.id', $id)
+            ->where('booking.kode_booking', $kode_booking)
+            ->get()
+            ->row();
+    }
+
+
     public function get_last_booking_by_user_id($uid)
     {
         return $this->db
@@ -158,11 +180,11 @@ class Booking_model extends CI_Model
     public function has_pending_booking($user_id)
     {
         return $this->db
-            ->from('')
+            ->from('booking')
             ->where('user_id', $user_id)
             ->where('status_booking', STATUS_BOOKING_PENDING)
             ->where('expired_at >', date('Y-m-d H:i:s'))
-            ->count_all_results('booking') > 0;
+            ->count_all_results() > 0;
     }
 
     public function release_slot($booking_id)
@@ -181,5 +203,29 @@ class Booking_model extends CI_Model
         return $this->db
             ->where('id', $booking_id)
             ->update('booking', ['status_booking' => $status]);
+    }
+
+    public function checkin($booking_id)
+    {
+        $this->db
+            ->where('id', $booking_id)
+            ->update(
+                'booking',
+                [
+                    'status_booking' => STATUS_BOOKING_CHECKIN,
+                    'checked_in_at' => date('Y-m-d H:i:s')
+                ]
+            );
+
+        $this->db
+            ->insert(
+                'riwayat_status_booking',
+                [
+                    'booking_id' => $booking_id,
+                    'status_booking' => STATUS_BOOKING_CHECKIN,
+                    'keterangan' => 'Check-in QR oleh petugas',
+                    'diubah_oleh_user_id' => $this->session->userdata('id')
+                ]
+            );
     }
 }

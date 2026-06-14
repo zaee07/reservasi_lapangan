@@ -127,8 +127,8 @@
             </a>
           </li>
           <li class="menu-item <?= ($active == 'checkin') ? 'active' : ''; ?>">
-            <a href="<?= base_url('petugas_cabang') ?>" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-group"></i>
+            <a href="<?= base_url('checkin') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-qr-scan"></i>
               <div data-i18n="Basic">CheckIn</div>
             </a>
           </li>
@@ -172,12 +172,6 @@
                 </a>
               </li>
             </ul>
-          </li>
-          <li class="menu-item <?= ($active == 'dokumentasi') ? 'active' : ''; ?>">
-            <a href="<?= base_url('dokumentasi') ?>" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-book"></i>
-              <div data-i18n="Basic">Dokumentasi</div>
-            </a>
           </li>
         <?php endif;
         ?>

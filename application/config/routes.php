@@ -59,12 +59,15 @@ $route['register'] = 'auth/register';
 $route['logout'] = 'auth/logout';
 $route['cron/expired-booking'] = 'cron/expired_booking';
 
+/**
+ * route member
+ */
 // $route['home'] = 'home/index';
 // $route['jadwal'] = 'jadwal/index';
 $route['jadwal_lapangan'] = 'member/jadwal/index';
-$route['booking']                    = 'member/booking/index';
+$route['booking']        = 'member/booking/index';
 $route['booking/proses']      = 'member/booking/proses';
-$route['booking/sukses/(:num)']      = 'member/booking/sukses/$1';
+$route['booking/sukses/(:num)'] = 'member/booking/sukses/$1';
 $route['riwayat'] = 'member/riwayat/index';
 $route['riwayat/detail/(:num)'] = 'member/riwayat/detail/$1';
 $route['riwayat/cancel/(:num)'] = 'member/riwayat/cancel/$1';
@@ -72,7 +75,9 @@ $route['riwayat/cancel/(:num)'] = 'member/riwayat/cancel/$1';
 // $route['pembayaran/(:num)'] = 'pembayaran/index/$1';
 // $route['riwayat'] = 'riwayat/index';
 // $route['profil'] = 'profil/index';
-
+/**
+ * route admin
+ */
 $route['admin_cabang_dashboard'] = 'admin/dashboard';
 $route['lapangan'] = 'admin/lapangan/index';
 $route['lapangan/create']          = 'admin/lapangan/create';
@@ -100,6 +105,14 @@ $route['petugas_cabang/delete/(:num)']   = 'admin/petugas_cabang/delete/$1';
 // $route['admin/pembayaran'] = 'admin/pembayaran/index';
 // $route['admin/user'] = 'admin/user/index';
 
+/**
+ * route petugas
+ */
+$route['petugas_dashboard'] = 'petugas/dashboard';
+$route['checkin'] = 'petugas/checkin/index';
+/**
+ * route owner
+ */
 $route['owner_dashboard'] = 'owner/dashboard';
 
 $route['cabang'] = 'owner/cabang/index';
