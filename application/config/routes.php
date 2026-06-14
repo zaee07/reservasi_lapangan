@@ -101,6 +101,7 @@ $route['petugas_cabang/create']          = 'admin/petugas_cabang/create';
 $route['petugas_cabang/store']           = 'admin/petugas_cabang/store';
 $route['petugas_cabang/edit/(:num)']     = 'admin/petugas_cabang/edit/$1';
 $route['petugas_cabang/update/(:num)']   = 'admin/petugas_cabang/update/$1';
+$route['petugas_cabang/password/(:num)']   = 'admin/petugas_cabang/password/$1';
 $route['petugas_cabang/delete/(:num)']   = 'admin/petugas_cabang/delete/$1';
 // $route['admin/booking'] = 'admin/booking/index';
 // $route['admin/pembayaran'] = 'admin/pembayaran/index';

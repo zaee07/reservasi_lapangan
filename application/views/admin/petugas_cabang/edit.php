@@ -38,18 +38,6 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">
-                            Password Baru
-                        </label>
-                        <input
-                            type="password"
-                            name="password"
-                            class="form-control">
-                        <small class="text-muted">
-                            Kosongkan jika tidak ingin mengganti password
-                        </small>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">
                             No HP / WhatsApp
                         </label>
                         <input
