@@ -79,7 +79,8 @@ $route['riwayat/cancel/(:num)'] = 'member/riwayat/cancel/$1';
 /**
  * route admin
  */
-$route['admin_cabang_dashboard'] = 'admin/dashboard';
+$route['admin'] = 'admin/dashboard';
+$route['admin/dashboard'] = 'admin/dashboard';
 $route['lapangan'] = 'admin/lapangan/index';
 $route['lapangan/create']          = 'admin/lapangan/create';
 $route['lapangan/store']           = 'admin/lapangan/store';
@@ -110,8 +111,11 @@ $route['petugas_cabang/delete/(:num)']   = 'admin/petugas_cabang/delete/$1';
 /**
  * route petugas
  */
-$route['petugas_dashboard'] = 'petugas/dashboard';
+$route['petugas'] = 'petugas/dashboard';
+$route['petugas/dashboard'] = 'petugas/dashboard';
 $route['checkin'] = 'petugas/checkin/index';
+$route['petugas/walkin'] = 'petugas/walkin';
+$route['petugas/walkin/proses'] = 'petugas/walkin/proses';
 /**
  * route owner
  */

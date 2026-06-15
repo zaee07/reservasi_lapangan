@@ -30,7 +30,7 @@
             </div>
           </div>
           <span class="fw-semibold d-block mb-1">Total Booking Hari ini</span>
-          <h3 class="card-title mb-2"><?= $booking_hari_ini ?></h3>
+          <h3 class="card-title mb-2"><?= !empty($booking_list_hari_ini) ? count($booking_list_hari_ini) : 0 ?></h3>
         </div>
       </div>
     </div>
@@ -127,7 +127,7 @@
         </div>
       </div>
     </div>
-    <div class="col-12 mb-4">
+    <div class="col-8 mb-2">
       <div class="card">
         <div class="card-body">
           <span class="fw-semibold d-block mb-1"> Booking Hari Ini</span>
@@ -144,7 +144,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php if (empty($booking_hari_ini)) : ?>
+                  <?php if (empty($booking_list_hari_ini)) : ?>
                     <tr>
                       <td colspan="5" class="text-center"> Belum ada booking</td>
                     </tr>
@@ -165,34 +165,35 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="card-title d-flex align-items-start justify-content-between">
-    <div class="row">
-      <div class="col-lg-4 mb-4">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="mb-0">Menunggu Konfirmasi</h5>
-          </div>
-          <div class="card-body">
-            <?php if (empty($booking_pending)) : ?>
-              <div class="text-muted">Tidak ada booking pending</div>
-            <?php endif; ?>
-            <?php foreach ($booking_pending as $b) : ?>
-              <div class="border rounded p-3 mb-3">
-                <div class="fw-bold"><?= $b->kode_booking ?></div>
-                <div class="small text-muted"><?= $b->nama_pemesan ?></div>
-                <div class="mt-1"><?= $b->nama_lapangan ?></div>
-                <div class="small">Rp <?= number_format($b->total_bayar, 0, ',', '.') ?></div>
-                <div class="mt-2">
-                  <a href="<?= base_url('admin/reservasi/detail/' . $b->id) ?>" class="btn btn-sm btn-primary">Detail</a>
-                </div>
+    <div class="col-lg-4 mb-2">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Menunggu Konfirmasi</h5>
+        </div>
+        <div class="card-body">
+          <?php if (empty($booking_pending)) : ?>
+            <div class="text-muted">Tidak ada booking pending</div>
+          <?php endif; ?>
+          <?php foreach ($booking_pending as $b) : ?>
+            <div class="border rounded p-3 mb-3">
+              <div class="fw-bold"><?= $b->kode_booking ?></div>
+              <div class="small text-muted"><?= $b->nama_pemesan ?></div>
+              <div class="mt-1"><?= $b->nama_lapangan ?></div>
+              <div class="small">Rp <?= number_format($b->total_bayar, 0, ',', '.') ?></div>
+              <div class="mt-2">
+                <a href="<?= base_url('admin/reservasi/detail/' . $b->id) ?>" class="btn btn-sm btn-primary">Detail</a>
               </div>
-            <?php endforeach; ?>
-          </div>
+            </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- <div class="card-title d-flex align-items-start justify-content-between">
+    <div class="row">
+    </div>
+  </div> -->
   <div class="card mb-2">
     <div class="card-header">
       <h5 class="mb-0">Lapangan Terlaris Bulan Ini</h5>
@@ -278,7 +279,7 @@ foreach ($terlaris as $row) {
       width: 3
     },
     dataLabels: {
-      enabled: false
+      enabled: true
     },
     markers: {
       size: 5
@@ -304,6 +305,9 @@ foreach ($terlaris as $row) {
       bar: {
         horizontal: true
       }
+    },
+    dataLabels: {
+      enabled: true
     },
     series: [{
       name: 'Booking',

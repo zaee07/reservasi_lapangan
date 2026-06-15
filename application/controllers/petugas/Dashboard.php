@@ -20,29 +20,23 @@ class Dashboard extends Petugas_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
-	// function __construct()
-	// {
-	// 	parent::__construct();
-	// 	$this->load->helper('auth');
-	// 	is_logged_in();
-	// 	check_role('admin_cabang');
-	// 	// $this->load->model('Produk_model', 'produk');
-	// 	// $this->load->model('Transaksi_model', 'transaksi');
-	// }
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Booking_model', 'booking');
+	}
 	public function index()
 	{
 		$data['title'] = 'Dashboard';
+		$data['active'] = 'dashboard';
 		$data['main_view'] = 'petugas/dashboard';
-		// $data['total_barang'] = $this->produk->total_barang();
-		// $data['stok_minimal'] = $this->produk->stok_minimal(5);
-		// $data['transaksi'] = $this->transaksi->transaksi_hari_ini();
-		// $data['pendapatan_hari_ini'] = $this->transaksi->get_pendapatan_hari_ini();
-		// $data['pendapatan_bulan_ini'] = $this->transaksi->get_pendapatan_bulan_ini();
-		// $data['pendapatan_tahun_ini'] = $this->transaksi->get_pendapatan_tahun_ini();
-		$data['total_booking'] = 10;
-		$data['pendapatan_hari_ini'] = 500000;
-		$data['pendapatan_bulan_ini'] = 1000000;
-		$data['pendapatan_tahun_ini'] = 12000000;
+		$data['booking_list_hari_ini'] = $this->booking->booking_hari_ini_list($this->user['cabang_id']);
+		$data['checkin_hari_ini'] = $this->booking->checkin_hari_ini($this->user['cabang_id']);
+		$data['booking_checkin_pending'] = $this->booking->booking_pending($this->user['cabang_id']);
+		$data['booking_berlangsung'] = $this->booking->booking_berlangsung($this->user['cabang_id']);
+		$data['booking_berikutnya'] = $this->booking->booking_berikutnya($this->user['cabang_id']);
+		$data['booking_7_hari'] = $this->booking->booking_7_hari($this->user['cabang_id']);
+		$data['pendapatan_hari_ini'] = $this->booking->pendapatan_hari_ini($this->user['cabang_id']);
 		$this->load->view('templates/header', $data);
 	}
 }

@@ -32,13 +32,13 @@ class Booking_model extends CI_Model
             ->row();
     }
 
-    public function booking_hari_ini($cabang_id)
-    {
-        return $this->db
-            ->where('cabang_id', $cabang_id)
-            ->where('tanggal_main', date('Y-m-d'))
-            ->count_all_results('booking');
-    }
+    // public function booking_hari_ini($cabang_id)
+    // {
+    //     return $this->db
+    //         ->where('cabang_id', $cabang_id)
+    //         ->where('tanggal_main', date('Y-m-d'))
+    //         ->count_all_results('booking');
+    // }
 
     public function checkin_hari_ini($cabang_id)
     {
@@ -123,6 +123,47 @@ class Booking_model extends CI_Model
             ->join('lapangan', 'lapangan.id = booking.lapangan_id')
             ->where('booking.cabang_id', $cabang_id)
             ->where('status_booking', STATUS_BOOKING_PENDING)
+            ->get()
+            ->result();
+    }
+
+    public function booking_pending_checkin($cabang_id)
+    {
+        return $this->db
+            ->where('cabang_id', $cabang_id)
+            ->where('tanggal_main', date('Y-m-d'))
+            ->where('status_booking', STATUS_BOOKING_CONFIRMED)
+            ->count_all_results('booking');
+    }
+
+    public function booking_berlangsung($cabang_id)
+    {
+        $jam = date('H:i:s');
+
+        return $this->db
+            ->select('booking.*,lapangan.nama_lapangan')
+            ->from('booking')
+            ->join('lapangan', 'lapangan.id = booking.lapangan_id')
+            ->where('booking.cabang_id', $cabang_id)
+            ->where('booking.tanggal_main', date('Y-m-d'))
+            ->where('booking.jam_mulai <=', $jam)
+            ->where('booking.jam_selesai >=', $jam)
+            ->order_by('booking.jam_mulai', 'ASC')
+            ->get()
+            ->result();
+    }
+
+    public function booking_berikutnya($cabang_id)
+    {
+        return $this->db
+            ->select('booking.*,lapangan.nama_lapangan')
+            ->from('booking')
+            ->join('lapangan', 'lapangan.id = booking.lapangan_id')
+            ->where('booking.cabang_id', $cabang_id)
+            ->where('booking.tanggal_main', date('Y-m-d'))
+            ->where('booking.jam_mulai >', date('H:i:s'))
+            ->order_by('booking.jam_mulai', 'ASC')
+            ->limit(5)
             ->get()
             ->result();
     }

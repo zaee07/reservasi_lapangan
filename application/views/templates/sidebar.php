@@ -64,18 +64,15 @@
       <div class="menu-inner-shadow"></div>
       <?php $active = $this->uri->segment(1); ?>
       <ul class="menu-inner py-1">
-        <?php if ($this->session->userdata('logged_in')) : //check_role([1, 2, 3, 4]) 
+        <?php
+        if (has_role([2])) :
         ?>
-          <!-- Dashboard -->
-          <li class="menu-item <?= ($active == '' || $active == 'dashboard') ? 'active' : ''; ?>">
-            <a href="<?= base_url($this->session->userdata('nama_role') . '_dashboard') ?>" class="menu-link">
+          <li class="menu-item <?= ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'dashboard') ? 'active' : ''; ?>">
+            <a href="<?= base_url('admin/dashboard') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
             </a>
           </li>
-        <?php endif;
-        if (has_role([2])) :
-        ?>
           <li class="menu-item <?= ($active == 'lapangan') ? 'active' : ''; ?>">
             <a href="<?= base_url('lapangan') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-buildings"></i>
@@ -113,7 +110,14 @@
             </a>
           </li>
         <?php endif;
-        if (has_role([3])) : ?>
+        if (has_role([3])) : //var_dump($this->uri); 
+        ?>
+          <li class="menu-item <?= ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'dashboard') ? 'active' : ''; ?>">
+            <a href="<?= base_url('petugas/dashboard') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home-circle"></i>
+              <div data-i18n="Analytics">Dashboard</div>
+            </a>
+          </li>
           <li class="menu-item <?= ($active == 'jadwal') ? 'active' : ''; ?>">
             <a href="<?= base_url('jadwal') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-calendar"></i>
@@ -148,6 +152,12 @@
         <?php endif;
         if (has_role([1])) :
         ?>
+          <li class="menu-item <?= ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'dashboard') ? 'active' : ''; ?>">
+            <a href="<?= base_url('petugas/dashboard') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home-circle"></i>
+              <div data-i18n="Analytics">Dashboard</div>
+            </a>
+          </li>
           <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
             <a href="<?= base_url('transaksi') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-user"></i>
