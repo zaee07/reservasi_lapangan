@@ -32,6 +32,141 @@ class Booking_model extends CI_Model
             ->row();
     }
 
+    public function booking_hari_ini($cabang_id)
+    {
+        return $this->db
+            ->where('cabang_id', $cabang_id)
+            ->where('tanggal_main', date('Y-m-d'))
+            ->count_all_results('booking');
+    }
+
+    public function checkin_hari_ini($cabang_id)
+    {
+        return $this->db
+            ->where('cabang_id', $cabang_id)
+            ->where('status_booking', STATUS_BOOKING_CHECKIN)
+            ->where('tanggal_main', date('Y-m-d'))
+            ->count_all_results('booking');
+    }
+
+    public function pendapatan_hari_ini($cabang_id)
+    {
+        return $this->db
+            ->select_sum('total_bayar')
+            ->where('cabang_id', $cabang_id)
+            ->where('status_booking', STATUS_BOOKING_COMPLETED)
+            ->where('tanggal_main', date('Y-m-d'))
+            ->get('booking')
+            ->row()
+            ->total_bayar ?? 0;
+    }
+
+    public function pendapatan_bulan_ini($cabang_id)
+    {
+        $awal  = date('Y-m-01');
+        $akhir = date('Y-m-t');
+        return $this->db
+            ->select_sum('total_bayar')
+            ->where('cabang_id', $cabang_id)
+            ->where('status_booking', STATUS_BOOKING_COMPLETED)
+            ->where("tanggal_main BETWEEN '$awal' AND '$akhir'")
+            ->get('booking')
+            ->row()
+            ->total_bayar ?? 0;
+    }
+
+    public function pendapatan_tahun_ini($cabang_id)
+    {
+        $awal  = date('Y-01-01');
+        $akhir = date('Y-12-t');
+        return $this->db
+            ->select_sum('total_bayar')
+            ->where('cabang_id', $cabang_id)
+            ->where('status_booking', STATUS_BOOKING_COMPLETED)
+            ->where("tanggal_main BETWEEN '$awal' AND '$akhir'")
+            // ->where('YEAR(tanggal_main)', date('Y'))
+            ->get('booking')
+            ->row()
+            ->total_bayar ?? 0;
+    }
+
+    public function pembayaran_unpaid($cabang_id)
+    {
+        return $this->db
+            ->from('pembayaran')
+            ->join(
+                'booking',
+                'booking.id = pembayaran.booking_id'
+            )
+            ->where('booking.cabang_id', $cabang_id)
+            ->where(
+                'pembayaran.status_pembayaran',
+                STATUS_PEMBAYARAN_UNPAID
+            )
+            ->count_all_results();
+    }
+
+    public function booking_pending($cabang_id)
+    {
+        return $this->db
+            ->select('
+                booking.id,
+                booking.kode_booking,
+                booking.nama_pemesan,
+                booking.jam_mulai,
+                booking.jam_selesai,
+                booking.status_booking,
+                booking.total_bayar,
+                lapangan.nama_lapangan
+            ')
+            ->from('booking')
+            ->join('lapangan', 'lapangan.id = booking.lapangan_id')
+            ->where('booking.cabang_id', $cabang_id)
+            ->where('status_booking', STATUS_BOOKING_PENDING)
+            ->get()
+            ->result();
+    }
+
+    public function booking_hari_ini_list($cabang_id)
+    {
+        return $this->db
+            ->select('
+            booking.kode_booking,
+            booking.nama_pemesan,
+            booking.jam_mulai,
+            booking.jam_selesai,
+            booking.status_booking,
+            lapangan.nama_lapangan
+        ')
+            ->from('booking')
+            ->join('lapangan', 'lapangan.id = booking.lapangan_id')
+            ->where('booking.cabang_id', $cabang_id)
+            ->where('booking.tanggal_main', date('Y-m-d'))
+            ->order_by('booking.jam_mulai', 'ASC')
+            ->limit(10)
+            ->get()
+            ->result();
+    }
+
+    public function booking_7_hari($cabang_id)
+    {
+        return $this->db
+            ->select("
+            DATE(tanggal_main) as tanggal,
+            COUNT(*) as total
+        ")
+            ->from('booking')
+            ->where('cabang_id', $cabang_id)
+            ->where(
+                'tanggal_main >=',
+                date('Y-m-d', strtotime('-6 days'))
+            )
+            ->group_by('tanggal_main')
+            ->order_by('tanggal_main', 'ASC')
+            ->get()
+            ->result();
+    }
+
     public function insert_booking($data)
     {
         $this->db->insert('booking', $data);
