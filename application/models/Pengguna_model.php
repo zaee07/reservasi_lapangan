@@ -2,7 +2,12 @@
 class Pengguna_model extends CI_Model
 {
     private $table = 'user';
-
+    public function get_total_member()
+    {
+        return $this->db
+            ->where('role_id', 4)
+            ->count_all_results($this->table);
+    }
     public function get_by_email($email)
     {
         return $this->db

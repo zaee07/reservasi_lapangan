@@ -31,14 +31,106 @@ class Booking_model extends CI_Model
             ->get_where('jadwal_slot', ['id' => $id])
             ->row();
     }
+    /**
+     * owner method
+     */
+    public function get_total_booking()
+    {
+        return $this->db
+            ->where_not_in('status_booking', [STATUS_BOOKING_CANCELLED, STATUS_BOOKING_EXPIRED])
+            ->where('tanggal_main >=', date('Y-01-01'))
+            ->where('tanggal_main <=', date('Y-12-31'))
+            ->count_all_results('booking');
+    }
 
-    // public function booking_hari_ini($cabang_id)
-    // {
-    //     return $this->db
-    //         ->where('cabang_id', $cabang_id)
-    //         ->where('tanggal_main', date('Y-m-d'))
-    //         ->count_all_results('booking');
-    // }
+    public function get_total_pendapatan()
+    {
+        return $this->db
+            ->select_sum('total_bayar')
+            ->where('tanggal_main >=', date('Y-01-01'))
+            ->where('tanggal_main <=', date('Y-12-31'))
+            ->where_in('status_booking', [STATUS_BOOKING_COMPLETED, STATUS_BOOKING_CHECKIN, STATUS_BOOKING_CONFIRMED])
+            ->get('booking')
+            ->row()
+            ->total_bayar ?? 0;
+    }
+
+    public function get_booking_hari_ini()
+    {
+        return $this->db
+            ->where('tanggal_main', date('Y-m-d'))
+            ->where_not_in('status_booking', [STATUS_BOOKING_CANCELLED, STATUS_BOOKING_EXPIRED])
+            ->count_all_results('booking');
+    }
+
+    public function get_checkin_hari_ini()
+    {
+        return $this->db
+            ->where('status_booking', STATUS_BOOKING_CHECKIN)
+            ->where('tanggal_main', date('Y-m-d'))
+            ->count_all_results('booking');
+    }
+
+    public function get_pending_booking()
+    {
+        return $this->db
+            ->where('status_booking', STATUS_BOOKING_PENDING)
+            ->count_all_results('booking');
+    }
+
+    public function get_total_expired_booking()
+    {
+        return $this->db
+            ->where('status_booking', STATUS_BOOKING_EXPIRED)
+            ->count_all_results('booking');
+    }
+    public function get_booking_7_hari()
+    {
+        return $this->db
+            ->select('tanggal_main,COUNT(*) total')
+            ->from('booking')
+            ->where('tanggal_main >=', date('Y-m-d', strtotime('-6 days')))
+            ->where_not_in('status_booking', [STATUS_BOOKING_CANCELLED, STATUS_BOOKING_EXPIRED])
+            ->group_by('tanggal_main')
+            ->order_by('tanggal_main')
+            ->get()
+            ->result();
+    }
+
+    public function get_pendapatan_7_hari()
+    {
+        return $this->db
+            ->select('tanggal_main,SUM(total_bayar) total')
+            ->from('booking')
+            ->where_in('status_booking', [STATUS_BOOKING_COMPLETED, STATUS_BOOKING_CHECKIN, STATUS_BOOKING_CONFIRMED])
+            ->where('tanggal_main >=', date('Y-m-d', strtotime('-6 days')))
+            ->group_by('tanggal_main')
+            ->order_by('tanggal_main')
+            ->get()
+            ->result();
+    }
+
+    public function get_lapangan_terlaris()
+    {
+        return $this->db
+            ->select('cabang.nama_cabang,lapangan.nama_lapangan,COUNT(*) total_booking')
+            ->from('booking')
+            ->join('lapangan', 'lapangan.id = booking.lapangan_id')
+            ->join('cabang', 'cabang.id = booking.cabang_id')
+            ->where_not_in('status_booking', [STATUS_BOOKING_CANCELLED, STATUS_BOOKING_EXPIRED])
+            ->group_by([
+                'booking.lapangan_id',
+                'cabang.nama_cabang',
+                'lapangan.nama_lapangan'
+            ])
+            ->order_by('total_booking', 'DESC')
+            ->limit(5)
+            ->get()
+            ->result();
+    }
+    /**
+     * cabang method
+     */
 
     public function checkin_hari_ini($cabang_id)
     {
@@ -54,7 +146,7 @@ class Booking_model extends CI_Model
         return $this->db
             ->select_sum('total_bayar')
             ->where('cabang_id', $cabang_id)
-            ->where('status_booking', STATUS_BOOKING_COMPLETED)
+            ->where_in('status_booking', [STATUS_BOOKING_CONFIRMED, STATUS_BOOKING_CHECKIN, STATUS_BOOKING_COMPLETED])
             ->where('tanggal_main', date('Y-m-d'))
             ->get('booking')
             ->row()
@@ -68,7 +160,7 @@ class Booking_model extends CI_Model
         return $this->db
             ->select_sum('total_bayar')
             ->where('cabang_id', $cabang_id)
-            ->where('status_booking', STATUS_BOOKING_COMPLETED)
+            ->where_in('status_booking', [STATUS_BOOKING_COMPLETED, STATUS_BOOKING_CHECKIN, STATUS_BOOKING_CONFIRMED])
             ->where("tanggal_main BETWEEN '$awal' AND '$akhir'")
             ->get('booking')
             ->row()
@@ -82,7 +174,7 @@ class Booking_model extends CI_Model
         return $this->db
             ->select_sum('total_bayar')
             ->where('cabang_id', $cabang_id)
-            ->where('status_booking', STATUS_BOOKING_COMPLETED)
+            ->where_in('status_booking', [STATUS_BOOKING_COMPLETED, STATUS_BOOKING_CHECKIN, STATUS_BOOKING_CONFIRMED])
             ->where("tanggal_main BETWEEN '$awal' AND '$akhir'")
             // ->where('YEAR(tanggal_main)', date('Y'))
             ->get('booking')
@@ -162,7 +254,8 @@ class Booking_model extends CI_Model
             ->where('booking.cabang_id', $cabang_id)
             ->where('booking.tanggal_main', date('Y-m-d'))
             ->where('booking.jam_mulai >', date('H:i:s'))
-            ->order_by('booking.jam_mulai', 'ASC')
+            // ->order_by('booking.jam_mulai', 'ASC')
+            ->order_by('booking.tanggal_main', 'ASC')
             ->limit(5)
             ->get()
             ->result();
@@ -178,11 +271,12 @@ class Booking_model extends CI_Model
             booking.jam_selesai,
             booking.status_booking,
             lapangan.nama_lapangan
-        ')
+            ')
             ->from('booking')
             ->join('lapangan', 'lapangan.id = booking.lapangan_id')
             ->where('booking.cabang_id', $cabang_id)
             ->where('booking.tanggal_main', date('Y-m-d'))
+            ->where_not_in('status_booking', [STATUS_BOOKING_CANCELLED, STATUS_BOOKING_EXPIRED])
             ->order_by('booking.jam_mulai', 'ASC')
             ->limit(10)
             ->get()
@@ -202,6 +296,7 @@ class Booking_model extends CI_Model
                 'tanggal_main >=',
                 date('Y-m-d', strtotime('-6 days'))
             )
+            ->where_not_in('status_booking', STATUS_BOOKING_CANCELLED)
             ->group_by('tanggal_main')
             ->order_by('tanggal_main', 'ASC')
             ->get()

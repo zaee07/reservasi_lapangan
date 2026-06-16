@@ -32,7 +32,7 @@ class Dashboard extends Petugas_Controller
 		$data['main_view'] = 'petugas/dashboard';
 		$data['booking_list_hari_ini'] = $this->booking->booking_hari_ini_list($this->user['cabang_id']);
 		$data['checkin_hari_ini'] = $this->booking->checkin_hari_ini($this->user['cabang_id']);
-		$data['booking_checkin_pending'] = $this->booking->booking_pending($this->user['cabang_id']);
+		$data['booking_checkin_pending'] = $this->booking->booking_pending_checkin($this->user['cabang_id']);
 		$data['booking_berlangsung'] = $this->booking->booking_berlangsung($this->user['cabang_id']);
 		$data['booking_berikutnya'] = $this->booking->booking_berikutnya($this->user['cabang_id']);
 		$data['booking_7_hari'] = $this->booking->booking_7_hari($this->user['cabang_id']);

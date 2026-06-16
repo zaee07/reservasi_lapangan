@@ -20,7 +20,7 @@
       <div class="card">
         <div class="card-body">
           <span>Belum Check-In</span>
-          <h3><?= count($booking_checkin_pending) ?></h3>
+          <h3><?= $booking_checkin_pending ?></h3>
         </div>
       </div>
     </div>

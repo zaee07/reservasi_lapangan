@@ -14,6 +14,24 @@ class Cabang_model extends CI_Model
             ->result();
     }
 
+    public function get_total_cabang()
+    {
+        return $this->db->count_all($this->table);
+    }
+
+    public function get_ranking_cabang()
+    {
+        return $this->db
+            ->select('cabang.nama_cabang,COUNT(booking.id) total_booking')
+            ->from('cabang')
+            ->where_not_in('status_booking', [STATUS_BOOKING_CANCELLED, STATUS_BOOKING_EXPIRED])
+            ->join('booking', 'booking.cabang_id = cabang.id', 'left')
+            ->group_by('cabang.id')
+            ->order_by('total_booking', 'DESC')
+            ->get()
+            ->result();
+    }
+
     public function get_by_id($id)
     {
         return $this->db
