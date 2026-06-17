@@ -3,15 +3,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Booking_model extends CI_Model
 {
-    public function get_slot_tersedia($tanggal)
+    public function get_slot_tersedia($tanggal, $cabang_id = null)
     {
-        $result = $this->db
+        $this->db
             ->select('jadwal_slot.*,lapangan.nama_lapangan,cabang.nama_cabang')
             ->from('jadwal_slot')
             ->join('lapangan', 'lapangan.id = jadwal_slot.lapangan_id')
             ->join('cabang', 'cabang.id = jadwal_slot.cabang_id')
             ->where('jadwal_slot.tanggal', $tanggal)
-            ->where('jadwal_slot.status_slot', STATUS_SLOT_AVAILABLE)
+            ->where('jadwal_slot.status_slot', STATUS_SLOT_AVAILABLE);
+        if ($cabang_id) {
+            $this->db->where('jadwal_slot.cabang_id', $cabang_id);
+        }
+        $result = $this->db
             ->order_by('cabang.nama_cabang', 'ASC')
             ->order_by('lapangan.nama_lapangan', 'ASC')
             ->order_by('jadwal_slot.jam_mulai', 'ASC')

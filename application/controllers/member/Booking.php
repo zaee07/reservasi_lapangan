@@ -26,9 +26,6 @@ class Booking extends Member_Controller
             'tanggal'    => $tanggal,
             'jadwal'     => $this->booking->get_slot_tersedia($tanggal)
         ];
-        // var_dump($data['jadwal']['GOR Harmoni Kutamendala']);
-        // var_dump($data['jadwal']['GOR Harmoni Kutamendala']['lapangan 2']);
-        // die();
 
         $this->load->view('templates/user_header', $data);
     }

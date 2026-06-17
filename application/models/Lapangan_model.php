@@ -6,24 +6,12 @@ class Lapangan_model extends CI_Model
     public function get_lapangan_terlaris($cabang_id)
     {
         return $this->db
-            ->select('
-            lapangan.nama_lapangan,
-            COUNT(*) as total_booking
-        ')
+            ->select('lapangan.nama_lapangan,COUNT(*) as total_booking')
             ->from('booking')
-            ->join(
-                'lapangan',
-                'lapangan.id = booking.lapangan_id'
-            )
+            ->join('lapangan', 'lapangan.id = booking.lapangan_id')
             ->where('booking.cabang_id', $cabang_id)
-            ->where(
-                'MONTH(tanggal_main)',
-                date('m')
-            )
-            ->where(
-                'YEAR(tanggal_main)',
-                date('Y')
-            )
+            ->where('MONTH(tanggal_main)', date('m'))
+            ->where('YEAR(tanggal_main)', date('Y'))
             ->group_by('booking.lapangan_id')
             ->order_by('total_booking', 'DESC')
             ->limit(5)

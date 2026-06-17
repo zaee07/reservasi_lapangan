@@ -121,6 +121,11 @@ class Pembayaran_model extends CI_Model
 
         return $this->db->insert_id();
     }
+    public function insert_riwayat_pembayaran($data)
+    {
+        return $this->db->insert('riwayat_status_pembayaran', $data);
+        //$this->db->insert_id();
+    }
 
     public function update_status($pembayaran_id, $status)
     {

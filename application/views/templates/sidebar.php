@@ -67,7 +67,7 @@
         <?php
         if (has_role([2])) :
         ?>
-          <li class="menu-item <?= ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'dashboard') ? 'active' : ''; ?>">
+          <li class="menu-item <?= ($active == 'admin' && $this->uri->segment(2) == '' || $this->uri->segment(2) == 'dashboard') ? 'active' : ''; ?>">
             <a href="<?= base_url('admin/dashboard') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
@@ -110,9 +110,9 @@
             </a>
           </li>
         <?php endif;
-        if (has_role([3])) : //var_dump($this->uri); 
+        if (has_role([3])) :
         ?>
-          <li class="menu-item <?= ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'dashboard') ? 'active' : ''; ?>">
+          <li class="menu-item <?= ($active == 'petugas' && $this->uri->segment(2) == '' || $this->uri->segment(2) == 'dashboard') ? 'active' : ''; ?>">
             <a href="<?= base_url('petugas/dashboard') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
@@ -124,8 +124,8 @@
               <div data-i18n="Basic">Jadwal Lapangan</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'reservasi') ? 'active' : ''; ?>">
-            <a href="<?= base_url('reservasi') ?>" class="menu-link">
+          <li class="menu-item <?= ($active == 'walkin') ? 'active' : ''; ?>">
+            <a href="<?= base_url('walkin') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-calendar"></i>
               <div data-i18n="Basic">Booking Walk-In</div>
             </a>

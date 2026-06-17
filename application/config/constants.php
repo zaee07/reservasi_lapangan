@@ -95,7 +95,7 @@ defined('STATUS_SLOT_IN_USED') or define('STATUS_SLOT_IN_USED', 'in_use');
 defined('STATUS_SLOT_CLOSED') or define('STATUS_SLOT_CLOSED', 'closed/maintenance');
 
 defined('BOOKING_TYPE_ONLINE') or define('BOOKING_TYPE_ONLINE', 'online');
-defined('BOOKING_TYPE_OFFLINE') or define('BOOKING_TYPE_OFFLINE', 'offline');
+defined('BOOKING_TYPE_OFFLINE') or define('BOOKING_TYPE_OFFLINE', 'walk_in');
 
 defined('STATUS_BOOKING_PENDING') or define('STATUS_BOOKING_PENDING', 'pending');
 defined('STATUS_BOOKING_CONFIRMED') or define('STATUS_BOOKING_CONFIRMED', 'confirmed');

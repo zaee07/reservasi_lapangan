@@ -8,6 +8,31 @@ class Pengguna_model extends CI_Model
             ->where('role_id', 4)
             ->count_all_results($this->table);
     }
+    public function get_member()
+    {
+        return $this->db
+            ->select('user.id, user.email, user.nama, user.no_hp')
+            ->from($this->table)
+            ->where('role_id', 4)
+            ->where('is_active', 1)
+            ->get()
+            ->result();
+    }
+    public function search_member($keyword)
+    {
+        return $this->db
+            ->select('id, email, nama, no_hp')
+            ->where('role_id', 4)
+            ->where('is_active', 1)
+            ->group_start()
+            ->like('nama', $keyword)
+            ->or_like('no_hp', $keyword)
+            ->or_like('email', $keyword)
+            ->group_end()
+            ->limit(20)
+            ->get('user')
+            ->result();
+    }
     public function get_by_email($email)
     {
         return $this->db
