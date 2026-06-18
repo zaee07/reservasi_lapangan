@@ -1,12 +1,17 @@
-<div class="card shadow-sm border-0">
-    <div class="card-body">
-        <div class="text-center mb-3">
-            <i class="bx bx-qr-scan display-4 text-primary"></i>
-            <h5 class="mt-2">Scan QR Booking</h5>
-            <small class="text-muted">Arahkan kamera ke QR booking member</small>
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold">Checkin Member</h4>
+    </div>
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <div class="text-center mb-3">
+                <i class="bx bx-qr-scan display-4 text-primary"></i>
+                <h5 class="mt-2">Scan QR Booking</h5>
+                <small class="text-muted">Arahkan kamera ke QR booking member</small>
+            </div>
+            <div id="reader"></div>
+            <div id="hasil" class="mt-4"></div>
         </div>
-        <div id="reader"></div>
-        <div id="hasil" class="mt-4"></div>
     </div>
 </div>
 <style>
