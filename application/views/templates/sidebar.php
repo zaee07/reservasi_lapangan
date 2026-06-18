@@ -136,14 +136,8 @@
               <div data-i18n="Basic">CheckIn</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
-            <a href="<?= base_url('transaksi') ?>" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-credit-card"></i>
-              <div data-i18n="Basic">Transaksi</div>
-            </a>
-          </li>
-          <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
-            <a href="<?= base_url('transaksi') ?>" class="menu-link">
+          <li class="menu-item <?= ($active == 'riwayat') ? 'active' : ''; ?>">
+            <a href="<?= base_url('riwayat') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
               <div data-i18n="Basic">Riwayat</div>
             </a>
@@ -581,12 +575,7 @@
                 </li>
               </ul>
             </li>
-            <!--/ User -->
           </ul>
         </div>
       </nav>
-
-      <!-- / Navbar -->
-
-      <!-- Content wrapper -->
       <div class="content-wrapper">

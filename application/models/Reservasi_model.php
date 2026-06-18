@@ -51,51 +51,24 @@ class Reservasi_model extends CI_Model
             ->result();
     }
 
-    public function get_detail_booking(
-        $booking_id,
-        $cabang_id
-    ) {
+    public function get_detail_booking($booking_id, $cabang_id)
+    {
         return $this->db
             ->select('
                 booking.*,
-
                 lapangan.nama_lapangan,
                 cabang.nama_cabang,
-
                 pembayaran.invoice_no,
                 pembayaran.status_pembayaran,
                 pembayaran.metode_bayar,
                 pembayaran.paid_at
             ')
-
             ->from('booking')
-
-            ->join(
-                'lapangan',
-                'lapangan.id = booking.lapangan_id'
-            )
-
-            ->join(
-                'cabang',
-                'cabang.id = booking.cabang_id'
-            )
-
-            ->join(
-                'pembayaran',
-                'pembayaran.booking_id = booking.id',
-                'left'
-            )
-
-            ->where(
-                'booking.id',
-                $booking_id
-            )
-
-            ->where(
-                'booking.cabang_id',
-                $cabang_id
-            )
-
+            ->join('lapangan', 'lapangan.id = booking.lapangan_id')
+            ->join('cabang', 'cabang.id = booking.cabang_id')
+            ->join('pembayaran', 'pembayaran.booking_id = booking.id', 'left')
+            ->where('booking.id', $booking_id)
+            ->where('booking.cabang_id', $cabang_id)
             ->get()
             ->row();
     }

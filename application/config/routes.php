@@ -113,12 +113,15 @@ $route['petugas_cabang/delete/(:num)']   = 'admin/petugas_cabang/delete/$1';
  */
 $route['petugas'] = 'petugas/dashboard';
 $route['petugas/dashboard'] = 'petugas/dashboard';
+$route['jadwal'] = 'petugas/jadwal/index';
 $route['checkin'] = 'petugas/checkin/index';
 $route['walkin'] = 'petugas/walkin';
 $route['petugas/walkin'] = 'petugas/walkin';
 $route['petugas/walkin/proses'] = 'petugas/walkin/proses';
 $route['petugas/walkin/simpan'] = 'petugas/walkin/simpan';
 $route['petugas/walkin/get_member'] = 'petugas/walkin/get_member';
+$route['riwayat'] = 'petugas/riwayat';
+$route['riwayat/detail/(:num)'] = 'petugas/riwayat/detail/$1';
 
 /**
  * route owner

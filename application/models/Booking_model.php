@@ -3,6 +3,39 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Booking_model extends CI_Model
 {
+    public function get_booking($cabang_id, $tanggal, $status = null)
+    {
+        $this->db
+            ->select('
+                booking.*,
+                lapangan.nama_lapangan,
+                pembayaran.status_pembayaran,
+                pembayaran.invoice_no
+            ')
+            ->from('booking')
+            ->join('lapangan', 'lapangan.id = booking.lapangan_id')
+            ->join('pembayaran', 'pembayaran.booking_id = booking.id', 'left')
+            ->where('booking.cabang_id', $cabang_id)
+            ->where('booking.tanggal_main', $tanggal);
+        if ($status) {
+            $this->db->where('booking.status_booking', $status);
+        }
+        return $this->db
+            ->order_by('booking.jam_mulai', 'ASC')
+            ->get()
+            ->result();
+    }
+    public function get_riwayat_booking($booking_id)
+    {
+        return $this->db
+            ->select('riwayat_status_booking.*,user.nama')
+            ->from('riwayat_status_booking')
+            ->join('user', 'user.id = riwayat_status_booking.diubah_oleh_user_id', 'left')
+            ->where('booking_id', $booking_id)
+            ->order_by('id', 'ASC')
+            ->get()
+            ->result();
+    }
     public function get_slot_tersedia($tanggal, $cabang_id = null)
     {
         $this->db
@@ -387,9 +420,9 @@ class Booking_model extends CI_Model
             ->insert('riwayat_status_booking', $data);
     }
 
-    public function get_booking_by_id($id)
+    public function get_booking_by_id($id, $cabang_id = null)
     {
-        return $this->db
+        $this->db
             ->select('
                 booking.*,
                 lapangan.nama_lapangan,
@@ -397,13 +430,18 @@ class Booking_model extends CI_Model
                 pembayaran.id as pembayaran_id,
                 pembayaran.invoice_no,
                 pembayaran.metode_bayar,
-                pembayaran.status_pembayaran
+                pembayaran.status_pembayaran,
+                pembayaran.paid_at
             ')
             ->from('booking')
             ->join('lapangan', 'lapangan.id = booking.lapangan_id')
             ->join('cabang', 'cabang.id = booking.cabang_id')
-            ->join('pembayaran', 'pembayaran.booking_id = booking.id')
-            ->where('booking.id', $id)
+            ->join('pembayaran', 'pembayaran.booking_id = booking.id', 'left')
+            ->where('booking.id', $id);
+        if ($cabang_id) {
+            $this->db->where('booking.cabang_id', $cabang_id);
+        }
+        return $this->db
             ->get()
             ->row();
     }
