@@ -4,9 +4,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Jadwal_model extends CI_Model
 {
 
-    public function get_jadwal($cabang_id, $tanggal)
+    public function get_jadwal($cabang_id, $tanggal, $lapangan_id = null)
     {
-        return $this->db
+        $this->db
             ->select('
                 jadwal_slot.*,
                 lapangan.nama_lapangan
@@ -14,8 +14,11 @@ class Jadwal_model extends CI_Model
             ->from('jadwal_slot')
             ->join('lapangan', 'lapangan.id = jadwal_slot.lapangan_id')
             ->where('jadwal_slot.cabang_id', $cabang_id)
-            ->where('jadwal_slot.tanggal', $tanggal)
-            ->order_by('jadwal_slot.jam_mulai', 'ASC')
+            ->where('jadwal_slot.tanggal', $tanggal);
+        if ($lapangan_id) {
+            $this->db->where('lapangan_id', $lapangan_id);
+        }
+        return $this->db->order_by('jadwal_slot.jam_mulai', 'ASC')
             ->get()
             ->result();
     }
