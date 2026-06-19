@@ -104,7 +104,9 @@ $route['petugas_cabang/edit/(:num)']     = 'admin/petugas_cabang/edit/$1';
 $route['petugas_cabang/update/(:num)']   = 'admin/petugas_cabang/update/$1';
 $route['petugas_cabang/password/(:num)']   = 'admin/petugas_cabang/password/$1';
 $route['petugas_cabang/delete/(:num)']   = 'admin/petugas_cabang/delete/$1';
-// $route['admin/booking'] = 'admin/booking/index';
+$route['admin/laporan'] = 'admin/laporan/index';
+$route['admin/laporan/export-pdf'] = 'admin/laporan/export_pdf';
+$route['admin/laporan/export-excel'] = 'admin/laporan/export_excel';
 // $route['admin/pembayaran'] = 'admin/pembayaran/index';
 // $route['admin/user'] = 'admin/user/index';
 

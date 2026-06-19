@@ -97,14 +97,14 @@
               <div data-i18n="Basic">Riwayat Booking</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'petugas') ? 'active' : ''; ?>">
+          <li class="menu-item <?= ($active == 'petugas_cabang') ? 'active' : ''; ?>">
             <a href="<?= base_url('petugas_cabang') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-group"></i>
               <div data-i18n="Basic">Petugas</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
-            <a href="<?= base_url('transaksi') ?>" class="menu-link">
+          <li class="menu-item <?= ($active == 'admin' && $this->uri->segment(2) == 'laporan') ? 'active' : ''; ?>">
+            <a href="<?= base_url('admin/laporan') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
               <div data-i18n="Basic">Laporan</div>
             </a>
@@ -118,7 +118,7 @@
               <div data-i18n="Analytics">Dashboard</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'jadwal') ? 'active' : ''; ?>">
+          <li class="menu-item <?= ($active == 'cek_jadwal') ? 'active' : ''; ?>">
             <a href="<?= base_url('cek_jadwal') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-calendar"></i>
               <div data-i18n="Basic">Jadwal Lapangan</div>

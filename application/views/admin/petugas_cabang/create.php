@@ -36,9 +36,7 @@
                                 aria-describedby="password" />
                             <span class="input-group-text cursor-pointer toggle-password"><i class="bx bx-hide"></i></span>
                         </div>
-                        <small class="text-danger">
-                            <?= form_error('password') ?>
-                        </small>
+                        <small class="text-danger"><?= form_error('password') ?></small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Password Konfirmasi</label>
@@ -54,13 +52,12 @@
                                 aria-describedby="password" />
                             <span class="input-group-text cursor-pointer toggle-password"><i class="bx bx-hide"></i></span>
                         </div>
-                        <small class="text-danger">
-                            <?= form_error('password_konfirmasi') ?>
-                        </small>
+                        <small class="text-danger"><?= form_error('password_konfirmasi') ?></small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">No HP / WhatsApp</label>
                         <input type="text" name="no_hp" class="form-control" value="<?= set_value('no_hp') ?>">
+                        <small class="text-danger"> <?= form_error('no_hp') ?></small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Status</label>
