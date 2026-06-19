@@ -20,8 +20,7 @@
                     <tr>
                         <th>Foto</th>
                         <th>Nama</th>
-                        <!-- <th>Email</th> -->
-                        <th>Cabang</th>
+                        <th>Email</th>
                         <th>No HP</th>
                         <th>Status</th>
                         <th width="120">Aksi</th>
@@ -39,8 +38,7 @@
                                 <?php endif; ?>
                             </td>
                             <td><?= $p->nama ?></td>
-                            <!-- <td><?= $p->email ?></td> -->
-                            <td><?= $p->nama_cabang ?></td>
+                            <td><?= $p->email ?></td>
                             <td><?= $p->no_hp ?></td>
                             <td>
                                 <?php if ($p->is_active == 1) : ?>

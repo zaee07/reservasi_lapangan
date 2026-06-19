@@ -85,16 +85,16 @@
               <div data-i18n="Basic">Jadwal</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'admin/reservasi') ? 'active' : ''; ?>">
+          <li class="menu-item <?= ($active == 'reservasi') ? 'active' : ''; ?>">
             <a href="<?= base_url('admin/reservasi') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-calendar"></i>
               <div data-i18n="Basic">Reservasi</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'admin/transaksi') ? 'active' : ''; ?>">
+          <li class="menu-item <?= ($active == 'admin' && $this->uri->segment(2) == 'transaksi') ? 'active' : ''; ?>">
             <a href="<?= base_url('admin/transaksi') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-credit-card"></i>
-              <div data-i18n="Basic">Pembayaran</div>
+              <div data-i18n="Basic">Riwayat Booking</div>
             </a>
           </li>
           <li class="menu-item <?= ($active == 'petugas') ? 'active' : ''; ?>">
@@ -119,7 +119,7 @@
             </a>
           </li>
           <li class="menu-item <?= ($active == 'jadwal') ? 'active' : ''; ?>">
-            <a href="<?= base_url('jadwal') ?>" class="menu-link">
+            <a href="<?= base_url('cek_jadwal') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-calendar"></i>
               <div data-i18n="Basic">Jadwal Lapangan</div>
             </a>
