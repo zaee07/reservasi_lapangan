@@ -69,13 +69,16 @@ $route['jadwal_lapangan'] = 'member/jadwal/index';
 $route['booking']        = 'member/booking/index';
 $route['booking/proses']      = 'member/booking/proses';
 $route['booking/sukses/(:num)'] = 'member/booking/sukses/$1';
-$route['riwayat'] = 'member/riwayat/index';
-$route['riwayat/detail/(:num)'] = 'member/riwayat/detail/$1';
-$route['riwayat/cancel/(:num)'] = 'member/riwayat/cancel/$1';
+$route['riwayat_booking'] = 'member/riwayat/index';
+$route['riwayat_booking/detail/(:num)'] = 'member/riwayat/detail/$1';
+$route['riwayat_booking/cancel/(:num)'] = 'member/riwayat/cancel/$1';
 // $route['booking/detail/(:num)'] = 'booking/detail/$1';
 // $route['pembayaran/(:num)'] = 'pembayaran/index/$1';
 // $route['riwayat'] = 'riwayat/index';
-// $route['profil'] = 'profil/index';
+$route['profile'] = 'member/profile/index';
+$route['profile/edit'] = 'member/profile/edit';
+$route['profile/hapus_foto'] = 'member/profile/hapus_foto';
+$route['profile/ubah_password'] = 'member/profile/ubah_password';
 /**
  * route admin
  */

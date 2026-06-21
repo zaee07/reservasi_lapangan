@@ -12,27 +12,24 @@ class Riwayat extends Member_Controller
 
     public function index()
     {
-        $user_id = $this->user['id'];
         $data = [
             'title'      => 'Riwayat Booking',
-            'active'     => 'riwayat',
+            'active'     => 'riwayat_booking',
             'main_view'  => 'user/riwayat/index',
-            'riwayat'    => $this->riwayat->get_by_user($user_id)
+            'riwayat'    => $this->riwayat->get_by_user($this->user['id'])
         ];
         $this->load->view('templates/user_header', $data);
     }
 
-    // detail booking
     public function detail($booking_id = null)
     {
-        $user_id = $this->user['id'];
-        $booking = $this->riwayat->get_detail_booking($booking_id, $user_id);
+        $booking = $this->riwayat->get_detail_booking($booking_id, $this->user['id']);
         if (!$booking) {
             show_404();
         }
         $data = [
             'title'      => 'Detail Booking',
-            'active'     => 'riwayat',
+            'active'     => 'riwayat_booking',
             'main_view'  => 'user/riwayat/detail',
             'booking'    => $booking,
             'slots'      => $this->riwayat->get_booking_slots($booking_id),
@@ -43,11 +40,9 @@ class Riwayat extends Member_Controller
         $this->load->view('templates/user_header', $data);
     }
 
-    // cancel booking
     public function cancel($booking_id = null)
     {
-        $user_id = $this->user['id'];
-        $booking = $this->riwayat->get_detail_booking($booking_id, $user_id);
+        $booking = $this->riwayat->get_detail_booking($booking_id, $this->user['id']);
         if (!$booking) {
             show_404();
         }
@@ -67,7 +62,7 @@ class Riwayat extends Member_Controller
             'booking_id'          => $booking_id,
             'status_booking'      => 'cancelled',
             'keterangan'          => 'Booking dibatalkan member',
-            'diubah_oleh_user_id' => $user_id
+            'diubah_oleh_user_id' => $this->user['id']
         ]);
         // update pembayaran jika ada
         $pembayaran = $this->riwayat

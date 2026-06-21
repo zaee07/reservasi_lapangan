@@ -45,6 +45,17 @@ class Pengguna_model extends CI_Model
             ->row_array();
     }
 
+    public function email_exists($email, $exclude_id = null)
+    {
+        $this->db->where('email', $email);
+
+        if ($exclude_id) {
+            $this->db->where('id !=', $exclude_id);
+        }
+
+        return $this->db->get($this->table)->num_rows() > 0;
+    }
+
     public function get_admin_cabang_by_id($id)
     {
         return $this->db
