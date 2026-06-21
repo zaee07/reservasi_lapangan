@@ -63,8 +63,7 @@ $route['cron/completed-booking'] = 'cron/complete_booking';
 /**
  * route member
  */
-// $route['home'] = 'home/index';
-// $route['jadwal'] = 'jadwal/index';
+$route['home'] = 'member/home/index';
 $route['jadwal_lapangan'] = 'member/jadwal/index';
 $route['booking']        = 'member/booking/index';
 $route['booking/proses']      = 'member/booking/proses';
@@ -74,12 +73,13 @@ $route['riwayat_booking/detail/(:num)'] = 'member/riwayat/detail/$1';
 $route['riwayat_booking/cancel/(:num)'] = 'member/riwayat/cancel/$1';
 $route['booking_detail/download_qr/(:num)'] = 'member/riwayat/download_qr/$1';
 $route['booking_detail/download_pdf/(:num)'] = 'member/riwayat/download_pdf/$1';
-// $route['pembayaran/(:num)'] = 'pembayaran/index/$1';
-// $route['riwayat'] = 'riwayat/index';
 $route['profile'] = 'member/profile/index';
 $route['profile/edit'] = 'member/profile/edit';
 $route['profile/hapus_foto'] = 'member/profile/hapus_foto';
 $route['profile/ubah_password'] = 'member/profile/ubah_password';
+// $route['pembayaran/(:num)'] = 'pembayaran/index/$1';
+// $route['riwayat'] = 'riwayat/index';
+// $route['jadwal'] = 'jadwal/index';
 /**
  * route admin
  */

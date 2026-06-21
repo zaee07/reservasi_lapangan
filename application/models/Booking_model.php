@@ -61,7 +61,6 @@ class Booking_model extends CI_Model
         return $grouped;
     }
 
-
     public function get_slot_by_id($id)
     {
         return $this->db
@@ -467,7 +466,6 @@ class Booking_model extends CI_Model
             ->row();
     }
 
-
     public function get_last_booking_by_user_id($uid)
     {
         return $this->db
@@ -560,5 +558,56 @@ class Booking_model extends CI_Model
                 'booking',
                 ['status_booking' => STATUS_BOOKING_COMPLETED, 'completed_at' => date('Y-m-d H:i:s')]
             );
+    }
+
+    public function count_booking_pending($user_id)
+    {
+        return $this->db
+            ->where('user_id', $user_id)
+            ->where('status_booking', STATUS_BOOKING_PENDING)
+            ->count_all_results('booking');
+    }
+    public function count_booking_aktif($user_id)
+    {
+        return $this->db
+            ->where('user_id', $user_id)
+            ->where_not_in(
+                'status_booking',
+                [
+                    STATUS_BOOKING_COMPLETED,
+                    STATUS_BOOKING_CANCELLED,
+                    STATUS_BOOKING_EXPIRED
+                ]
+            )
+            ->count_all_results('booking');
+    }
+
+    public function count_booking_selesai($user_id)
+    {
+        return $this->db
+            ->where('user_id', $user_id)
+            ->where('status_booking', STATUS_BOOKING_COMPLETED)
+            ->count_all_results('booking');
+    }
+
+    public function get_booking_terdekat($user_id)
+    {
+        return $this->db
+            ->select('booking.*,lapangan.nama_lapangan')
+            ->from('booking')
+            ->join('lapangan', 'lapangan.id=booking.lapangan_id')
+            ->where('booking.user_id', $user_id)
+            ->where_in(
+                'booking.status_booking',
+                [
+                    STATUS_BOOKING_CONFIRMED,
+                    STATUS_BOOKING_CHECKIN
+                ]
+            )
+            ->order_by('booking.tanggal_main', 'ASC')
+            ->order_by('booking.jam_mulai', 'ASC')
+            ->limit(1)
+            ->get()
+            ->row();
     }
 }

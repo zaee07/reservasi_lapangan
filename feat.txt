@@ -1,0 +1,328 @@
+# 3. DASHBOARD
+
+# SETELAH OPERASIONAL STABIL
+
+Karena dashboard: hanya visualisasi bukan core business.
+
+
+# DASHBOARD YANG WAJIB
+
+# OWNER
+
+## statistik global
+
+* total booking
+* total pendapatan
+* cabang terlaris
+* lapangan terlaris
+* booking hari ini
+* booking bulan ini
+
+
+# ADMIN CABANG
+
+* booking hari ini
+* checkin hari ini
+* pembayaran pending
+* slot aktif
+* lapangan aktif
+
+
+# PETUGAS
+
+* booking hari ini
+* booking pending checkin
+* scanner shortcut
+
+
+# LIBRARY CHART
+
+Pakai: ApexCharts
+karena Sneat memang cocok dengan ApexCharts.
+
+
+# 4. INTEGRASI QRIS
+Kenapa terakhir?
+Karena:
+payment gateway = paling kompleks
+sistem harus stabil dulu
+
+# NANTI FLOW QRIS
+
+## Member booking
+
+↓
+
+create invoice
+
+↓
+
+request QRIS Pakasir
+
+↓
+
+simpan:
+
+* invoice
+* trx_id
+* qris_url
+* expired
+
+↓
+
+member bayar
+
+↓
+
+callback webhook
+
+↓
+
+system auto: pending → confirmed
+
+↓
+
+generate QR booking
+
+
+# YANG PALING PENTING SEBELUM QRIS
+
+Anda harus:
+
+## stabilkan state booking dulu
+
+Karena payment gateway sensitif terhadap:
+
+* race condition
+* duplicate callback
+* expired
+* retry
+* webhook telat
+
+
+# URUTAN FINAL SAYA SARANKAN SEKARANG
+
+## 3 DASHBOARD
+
+
+## 4 QRIS INTEGRATION
+
+
+# SETELAH ITU baru:
+
+* PWA
+* push notification
+* realtime slot
+* WA notification
+* printer thermal
+* laporan excel/pdf
+* multi device session
+* audit log detail
+
+
+
+
+####### Alur Walk In
+
+Petugas klik:
+
+Dashboard Petugas
+↓
+Booking Walk In
+
+Form:
+Tipe Pemesan
+
+(•) Member
+( ) Non Member
+
+---
+
+# Skenario 1 — Member
+
+Cari member:
+
+Nama / Email / No HP
+
+Autocomplete:
+
+Muhammad Ihza
+08123456789
+
+Setelah dipilih:
+
+Nama Pemesan    : otomatis
+No HP           : otomatis
+
+Lalu:
+
+Pilih Cabang
+Pilih Lapangan
+Pilih Slot
+
+Simpan.
+
+---
+
+# Skenario 2 — Non Member
+
+Tidak perlu akun.
+
+Form:
+
+Nama Pemesan
+No HP
+
+Lalu:
+
+Pilih Cabang
+Pilih Lapangan
+Pilih Slot
+
+Simpan.
+
+---
+
+# Struktur Database
+
+Menurut saya tidak perlu tabel baru.
+Manfaatkan tabel booking yang sudah ada.
+
+Member:
+
+'user_id' => 15
+
+Non Member:
+
+'user_id' => null
+
+Tetapi:
+
+'nama_pemesan' => 'Budi'
+'no_hp_pemesan' => '08123xxxx'
+
+tetap diisi.
+
+---
+
+# Tambahkan Tipe Booking
+
+Anda sudah punya:
+
+BOOKING_TYPE_ONLINE
+
+Tambah:
+
+define(
+    'BOOKING_TYPE_WALKIN',
+    'walkin'
+);
+
+Saat petugas membuat booking:
+
+'tipe_booking'
+    =>
+    BOOKING_TYPE_WALKIN
+
+---
+
+# Status Otomatis
+
+Karena sudah datang ke lokasi:
+
+Walk In
+↓
+Bayar
+↓
+Main
+
+Saya sarankan:
+
+status_booking
+=
+STATUS_BOOKING_CHECKIN
+
+langsung.
+
+Tidak perlu:
+
+pending
+confirmed
+
+---
+
+# Pembayaran Otomatis
+
+Buat record pembayaran:
+
+$pembayaran = [
+    'booking_id' => $booking_id,
+
+    'jumlah_bayar' => $total,
+
+    'metode_bayar' => 'cash',
+
+    'status_pembayaran'
+        =>
+        STATUS_PEMBAYARAN_PAID,
+
+    'paid_at'
+        =>
+        date('Y-m-d H:i:s')
+];
+
+---
+
+# Riwayat Booking
+
+Insert:
+
+status_booking
+=
+checkin
+
+karena pemain langsung masuk lapangan.
+
+---
+
+# Dashboard Owner Nantinya
+
+Bisa dibedakan:
+
+Booking Online
+150
+
+Booking Walk In
+80
+
+Query:
+
+WHERE tipe_booking='online'
+
+dan
+
+WHERE tipe_booking='walkin'
+
+---
+
+# Yang saya sarankan untuk GOR Harmoni
+
+Flow final:
+
+Booking Walk In
+↓
+Member / Non Member
+↓
+Pilih Slot
+↓
+Bayar Cash
+↓
+Booking dibuat
+↓
+Status = CHECKIN
+↓
+Main
+↓
+Cron
+↓
+COMPLETED

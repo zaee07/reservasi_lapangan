@@ -3,6 +3,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Lapangan_model extends CI_Model
 {
+    public function get_active()
+    {
+        return $this->db
+            ->where('status', 1)
+            ->order_by('nama_lapangan', 'ASC')
+            ->get('lapangan')
+            ->result_array();
+    }
+
     public function get_lapangan_terlaris($cabang_id)
     {
         return $this->db
@@ -18,6 +27,7 @@ class Lapangan_model extends CI_Model
             ->get()
             ->result();
     }
+
     public function get_by_cabang($cabang_id)
     {
         return $this->db

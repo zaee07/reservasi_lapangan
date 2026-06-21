@@ -1,0 +1,107 @@
+
+#### 1. Member Area (Prioritas Tinggi)
+
+Karena sistem reservasi berpusat pada member.
+
+Menu member:
+
+```text
+Home
+Jadwal
+Booking
+Riwayat
+Profile
+```
+
+Yang menurut saya masih kurang:
+
+```text
+✓ Edit Profile
+✓ Ubah Password
+✓ Download QR Booking
+✓ Download PDF Booking
+✓ Detail Booking
+```
+
+Ini sangat relevan dengan tujuan sistem.
+
+---
+
+#### 2. Home Member
+
+Daripada halaman kosong.
+
+Misalnya:
+
+```text
+Booking Aktif
+Booking Hari Ini
+Total Booking Saya
+Bonus Kok Saya
+```
+
+dan
+
+```text
+Tombol Booking Sekarang
+```
+
+Ini meningkatkan usability.
+
+---
+
+#### 3. Landing Page Publik
+
+Sangat bagus untuk TA karena menunjukkan sistem tidak hanya untuk internal.
+
+Misalnya:
+
+```text
+Home
+Tentang GOR
+Daftar Lapangan
+Harga
+Jadwal Tersedia
+Login
+Register
+```
+
+Bahkan tanpa integrasi QRIS pun sudah bagus.
+
+---
+
+#### 4. Detail Booking yang Lengkap
+
+Sudah mulai Anda buat.
+
+Tambahkan:
+
+```text
+Timeline Status
+QR Booking
+Invoice
+PDF Booking
+```
+
+Ini meningkatkan kualitas dokumentasi sistem.
+
+### Jika saya jadi pembimbing
+
+Saya akan menyarankan roadmap akhir:
+
+```text
+1. Selesaikan fitur Member
+   - Profile
+   - Ubah Password
+   - Detail Booking
+   - Download QR
+   - Download PDF
+
+2. Selesaikan Landing Page
+
+3. Rapikan Dashboard Owner
+
+4. Testing dan Dokumentasi
+```
+
+Karena setelah itu sistem reservasi Anda sudah terasa lengkap dari sisi **member → petugas → admin → owner**, yang biasanya menjadi poin kuat saat sidang TA.
