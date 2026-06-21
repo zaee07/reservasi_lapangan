@@ -40,6 +40,34 @@ class Riwayat extends Member_Controller
         $this->load->view('templates/user_header', $data);
     }
 
+    public function download_qr($booking_id)
+    {
+        $booking = $this->riwayat->get_detail_booking($booking_id, $this->user['id']);
+        if (!$booking) {
+            show_404();
+        }
+        $file = FCPATH . 'uploads/qrcode/' . $booking->qr_booking;
+        if (!file_exists($file)) {
+            show_404();
+        }
+        $this->load->helper('download');
+        force_download($file, NULL);
+    }
+
+    public function download_pdf($booking_id)
+    {
+        $booking = $this->riwayat->get_detail_booking($booking_id, $this->user['id']);
+        if (!$booking) {
+            show_404();
+        }
+        $html = $this->load->view('user/booking/pdf', ['booking' => $booking], TRUE);
+        $this->load->library('pdf');
+        $this->pdf->loadHtml($html);
+        $this->pdf->setPaper('A4', 'portrait');
+        $this->pdf->render();
+        $this->pdf->stream('booking-' . $booking->kode_booking . '.pdf', ['Attachment' => true]);
+    }
+
     public function cancel($booking_id = null)
     {
         $booking = $this->riwayat->get_detail_booking($booking_id, $this->user['id']);
