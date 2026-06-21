@@ -11,6 +11,7 @@ class Dashboard extends Owner_Controller
 		$this->load->model('Cabang_model', 'cabang');
 		$this->load->model('Pengguna_model', 'pengguna');
 		$this->load->model('Booking_model', 'booking');
+		$this->load->model('Laporan_model', 'laporan');
 	}
 	public function index()
 	{
@@ -27,11 +28,9 @@ class Dashboard extends Owner_Controller
 		$data['expired_booking'] = $this->booking->get_total_expired_booking();
 		$data['booking_7_hari'] = $this->booking->get_booking_7_hari();
 		$data['pendapatan_7_hari'] = $this->booking->get_pendapatan_7_hari();
+		$data['top_cabang'] = $this->laporan->pendapatan_per_cabang(date('Y-m-01'), date('Y-m-d'));
 		$data['ranking_cabang'] = $this->cabang->get_ranking_cabang();
 		$data['lapangan_terlaris'] = $this->booking->get_lapangan_terlaris();
-		// var_dump($data['total_pendapatan']);
-		// var_dump($data['pendapatan_7_hari']);
-		// die();
 		$this->load->view('templates/header', $data);
 	}
 }

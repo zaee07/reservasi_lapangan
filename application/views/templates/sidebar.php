@@ -177,6 +177,12 @@
               </li>
             </ul>
           </li>
+          <li class="menu-item <?= ($active == 'owner' && $this->uri->segment(2) == 'laporan') ? 'active' : ''; ?>">
+            <a href="<?= base_url('owner/laporan') ?>" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+              <div data-i18n="Basic">Laporan</div>
+            </a>
+          </li>
         <?php endif;
         ?>
 
