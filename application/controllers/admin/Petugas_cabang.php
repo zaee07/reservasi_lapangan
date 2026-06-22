@@ -36,12 +36,21 @@ class Petugas_cabang extends Admin_Controller
         $this->load->view('templates/header', $data);
     }
 
+    public function valid_no_hp($no_hp)
+    {
+        if (preg_match('/^08[0-9]{8,11}$/', $no_hp) || preg_match('/^\+62[0-9]{9,12}$/', $no_hp)) {
+            return TRUE;
+        }
+        $this->form_validation->set_message('valid_no_hp', 'Format nomor telepon tidak valid');
+        return FALSE;
+    }
+
     public function store()
     {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user.email]');
-        $this->form_validation->set_rules('no_hp', 'Nomor Telepon', 'required|is_unique[user.no_hp]');
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
+        $this->form_validation->set_rules('no_hp', 'Nomor Telepon', 'required|is_unique[user.no_hp]|trim|callback_valid_no_hp');
         $this->form_validation->set_rules('password', 'Password Baru', 'required|min_length[6]');
         $this->form_validation->set_rules('password_konfirmasi', 'Konfirmasi Password', 'required|matches[password]');
 
@@ -66,12 +75,17 @@ class Petugas_cabang extends Admin_Controller
                 $upload = $this->upload->data();
                 $foto = $upload['file_name'];
             }
+            $email = htmlspecialchars($this->input->post('email'), true);
 
+            if ($this->pengguna->email_exists($email, $user['id'])) {
+                $this->session->set_flashdata('error', 'Email sudah digunakan');
+                redirect('petugas_cabang');
+            }
             $data = [
-                'role_id'   => 3, // petugas_cabang
+                'role_id'   => 3,
                 'cabang_id' => $this->input->post('cabang_id'),
                 'nama'      => htmlspecialchars($this->input->post('nama', true)),
-                'email'     => htmlspecialchars($this->input->post('email', true)),
+                'email'     => $email,
                 'no_hp'     => htmlspecialchars($this->input->post('no_hp', true)),
                 'password'  => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                 'foto'      => $foto,
@@ -89,7 +103,7 @@ class Petugas_cabang extends Admin_Controller
             'title'  => 'Edit petugas Cabang',
             'main_view' => 'admin/petugas_cabang/edit',
             'petugas'  => $this->petugas->get_by_id($id),
-            'cabang_id' => $this->pengguna->get_admin_cabang_by_id($this->user['id'])->cabang_id
+            'cabang_id' => $this->user['cabang_id']
         ];
         if (!$data['petugas']) {
             show_404();
@@ -101,7 +115,8 @@ class Petugas_cabang extends Admin_Controller
     {
         $petugas = $this->petugas->get_by_id($id);
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('no_hp', 'Nomor Telepon', 'is_unique[user.no_hp]|trim|callback_valid_no_hp');
 
         if ($this->form_validation->run() == FALSE) {
             $this->edit($id);

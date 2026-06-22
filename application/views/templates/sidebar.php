@@ -152,8 +152,8 @@
               <div data-i18n="Analytics">Dashboard</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'transaksi') ? 'active' : ''; ?>">
-            <a href="<?= base_url('transaksi') ?>" class="menu-link">
+          <li class="menu-item <?= ($active == 'member') ? 'active' : ''; ?>">
+            <a href="<?= base_url('owner/member') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-user"></i>
               <div data-i18n="Basic">Member</div>
             </a>

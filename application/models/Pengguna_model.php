@@ -18,6 +18,28 @@ class Pengguna_model extends CI_Model
             ->get()
             ->result();
     }
+    public function get_member_owner($keyword = null)
+    {
+        $this->db
+            ->select('user.*,COUNT(booking.id) total_booking')
+            ->from('user')
+            ->join('booking', 'booking.user_id = user.id', 'left')
+            ->where('user.role_id', 4);
+
+        if ($keyword) {
+            $this->db->group_start();
+            $this->db->like('user.nama', $keyword);
+            $this->db->or_like('user.email', $keyword);
+            $this->db->or_like('user.no_hp', $keyword);
+            $this->db->group_end();
+        }
+
+        return $this->db
+            ->group_by('user.id')
+            ->order_by('user.created_at', 'DESC')
+            ->get()
+            ->result();
+    }
     public function search_member($keyword)
     {
         return $this->db

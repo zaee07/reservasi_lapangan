@@ -68,8 +68,10 @@
                         <th>Kode</th>
                         <th>Tanggal</th>
                         <th>Pemesan</th>
-                        <th>Cabang</th>
-                        <th>Lapangan</th>
+                        <?php if (!$cabang_id): ?>
+                            <th>Cabang</th>
+                        <?php endif; ?>
+                        <!-- <th>Lapangan</th> -->
                         <th>Tipe</th>
                         <th>Status</th>
                         <th>Total</th>
@@ -78,11 +80,13 @@
                 <tbody>
                     <?php foreach ($laporan as $r): ?>
                         <tr>
-                            <td><?= $r->kode_booking ?></td>
-                            <td><?= $r->tanggal_main ?></td>
+                            <td><?= substr($r->kode_booking, 0, 15) ?>...</td>
+                            <td><?= date('d/m/Y', strtotime($r->tanggal_main)) ?></td>
                             <td><?= $r->nama_pemesan ?></td>
-                            <td><?= $r->nama_cabang ?></td>
-                            <td><?= $r->nama_lapangan ?></td>
+                            <?php if (!$cabang_id): ?>
+                                <td><?= $r->nama_cabang ?></td>
+                            <?php endif; ?>
+                            <!-- <td><?= $r->nama_lapangan ?></td> -->
                             <td><?= ucfirst($r->tipe_booking) ?></td>
                             <td><?= badge_status_booking($r->status_booking) ?></td>
                             <td>Rp <?= number_format($r->total_bayar, 0, ',', '.') ?></td>
