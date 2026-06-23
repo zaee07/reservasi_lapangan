@@ -35,76 +35,16 @@ class Jadwal extends Admin_Controller
         $this->load->view('templates/header', $data);
     }
 
-    public function generate()
-    {
-        $data = [
-            'title'     => 'Generate Slot',
-            'main_view' => 'admin/jadwal/generate',
-            'lapangan'  => $this->jadwal->get_lapangan($this->user['cabang_id'])
-        ];
-
-        $this->load->view('templates/header', $data);
-    }
-
-    public function store_generate()
-    {
-        $lapangan_id   = $this->input->post('lapangan_id');
-        $tanggal       = $this->input->post('tanggal');
-
-        $jam_buka      = $this->input->post('jam_buka');
-        $jam_tutup     = $this->input->post('jam_tutup');
-
-        $start = strtotime($jam_buka);
-        $end   = strtotime($jam_tutup);
-
-        /*
-        validasi jadwal slot pernah dibuat
-        */
-
-        while ($start < $end) {
-
-            $jam_mulai = date('H:i:s', $start);
-
-            $next = strtotime('+1 hour', $start);
-
-            $jam_selesai = date('H:i:s', $next);
-
-            // cek slot sudah ada
-            $cek = $this->jadwal->cek_slot(
-                $lapangan_id,
-                $tanggal,
-                $jam_mulai
-            );
-
-            if (!$cek) {
-
-                $data = [
-                    'cabang_id'   => $this->user['cabang_id'],
-                    'lapangan_id' => $lapangan_id,
-                    'tanggal'     => $tanggal,
-                    'jam_mulai'   => $jam_mulai,
-                    'jam_selesai' => $jam_selesai,
-                    'status_slot'      => 'available'
-                ];
-
-                $this->jadwal->insert($data);
-            }
-
-            $start = $next;
-        }
-
-        $this->session->set_flashdata('success', 'Slot jadwal berhasil digenerate');
-
-        redirect('jadwal?tanggal=' . $tanggal);
-    }
-
-    // edit status slot
     public function edit($id)
     {
         $jadwal = $this->jadwal->get_by_id($id);
 
         if (!$jadwal || $jadwal->cabang_id != $this->user['cabang_id']) {
             show_error('Akses ditolak!', 403);
+        }
+        if ($this->input->post('status') == STATUS_SLOT_BOOKED) {
+            $this->session->set_flashdata('error', 'Status jadwal gagal diupdate/Slot sudah dibooking');
+            redirect('jadwal?tanggal=' . $jadwal->tanggal);
         }
 
         $data = [
@@ -122,6 +62,10 @@ class Jadwal extends Admin_Controller
 
         if (!$jadwal || $jadwal->cabang_id != $this->user['cabang_id']) {
             show_error('Akses ditolak!', 403);
+        }
+        if ($this->input->post('status') == STATUS_SLOT_BOOKED) {
+            $this->session->set_flashdata('error', 'Status jadwal gagal diupdate/Slot sudah dibooking');
+            redirect('jadwal?tanggal=' . $jadwal->tanggal);
         }
 
         $data = [

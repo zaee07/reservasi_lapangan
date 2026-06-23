@@ -88,6 +88,7 @@ class Jadwal_model extends CI_Model
             ->get()
             ->result();
     }
+
     public function get_jadwal_slot_by_tgl($tanggal, $kode_cabang)
     {
         $result = $this->db
@@ -108,5 +109,44 @@ class Jadwal_model extends CI_Model
             $grouped[$row->nama_cabang][$row->nama_lapangan][] = $row;
         }
         return $grouped;
+    }
+
+    public function generate_slot_30_hari($lapangan_id, $cabang_id, $jam_buka, $jam_tutup, $hari_operasional)
+    {
+        for ($i = 0; $i < 30; $i++) {
+            $tanggal = date('Y-m-d', strtotime("+$i days"));
+            $hari = date('w', strtotime($tanggal));
+
+            if (!in_array($hari, $hari_operasional)) {
+                continue;
+            }
+            $start = strtotime($jam_buka);
+            $end   = strtotime($jam_tutup);
+            while ($start < $end) {
+                $jam_mulai = date('H:i:s', $start);
+                $next = strtotime('+1 hour', $start);
+                $jam_selesai = date('H:i:s', $next);
+                $cek = $this->db
+                    ->where('lapangan_id', $lapangan_id)
+                    ->where('tanggal', $tanggal)
+                    ->where('jam_mulai', $jam_mulai)
+                    ->count_all_results('jadwal_slot');
+
+                if (!$cek) {
+                    $this->db->insert(
+                        'jadwal_slot',
+                        [
+                            'cabang_id'   => $cabang_id,
+                            'lapangan_id' => $lapangan_id,
+                            'tanggal'     => $tanggal,
+                            'jam_mulai'   => $jam_mulai,
+                            'jam_selesai' => $jam_selesai,
+                            'status_slot' => STATUS_SLOT_AVAILABLE
+                        ]
+                    );
+                }
+                $start = $next;
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ class Lapangan_model extends CI_Model
     public function get_active()
     {
         return $this->db
-            ->where('status', 1)
+            ->where('status', 'active')
             ->order_by('nama_lapangan', 'ASC')
             ->get('lapangan')
             ->result_array();
@@ -46,7 +46,8 @@ class Lapangan_model extends CI_Model
 
     public function insert($data)
     {
-        return $this->db->insert('lapangan', $data);
+        $this->db->insert('lapangan', $data);
+        return $this->db->insert_id();
     }
 
     public function update($id, $data)
@@ -56,9 +57,10 @@ class Lapangan_model extends CI_Model
             ->update('lapangan', $data);
     }
 
-    public function delete($id)
+    public function nonaktif($id)
     {
         return $this->db
-            ->delete('lapangan', ['id' => $id]);
+            ->where('id', $id)
+            ->update('lapangan', ['status' => 'nonaktif']);
     }
 }

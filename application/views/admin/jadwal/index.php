@@ -1,7 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold">Jadwal Slot</h4>
-        <a href="<?= base_url('jadwal/generate') ?>" class="btn btn-primary">Generate Slot</a>
+        <h4 class="fw-bold">Jadwal Operasional</h4>
     </div>
     <div class="card mb-4">
         <div class="card-body">
@@ -14,7 +13,7 @@
                         <select name="lapangan" class="form-select">
                             <option value="">-- Pilih Lapangan --</option>
                             <?php foreach ($lapangan as $l) : ?>
-                                <option value="<?= $l->id ?>">
+                                <option value="<?= $l->id ?>" <?= $this->input->get('lapangan') == $l->id ? 'selected' : '' ?>>
                                     <?= $l->nama_lapangan ?>
                                 </option>
                             <?php endforeach; ?>
@@ -34,7 +33,7 @@
     <?php endif; ?>
     <div class="card">
         <div class="table-responsive text-nowrap">
-            <table class="table">
+            <table id="table-jadwal" class="table table-hover">
                 <thead>
                     <tr>
                         <th>Lapangan</th>
@@ -56,7 +55,11 @@
                             </td>
                             <td><?= badge_status_slot($j->status_slot) ?></td>
                             <td>
-                                <a href="<?= base_url('jadwal/edit/' . $j->id) ?>" class="btn btn-sm btn-warning"> Edit </a>
+                                <?php if ($j->status_slot !== STATUS_SLOT_BOOKED) : ?>
+                                    <a href="<?= base_url('jadwal/edit/' . $j->id) ?>" class="btn btn-sm btn-outline-warning">
+                                        <i class="bx bx-edit"></i>
+                                    </a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -65,3 +68,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function() {
+        $('#table-jadwal').DataTable({
+            pageLength: 25,
+            order: [
+                [1, 'asc']
+            ],
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data",
+                info: "Menampilkan _START_ - _END_ dari _TOTAL_ data"
+            }
+        });
+    });
+</script>
