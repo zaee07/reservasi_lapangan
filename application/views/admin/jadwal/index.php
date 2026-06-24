@@ -47,7 +47,7 @@
                     <?php foreach ($jadwal as $j) : ?>
                         <tr>
                             <td><?= $j->nama_lapangan ?></td>
-                            <td><?= $j->tanggal ?></td>
+                            <td><?= date('d/m/Y', strtotime($j->tanggal)) ?></td>
                             <td>
                                 <?= substr($j->jam_mulai, 0, 5) ?>
                                 -

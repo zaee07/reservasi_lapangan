@@ -14,7 +14,8 @@ class Jadwal_model extends CI_Model
             ->from('jadwal_slot')
             ->join('lapangan', 'lapangan.id = jadwal_slot.lapangan_id')
             ->where('jadwal_slot.cabang_id', $cabang_id)
-            ->where('jadwal_slot.tanggal', $tanggal);
+            ->where('jadwal_slot.tanggal', $tanggal)
+            ->where('lapangan.status', 'aktif');
         if ($lapangan_id) {
             $this->db->where('lapangan_id', $lapangan_id);
         }
@@ -99,6 +100,7 @@ class Jadwal_model extends CI_Model
             ->where('jadwal_slot.tanggal', $tanggal)
             ->where('cabang.kode_cabang', $kode_cabang)
             ->where('jadwal_slot.status_slot !=', STATUS_SLOT_CLOSED)
+            ->where('lapangan.status !=', 'nonaktif')
             ->order_by('cabang.nama_cabang', 'ASC')
             ->order_by('lapangan.nama_lapangan', 'ASC')
             ->order_by('jadwal_slot.jam_mulai', 'ASC')

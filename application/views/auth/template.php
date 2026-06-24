@@ -173,6 +173,23 @@
     <!-- / Content -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
+    <script>
+        document.querySelectorAll('.toggle-password').forEach(function(toggle) {
+            toggle.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('input');
+                const icon = this.querySelector('i');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('bx-hide');
+                    icon.classList.add('bx-show');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('bx-show');
+                    icon.classList.add('bx-hide');
+                }
+            });
+        });
+    </script>
     <script src="<?= base_url() ?>assets/vendor/libs/jquery/jquery.js"></script>
     <script src="<?= base_url() ?>assets/vendor/libs/popper/popper.js"></script>
     <script src="<?= base_url() ?>assets/vendor/js/bootstrap.js"></script>

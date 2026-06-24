@@ -31,7 +31,7 @@ class Auth extends CI_Controller
 		if ($this->session->userdata('email')) {
 			redirect_by_role($this->session->userdata('nama_role'));
 		}
-		$data['title'] = 'POS | Login';
+		$data['title'] = 'Harmoni | Login';
 		$data['main_view'] = 'auth/login';
 		// $data['password_hash'] = password_hash('indonesia', PASSWORD_DEFAULT);
 		// echo $data['password_hash'];
@@ -42,10 +42,7 @@ class Auth extends CI_Controller
 	{
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
-
 		$user = $this->pengguna->get_by_email($email);
-		// var_dump($user);
-		// die();
 
 		if ($user) {
 			if (password_verify($password, $user['password'])) {
@@ -63,8 +60,6 @@ class Auth extends CI_Controller
 						'logged_in' => TRUE
 					];
 					$this->session->set_userdata($data);
-					// var_dump($user['nama_role']);
-					// die();
 					redirect_by_role($user['nama_role']);
 				} else {
 					$this->session->set_flashdata('error', 'Akun belum aktif.');
@@ -86,31 +81,56 @@ class Auth extends CI_Controller
 		redirect('auth');
 	}
 
-	// public function register()
-	// {
-	// 	$data['title'] = 'POS | Register';
-	// 	$data['main_view'] = 'auth/register';
-	// 	$this->load->view('auth/template', $data);
-	// }
+	public function valid_no_hp($no_hp)
+	{
+		if (preg_match('/^08[0-9]{8,11}$/', $no_hp) || preg_match('/^\+62[0-9]{9,12}$/', $no_hp)) {
+			return TRUE;
+		}
+		$this->form_validation->set_message('valid_no_hp', 'Format nomor telepon tidak valid');
+		return FALSE;
+	}
 
-	// public function register_action()
-	// {
-	// 	$username = $this->input->post('username');
-	// 	$email = $this->input->post('email');
-	// 	$password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+	public function register()
+	{
+		$data['title'] = 'Harmoni | Register';
+		$data['main_view'] = 'auth/register';
+		$this->load->view('auth/template', $data);
+	}
 
-	// 	$data = [
-	// 		'username' => $username,
-	// 		'email' => $email,
-	// 		'password' => $password,
-	// 		'role_id' => 2,
-	// 		'is_active' => 1
-	// 	];
+	public function register_action()
+	{
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('nama', 'nama', 'required|trim|min_length[3]|max_length[100]');
+		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+		$this->form_validation->set_rules('no_hp', 'no_hp', 'required|trim|callback_valid_no_hp');
+		$this->form_validation->set_rules('password', 'Password Baru', 'required|trim|min_length[6]');
+		$this->form_validation->set_rules('password_konfirmasi', 'Konfirmasi Password', 'required|matches[password]');
+		if ($this->form_validation->run() == FALSE) {
+			$this->register();
+		} else {
+			$nama = htmlspecialchars($this->input->post('nama'), true);
+			$email = htmlspecialchars($this->input->post('email'), true);
+			$no_hp = htmlspecialchars($this->input->post('no_hp'), true);
+			$password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
 
-	// 	$this->pengguna->insert_user($data);
-	// 	$this->session->set_flashdata('success', 'Registrasi berhasil, silakan login.');
-	// 	redirect('auth');
-	// }
+			if ($this->pengguna->email_exists($email)) {
+				$this->session->set_flashdata('error', 'Email sudah digunakan');
+				redirect('register');
+			}
+			$data = [
+				'nama' => $nama,
+				'email' => $email,
+				'no_hp' => $no_hp,
+				'password' => $password,
+				'role_id' => 4,
+				'is_active' => 1
+			];
+
+			$this->pengguna->insert_user($data);
+			$this->session->set_flashdata('success', 'Registrasi berhasil, silakan login.');
+			redirect('auth');
+		}
+	}
 	public function ubah_password()
 	{
 		$this->load->helper('auth');

@@ -213,7 +213,7 @@ class Lapangan extends Admin_Controller
         redirect('lapangan/edit/' . $id);
     }
 
-    public function delete($id)
+    public function set_status($id, $status)
     {
         $cabang_id = $this->user['cabang_id'];
         $lapangan = $this->lapangan->get_by_id($id);
@@ -221,22 +221,26 @@ class Lapangan extends Admin_Controller
         if (!$lapangan || $lapangan->cabang_id != $cabang_id) {
             show_error('Akses ditolak!', 403);
         }
-        $aktif_booking = $this->db
-            ->where('lapangan_id', $id)
-            ->where_in('status_booking', [
-                STATUS_BOOKING_PENDING,
-                STATUS_BOOKING_CONFIRMED,
-                STATUS_BOOKING_CHECKIN
-            ])
-            ->count_all_results('booking');
+        if ($status == 'nonaktif') {
+            $aktif_booking = $this->db
+                ->where('lapangan_id', $id)
+                ->where_in('status_booking', [
+                    STATUS_BOOKING_PENDING,
+                    STATUS_BOOKING_CONFIRMED,
+                    STATUS_BOOKING_CHECKIN
+                ])
+                ->count_all_results('booking');
 
-        if ($aktif_booking > 0) {
-            $this->session->set_flashdata('error', 'Masih ada booking aktif pada lapangan ini');
-            redirect('lapangan');
+            if ($aktif_booking > 0) {
+                $this->session->set_flashdata('error', 'Masih ada booking aktif pada lapangan ini');
+                redirect('lapangan');
+            }
         }
+        $this->lapangan->update($id, ['status' => $status]);
 
-        $this->lapangan->nonaktif($id);
-        $this->session->set_flashdata('success', 'Lapangan berhasil dinonaktifkan!');
+        $this->session->set_flashdata('success', 'Status lapangan berhasil diubah');
+        // $this->lapangan->nonaktif($id);
+        // $this->session->set_flashdata('success', 'Lapangan berhasil dinonaktifkan!');
 
         redirect('lapangan');
     }

@@ -77,9 +77,6 @@ $route['profile'] = 'member/profile/index';
 $route['profile/edit'] = 'member/profile/edit';
 $route['profile/hapus_foto'] = 'member/profile/hapus_foto';
 $route['profile/ubah_password'] = 'member/profile/ubah_password';
-// $route['pembayaran/(:num)'] = 'pembayaran/index/$1';
-// $route['riwayat'] = 'riwayat/index';
-// $route['jadwal'] = 'jadwal/index';
 /**
  * route admin
  */
@@ -91,7 +88,7 @@ $route['lapangan/store']           = 'admin/lapangan/store';
 $route['lapangan/edit/(:num)']     = 'admin/lapangan/edit/$1';
 $route['lapangan/update/(:num)']   = 'admin/lapangan/update/$1';
 $route['lapangan/regenerate_slot/(:num)']   = 'admin/lapangan/regenerate_slot/$1';
-$route['lapangan/nonaktif/(:num)']   = 'admin/lapangan/nonaktif/$1';
+$route['lapangan/set_status/(:num)/(:any)'] = 'admin/lapangan/set_status/$1/$2';
 $route['lapangan/hapus_foto/(:num)/(:num)']   = 'admin/lapangan/hapus_foto/$1/$2';
 $route['jadwal']                     = 'admin/jadwal/index';
 $route['jadwal/edit/(:num)']         = 'admin/jadwal/edit/$1';
@@ -111,8 +108,6 @@ $route['petugas_cabang/delete/(:num)']   = 'admin/petugas_cabang/delete/$1';
 $route['admin/laporan'] = 'admin/laporan/index';
 $route['admin/laporan/export-pdf'] = 'admin/laporan/export_pdf';
 $route['admin/laporan/export-excel'] = 'admin/laporan/export_excel';
-// $route['admin/pembayaran'] = 'admin/pembayaran/index';
-// $route['admin/user'] = 'admin/user/index';
 
 /**
  * route petugas
@@ -151,7 +146,3 @@ $route['admin_cabang/delete/(:num)']   = 'owner/admin_cabang/delete/$1';
 $route['owner/laporan'] = 'owner/laporan/index';
 $route['owner/laporan/export-pdf'] = 'owner/laporan/export_pdf';
 $route['owner/laporan/export-excel'] = 'owner/laporan/export_excel';
-// $route['owner/laporan'] = 'owner/laporan/index';
-// $route['owner/pengaturan'] = 'owner/pengaturan/index';
-// $route['owner/promo'] = 'owner/promo/index';
-// $route['owner/admin'] = 'owner/admin/index';

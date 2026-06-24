@@ -44,6 +44,7 @@ class Booking_model extends CI_Model
             ->join('lapangan', 'lapangan.id = jadwal_slot.lapangan_id')
             ->join('cabang', 'cabang.id = jadwal_slot.cabang_id')
             ->where('jadwal_slot.tanggal', $tanggal)
+            ->where('lapangan.status', 'aktif')
             ->where('jadwal_slot.status_slot', STATUS_SLOT_AVAILABLE);
         if ($cabang_id) {
             $this->db->where('jadwal_slot.cabang_id', $cabang_id);

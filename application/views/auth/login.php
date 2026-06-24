@@ -32,3 +32,9 @@
     </div>
     <button type="submit" class="btn btn-primary w-100">Login</button>
 </form>
+<p class="text-center mt-3">
+    <span>Belum punya akun?</span>
+    <a href="<?= base_url('register') ?>">
+        <span>Registrasi</span>
+    </a>
+</p>

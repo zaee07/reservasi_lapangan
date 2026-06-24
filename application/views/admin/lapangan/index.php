@@ -46,9 +46,13 @@
                                 <a href="<?= base_url('lapangan/edit/' . $l->id) ?>" class="btn btn-sm btn-warning">
                                     Edit
                                 </a>
-                                <a href="<?= base_url('lapangan/nonaktif/' . $l->id) ?>" onclick="return confirm('Nonaktifkan lapangan ini?')" class="btn btn-sm btn-danger">
-                                    Nonaktif
-                                </a>
+                                <div class="form-check form-switch d-inline-block ms-2">
+                                    <input
+                                        class="form-check-input toggle-status"
+                                        type="checkbox"
+                                        data-id="<?= $l->id ?>"
+                                        <?= $l->status == 'aktif' ? 'checked' : '' ?>>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -57,3 +61,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).on('change', '.toggle-status', function() {
+        let id = $(this).data('id');
+        let status = $(this).is(':checked') ? 'aktif' : 'nonaktif';
+        if (!confirm('Ubah status lapangan?')) {
+            location.reload();
+            return;
+        }
+        window.location.href = "<?= base_url('lapangan/set_status/') ?>" + id + "/" + status;
+    });
+</script>

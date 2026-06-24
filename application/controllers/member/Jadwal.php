@@ -33,8 +33,6 @@ class Jadwal extends Member_Controller
             'cabang'      => $cabang,
             'jadwal'      => $this->jadwal->get_jadwal_slot_by_tgl($tanggal, $kode_cabang) //get_jadwal_by_tgl($tanggal, $kode_cabang)
         ];
-        // var_dump($data['jadwal']);
-        // die();
 
         $this->load->view('templates/user_header', $data);
     }

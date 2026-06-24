@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <small class="text-muted">Tanggal Main</small>
-                    <div class="fw-bold"><?= $booking->tanggal_main ?></div>
+                    <div class="fw-bold"><?= date('d/m/Y', strtotime($booking->tanggal_main)) ?></div>
                 </div>
                 <div class="col-md-6 mb-3">
                     <small class="text-muted">Jam Main</small>

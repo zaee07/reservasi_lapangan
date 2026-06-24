@@ -21,10 +21,10 @@
         </div>
     </div>
     <form method="get" class="row mb-4">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <input type="date" name="tanggal_awal" class="form-control" value="<?= $tanggal_awal ?>">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <input type="date" name="tanggal_akhir" class="form-control" value="<?= $tanggal_akhir ?>">
         </div>
         <div class="col-md-2">
@@ -42,11 +42,11 @@
                 <option value="offline">Walk In </option>
             </select>
         </div>
-        <div class="col-md-12 mt-3">
+        <div class="col-md-2 d-grid"><button class="btn btn-primary">Filter</button></div>
+        <div class="col-md-12 mt-2">
             <a href="<?= base_url('admin/laporan/export-pdf?' . http_build_query($_GET)) ?>" class="btn btn-danger"> PDF</a>
             <a href="<?= base_url('admin/laporan/export-excel?' . http_build_query($_GET)) ?>" class="btn btn-success">Excel</a>
         </div>
-        <div class="col-md-2 d-grid"><button class="btn btn-primary">Filter</button></div>
     </form>
     <div class="card">
         <div class="card-body">
@@ -68,7 +68,7 @@
                     <?php foreach ($laporan as $r): ?>
                         <tr>
                             <td><?= $r->kode_booking ?></td>
-                            <td><?= $r->tanggal_main ?></td>
+                            <td><?= date('d/m/Y', strtotime($r->tanggal_main)) ?></td>
                             <td><?= $r->nama_pemesan ?></td>
                             <td><?= $r->nama_lapangan ?></td>
                             <td><?= ucfirst($r->tipe_booking) ?></td>
