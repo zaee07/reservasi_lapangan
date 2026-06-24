@@ -197,9 +197,6 @@ class Lapangan extends Admin_Controller
         if (!$lapangan) {
             show_404();
         }
-        // var_dump($lapangan);
-        // die();
-
         $this->jadwal->generate_slot_30_hari(
             $lapangan->id,
             $lapangan->cabang_id,
@@ -239,9 +236,6 @@ class Lapangan extends Admin_Controller
         $this->lapangan->update($id, ['status' => $status]);
 
         $this->session->set_flashdata('success', 'Status lapangan berhasil diubah');
-        // $this->lapangan->nonaktif($id);
-        // $this->session->set_flashdata('success', 'Lapangan berhasil dinonaktifkan!');
-
         redirect('lapangan');
     }
 }

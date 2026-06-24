@@ -71,23 +71,49 @@ class Jadwal_model extends CI_Model
             ->result();
     }
 
-    public function get_jadwal_by_tgl($tanggal, $kode_cabang)
+    public function get_jadwal_by_tgl($tanggal, $kode_cabang = null)
     {
-        return $this->db
-            ->select('
-                jadwal_slot.*,
-                lapangan.nama_lapangan,
-                cabang.nama_cabang
-            ')
+        $this->db
+            ->select('jadwal_slot.*,lapangan.nama_lapangan,cabang.nama_cabang')
             ->from('jadwal_slot')
             ->join('lapangan', 'lapangan.id = jadwal_slot.lapangan_id')
             ->join('cabang', 'cabang.id = jadwal_slot.cabang_id')
             ->where('jadwal_slot.tanggal', $tanggal)
-            ->where('cabang.kode_cabang', $kode_cabang)
+            ->where('lapangan.status !=', 'nonaktif');
+        if ($kode_cabang) {
+            $this->db->where('cabang.kode_cabang', $kode_cabang);
+        }
+        return $this->db
+            ->order_by('cabang.nama_cabang')
             ->order_by('lapangan.nama_lapangan', 'ASC')
             ->order_by('jadwal_slot.jam_mulai', 'ASC')
             ->get()
             ->result();
+    }
+
+    public function get_jadwal_slot_tgl($tanggal, $kode_cabang = null)
+    {
+        $this->db
+            ->select('jadwal_slot.*,lapangan.nama_lapangan,cabang.nama_cabang')
+            ->from('jadwal_slot')
+            ->join('lapangan', 'lapangan.id = jadwal_slot.lapangan_id')
+            ->join('cabang', 'cabang.id = jadwal_slot.cabang_id')
+            ->where('jadwal_slot.tanggal', $tanggal)
+            ->where('lapangan.status !=', 'nonaktif');
+        if ($kode_cabang) {
+            $this->db->where('cabang.kode_cabang', $kode_cabang);
+        }
+        $result = $this->db
+            ->order_by('cabang.nama_cabang')
+            ->order_by('lapangan.nama_lapangan', 'ASC')
+            ->order_by('jadwal_slot.jam_mulai', 'ASC')
+            ->get()
+            ->result();
+        $grouped = [];
+        foreach ($result as $row) {
+            $grouped[$row->nama_cabang][$row->nama_lapangan][] = $row;
+        }
+        return $grouped;
     }
 
     public function get_jadwal_slot_by_tgl($tanggal, $kode_cabang)

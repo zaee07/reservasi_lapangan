@@ -6,7 +6,7 @@ class Lapangan_model extends CI_Model
     public function get_active()
     {
         return $this->db
-            ->where('status', 'active')
+            ->where('status', 'aktif')
             ->order_by('nama_lapangan', 'ASC')
             ->get('lapangan')
             ->result_array();
