@@ -6,15 +6,6 @@
         <div class="card-body">
             <form action="<?= base_url('lapangan/update/' . $lapangan->id) ?>" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label class="form-label">Kode Lapangan</label>
-                    <input
-                        type="text"
-                        name="kode_lapangan"
-                        class="form-control"
-                        value="<?php //= $lapangan->kode_lapangan 
-                                ?>">
-                </div>
-                <div class="mb-3">
                     <label class="form-label">Nama Lapangan</label>
                     <input
                         type="text"
@@ -22,24 +13,40 @@
                         class="form-control"
                         value="<?= $lapangan->nama_lapangan ?>">
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Jenis Lantai</label>
-                    <select
-                        name="jenis_lantai"
-                        class="form-select">
-                        <option value="vinyl" <?= $lapangan->jenis_lantai == 'vinyl' ? 'selected' : '' ?>>
-                            Vinyl
-                        </option>
-                        <option value="karpet" <?= $lapangan->jenis_lantai == 'karpet' ? 'selected' : '' ?>>
-                            Karpet
-                        </option>
-                        <option value="semen" <?= $lapangan->jenis_lantai == 'semen' ? 'selected' : '' ?>>
-                            Semen
-                        </option>
-                        <option value="rumput_sintetis" <?= $lapangan->jenis_lantai == 'rumput_sintetis' ? 'selected' : '' ?>>
-                            Rumput Sintetis
-                        </option>
-                    </select>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Jenis Lantai</label>
+                        <select
+                            name="jenis_lantai"
+                            class="form-select">
+                            <option value="vinyl" <?= $lapangan->jenis_lantai == 'vinyl' ? 'selected' : '' ?>>
+                                Vinyl
+                            </option>
+                            <option value="karpet" <?= $lapangan->jenis_lantai == 'karpet' ? 'selected' : '' ?>>
+                                Karpet
+                            </option>
+                            <option value="semen" <?= $lapangan->jenis_lantai == 'semen' ? 'selected' : '' ?>>
+                                Semen
+                            </option>
+                            <option value="rumput_sintetis" <?= $lapangan->jenis_lantai == 'rumput_sintetis' ? 'selected' : '' ?>>
+                                Rumput Sintetis
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Status</label>
+                        <select name="status" class="form-select">
+                            <option value="aktif" <?= $lapangan->status == 'aktif' ? 'selected' : '' ?>>
+                                Aktif
+                            </option>
+                            <option value="pemeliharaan" <?= $lapangan->status == 'pemeliharaan' ? 'selected' : '' ?>>
+                                Maintenance
+                            </option>
+                            <option value="nonaktif" <?= $lapangan->status == 'nonaktif' ? 'selected' : '' ?>>
+                                Nonaktif
+                            </option>
+                        </select>
+                    </div>
                 </div>
                 <?php
                 $hari_aktif = explode(',', $lapangan->hari_operasional);
@@ -154,7 +161,7 @@
                                     style="height:180px;object-fit:cover">
                                 <div class="card-body p-2">
                                     <a
-                                        href="<?= base_url('lapangan/hapus_foto/' . $lapangan->id . '/13') ?>"
+                                        href="<?= base_url('lapangan/hapus_foto/' . $lapangan->id . '/3') ?>"
                                         class="btn btn-danger btn-sm w-100"
                                         onclick="return confirm('Hapus foto ini?')">
                                         <i class="bx bx-trash"></i>
@@ -165,7 +172,7 @@
                         <?php endif; ?>
                     </div>
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label class="form-label">Status</label>
                     <select name="status" class="form-select">
                         <option value="aktif" <?= $lapangan->status == 'aktif' ? 'selected' : '' ?>>
@@ -178,7 +185,7 @@
                             Nonaktif
                         </option>
                     </select>
-                </div>
+                </div> -->
                 <a href="<?= base_url('lapangan/regenerate_slot/' . $lapangan->id) ?>" class="btn btn-warning" onclick="return confirm('Generate ulang slot 30 hari?')">
                     Regenerate Slot 30 Hari
                 </a>

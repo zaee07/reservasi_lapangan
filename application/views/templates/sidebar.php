@@ -7,7 +7,8 @@
       <div class="app-brand demo">
         <a href="<?= base_url() ?>" class="app-brand-link">
           <span class="app-brand-logo demo">
-            <svg
+            <img src="<?= base_url('assets/img/1.png') ?>" alt="logo" width="50">
+            <!-- <svg
               width="25"
               viewBox="0 0 25 42"
               version="1.1"
@@ -53,7 +54,7 @@
                   </g>
                 </g>
               </g>
-            </svg>
+            </svg> -->
           </span>
           <span class="#app-brand-text demo menu-text fw-bolder ms-2"><?= $this->session->userdata('cabang_id') ? $this->session->userdata('nama_cabang') : 'GOR Harmoni' ?></span>
         </a>
@@ -441,7 +442,7 @@
               </a>
             </li> -->
         <!-- Misc -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Account</span></li>
         <li class="menu-item <?= ($this->uri->segment(2) == 'ubah_password') ? 'active' : '' ?>">
           <a href="<?= base_url('auth/ubah_password') ?>" class="menu-link">
             <i class="menu-icon tf-icons bx bx-lock-alt"></i>

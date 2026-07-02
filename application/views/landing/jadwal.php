@@ -55,7 +55,9 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="<?= base_url() ?>">GOR Harmoni</a>
+            <a class="navbar-brand fw-bold" href="<?= base_url() ?>">
+                <img src="<?= base_url('assets/img/1.png') ?>" alt="logo" width="50">
+                GOR Harmoni</a>
             <button
                 class="navbar-toggler"
                 data-bs-toggle="collapse"

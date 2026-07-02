@@ -6,17 +6,27 @@
         <form action="<?= base_url('lapangan/store') ?>" method="post" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="mb-3">
-                    <label>Nama Lapangan</label>
+                    <label class="form-label">Nama Lapangan</label>
                     <input type="text" name="nama_lapangan" class="form-control" required>
                 </div>
-                <div class="mb-3">
-                    <label>Jenis Lantai</label>
-                    <select name="jenis_lantai" class="form-select">
-                        <option value="Karpet">Karpet</option>
-                        <option value="Vinyl">Vinyl</option>
-                        <option value="Semen">Semen</option>
-                        <option value="rumput_sintetis">Rumput Sintetis</option>
-                    </select>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Jenis Lantai</label>
+                        <select name="jenis_lantai" class="form-select">
+                            <option value="Karpet">Karpet</option>
+                            <option value="Vinyl">Vinyl</option>
+                            <option value="Semen">Semen</option>
+                            <option value="rumput_sintetis">Rumput Sintetis</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label"> Status</label>
+                        <select name="status" class="form-select">
+                            <option value="aktif">Aktif</option>
+                            <option value="pemeliharaan">Maintenance</option>
+                            <option value="nonaktif">Nonaktif</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -56,14 +66,14 @@
                     <?php endforeach; ?>
                 </div>
                 <hr>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label class="form-label"> Status </label>
                     <select name="status" class="form-select">
                         <option value="aktif">Aktif</option>
                         <option value="pemeliharaan">Maintenance</option>
                         <option value="nonaktif">Nonaktif</option>
                     </select>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-4">
                         <label>Foto 1</label>

@@ -1,163 +1,69 @@
-<div class="card-custom border-0 shadow-sm">
+<div class="text-center mb-4">
+    <h5 class="fw-bold">Pembayaran QRIS</h5>
+    <?= badge_status_pembayaran($pembayaran->status_pembayaran) ?>
+    <h2 id="countdown" class="fw-bold text-danger mt-3"></h2>
+    <small class="text-muted">Sisa waktu pembayaran</small>
+</div>
+<div class="card border-0 bg-light mb-4">
+    <div class="card-body text-center">
+        <img
+            src="<?= base_url('uploads/payment/' . $pembayaran->qr_image) ?>"
+            class="img-fluid rounded border p-2 bg-white"
+            style="max-width:260px">
+        <p class="mt-3 text-muted mb-0">
+            Scan menggunakan aplikasi
+            QRIS / Mobile Banking / E-Wallet
+        </p>
+    </div>
+</div>
+<div class="card border-0">
     <div class="card-body">
-
-        <div class="text-center mb-3">
-            <div class="fw-bold fs-5">
-                Pembayaran Qris <?= $booking->kode_booking ?>
-            </div>
-            <div class="mt-2">
-                <?= badge_status_booking($booking->status_booking) ?>
-            </div>
+        <div class="d-flex justify-content-between mb-2">
+            <span>Invoice</span>
+            <strong><?= $pembayaran->invoice_no ?></strong>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+            <span>Kode Booking</span>
+            <strong><?= $booking->kode_booking ?></strong>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+            <span><i class="bi bi-building me-1"></i>Cabang</span>
+            <strong><?= $booking->nama_cabang ?></strong>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+            <span><i class="bi bi-grid me-1"></i>Lapangan</span>
+            <strong><?= $booking->nama_lapangan ?></strong>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+            <span><i class="bi bi-calendar3 me-1"></i>Tanggal</span>
+            <strong><?= $booking->tanggal_main ?></strong>
+        </div>
+        <div class="d-flex justify-content-between">
+            <span><i class="bi bi-clock me-1"></i>Jam</span>
+            <strong>
+                <?= substr($booking->jam_mulai, 0, 5) ?>
+                -
+                <?= substr($booking->jam_selesai, 0, 5) ?>
+            </strong>
         </div>
         <hr>
-        <div class="card">
-            <div class="card-header">
-                <h4>Pembayaran QRIS</h4>
-            </div>
-            <div class="card-body">
-                <table class="table table-borderless">
-                    <tr>
-
-                        <td width="180">Invoice</td>
-
-                        <td><?= $pembayaran->invoice_no ?></td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Kode Booking</td>
-
-                        <td><?= $booking->kode_booking ?></td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Nama</td>
-
-                        <td><?= $booking->nama_pemesan ?></td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Cabang</td>
-
-                        <td><?= $booking->nama_cabang ?></td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Lapangan</td>
-
-                        <td><?= $booking->nama_lapangan ?></td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Tanggal</td>
-
-                        <td><?= $booking->tanggal_main ?></td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Jam</td>
-
-                        <td>
-
-                            <?= substr($booking->jam_mulai, 0, 5) ?>
-
-                            -
-
-                            <?= substr($booking->jam_selesai, 0, 5) ?>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Total</td>
-
-                        <td>
-
-                            <h4 class="text-primary">
-
-                                Rp <?= number_format($booking->total_bayar, 0, ',', '.') ?>
-
-                            </h4>
-
-                        </td>
-
-                    </tr>
-
-                </table>
-
-                <hr>
-
-                <div class="text-center">
-
-                    <?php if ($pembayaran->qr_image): ?>
-
-                        <img
-                            src="<?= base_url('uploads/payment/' . $pembayaran->qr_image) ?>"
-                            class="img-fluid rounded border"
-                            style="max-width:300px">
-
-                    <?php else: ?>
-
-                        <div class="alert alert-warning">
-                            QRIS belum tersedia.
-                        </div>
-
-                    <?php endif; ?>
-                </div>
-
-                <hr>
-
-                <div class="row text-center">
-
-                    <div class="col-md-6">
-
-                        <h6>Status</h6>
-
-                        <?= badge_status_pembayaran($pembayaran->status_pembayaran) ?>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <h6>Sisa Waktu</h6>
-
-                        <h4 id="countdown"></h4>
-
-                    </div>
-
-                </div>
-
-                <hr>
-
-                <div class="d-grid gap-2">
-                    <button
-                        class="btn btn-success"
-                        onclick="checkPaymentStatus()">
-                        Cek Sekarang
-                    </button>
-                </div>
-
-            </div>
-
+        <div class="text-center">
+            <small class="text-muted">
+                Total Pembayaran
+            </small>
+            <h2 class="text-primary fw-bold">
+                Rp <?= number_format($booking->total_bayar, 0, ',', '.') ?>
+            </h2>
         </div>
-
     </div>
-
 </div>
-
+<div class="d-grid mt-4">
+    <button
+        onclick="checkPaymentStatus()"
+        class="btn btn-success">
+        <i class="bi bi-arrow-repeat me-2"></i>
+        Cek Pembayaran
+    </button>
 </div>
 <script>
     const expiredAt = <?= strtotime($booking->expired_at) * 1000 ?>;
@@ -166,67 +72,40 @@
 
     function updateCountdown() {
         let diff = expiredAt - Date.now();
-
         if (diff <= 0) {
             $("#countdown").text("00:00");
             clearInterval(countdownInterval);
-            // paymentInterval tetap berjalan
-            // menunggu server mengubah status booking menjadi expired
-            // clearInterval(paymentInterval);
-            // window.location ="<?= base_url('member/riwayat/detail/' . $booking->id) ?>";
-
             return;
         }
 
         let minute = Math.floor(diff / 60000);
         let second = Math.floor((diff % 60000) / 1000);
 
-        $("#countdown").text(
-            String(minute).padStart(2, '0') +
-            ":" +
-            String(second).padStart(2, '0')
-        );
+        $("#countdown").text(String(minute).padStart(2, '0') + ":" + String(second).padStart(2, '0'));
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Check Payment Gateway
-    |--------------------------------------------------------------------------
-    */
     function checkPaymentStatus() {
         $.get(
             "<?= base_url('payment/ajax_status/' . $pembayaran->invoice_no) ?>",
             function(res) {
-
                 switch (res.status) {
-
                     case "paid":
-
                         clearInterval(countdownInterval);
                         clearInterval(paymentInterval);
-
                         window.location = "<?= base_url('payment/success/' . $pembayaran->invoice_no) ?>";
-
                         break;
-
                     case "expired":
-
                         clearInterval(countdownInterval);
                         clearInterval(paymentInterval);
-
                         window.location = "<?= base_url('member/riwayat/detail/' . $booking->id) ?>";
-
                         break;
-
                     case "unpaid":
                         // masih menunggu pembayaran
                         break;
-
                     default:
                         console.log(res);
                         break;
                 }
-
             },
             "json"
         );
