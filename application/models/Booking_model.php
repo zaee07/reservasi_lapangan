@@ -36,7 +36,7 @@ class Booking_model extends CI_Model
             ->get()
             ->result();
     }
-    public function get_slot_tersedia($tanggal, $cabang_id = null)
+    public function get_slot_tersedia($tanggal, $cabang = null)
     {
         $this->db
             ->select('jadwal_slot.*,lapangan.nama_lapangan,cabang.nama_cabang')
@@ -46,11 +46,15 @@ class Booking_model extends CI_Model
             ->where('jadwal_slot.tanggal', $tanggal)
             ->where('lapangan.status', 'aktif')
             ->where('jadwal_slot.status_slot', STATUS_SLOT_AVAILABLE);
-        if ($cabang_id) {
-            $this->db->where('jadwal_slot.cabang_id', $cabang_id);
+        if (!empty($cabang)) {
+            if (ctype_digit((string)$cabang)) {
+                $this->db->where('jadwal_slot.cabang_id', $cabang);
+            } else {
+                $this->db->where('cabang.kode_cabang', $cabang);
+            }
         }
         $result = $this->db
-            ->order_by('cabang.nama_cabang', 'ASC')
+            ->order_by('cabang.nama_cabang', 'DESC')
             ->order_by('lapangan.nama_lapangan', 'ASC')
             ->order_by('jadwal_slot.jam_mulai', 'ASC')
             ->get()

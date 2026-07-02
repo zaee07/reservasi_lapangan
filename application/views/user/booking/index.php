@@ -1,8 +1,15 @@
 <div class="mb-3">
     <form method="GET">
         <div class="row g-2">
-            <div class="col-8">
+            <div class="col-4">
                 <input type="date" name="tanggal" class="form-control" value="<?= $tanggal ?>">
+            </div>
+            <div class="col-4">
+                <select class="form-select form-select -sm" aria-label="select-cabang" name="kode_cabang">
+                    <?php foreach ($cabang as $c) : ?>
+                        <option <?= $kode_cabang == $c->kode_cabang ? 'selected' : '' ?> value="<?= $c->kode_cabang ?>"><?= $c->nama_cabang ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             <div class="col-4 d-grid">
                 <button class="btn btn-primary">Filter </button>

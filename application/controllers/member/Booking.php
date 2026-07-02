@@ -14,12 +14,19 @@ class Booking extends Member_Controller
     public function index()
     {
         $tanggal = $this->input->get('tanggal') ?: date('Y-m-d');
+        $kode_cabang = $this->input->get('kode_cabang');
+        $cabang = $this->cabang->get_all();
+        if (!$kode_cabang && !empty($cabang)) {
+            $kode_cabang = $cabang[0]->kode_cabang;
+        }
         $data = [
             'title'      => 'Booking',
             'active'     => 'booking',
             'main_view'  => 'user/booking/index',
             'tanggal'    => $tanggal,
-            'jadwal'     => $this->booking->get_slot_tersedia($tanggal)
+            'kode_cabang' => $kode_cabang,
+            'cabang'      => $cabang,
+            'jadwal'     => $this->booking->get_slot_tersedia($tanggal, $kode_cabang)
         ];
         $this->load->view('templates/user_header', $data);
     }

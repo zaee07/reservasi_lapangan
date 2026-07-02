@@ -134,7 +134,9 @@
                 <div class="flex-grow-1">
                     <h6 class="mb-1 fw-bold"><?= $item['nama_lapangan'] ?></h6>
                     <div class="small text-muted"><?= $item['jenis_lantai'] ?? '-' ?></div>
-                    <div class="small fw-semibold text-primary">Rp<?= number_format($item['harga'], 0, ',', '.') ?>/jam</div>
+                    <div class="small fw-semibold text-primary">Rp 20.000/jam </div>
+                    <?php //= number_format($item['harga'], 0, ',', '.') 
+                    ?>
                 </div>
                 <a href="<?= base_url('jadwal_lapangan') ?>"
                     class="btn btn-outline-primary btn-sm rounded-pill px-3">
