@@ -38,3 +38,4 @@ feat2.txt
 uploads/*
 \!sampah/*
 *.png
+application/config/config.php
