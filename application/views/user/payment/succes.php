@@ -10,7 +10,7 @@
             <table class="table">
                 <tr>
                     <th>Invoice</th>
-                    <td><?= $payment->invoice_no ?></td>
+                    <td><?= $pembayaran->invoice_no ?></td>
                 </tr>
                 <tr>
                     <th>Kode Booking</th>

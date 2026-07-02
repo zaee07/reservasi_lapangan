@@ -8,7 +8,7 @@ class Riwayat extends Member_Controller
     {
         parent::__construct();
         $this->load->model('Riwayat_model', 'riwayat');
-        $this->load->model('Pembayaran_model', 'pembayaran');
+        $this->load->library('payment_service');
     }
 
     public function index()
@@ -22,12 +22,18 @@ class Riwayat extends Member_Controller
         $this->load->view('templates/user_header', $data);
     }
 
-    public function detail($booking_id = null)
+    private function get_booking($booking_id)
     {
         $booking = $this->riwayat->get_detail_booking($booking_id, $this->user['id']);
         if (!$booking) {
             show_404();
         }
+        return $booking;
+    }
+
+    public function detail($booking_id = null)
+    {
+        $booking = $this->get_booking($booking_id);
         $data = [
             'title'      => 'Detail Booking',
             'active'     => 'riwayat_booking',
@@ -43,8 +49,8 @@ class Riwayat extends Member_Controller
 
     public function download_qr($booking_id)
     {
-        $booking = $this->riwayat->get_detail_booking($booking_id, $this->user['id']);
-        if (!$booking) {
+        $booking = $this->get_booking($booking_id);
+        if (empty($booking->qr_booking)) {
             show_404();
         }
         $file = FCPATH . 'uploads/qrcode/' . $booking->qr_booking;
@@ -57,10 +63,7 @@ class Riwayat extends Member_Controller
 
     public function download_pdf($booking_id)
     {
-        $booking = $this->riwayat->get_detail_booking($booking_id, $this->user['id']);
-        if (!$booking) {
-            show_404();
-        }
+        $booking = $this->get_booking($booking_id);
         $html = $this->load->view('user/booking/pdf', ['booking' => $booking], TRUE);
         $this->load->library('pdf');
         $this->pdf->loadHtml($html);
@@ -71,64 +74,18 @@ class Riwayat extends Member_Controller
 
     public function cancel($booking_id = null)
     {
-        $booking = $this->riwayat->get_detail_booking($booking_id, $this->user['id']);
-        $pembayaran = $this->pembayaran->get_by_booking($booking->id);
-        if (!$booking) {
-            show_404();
-        }
-        // hanya pending
-        if ($booking->status_booking != 'pending') { // || strtotime($booking->tanggal_main) < time()) {
+        $booking = $this->get_booking($booking_id);
+        if ($booking->status_booking !== STATUS_BOOKING_PENDING) {
             $this->session->set_flashdata('error', 'Booking tidak dapat dibatalkan');
-            return redirect('member/riwayat');
+            return redirect('riwayat_booking');
         }
-        $this->db->trans_start();
-        $this->load->library('pakasir');
-        $this->pakasir->cancel_transaction($pembayaran->invoice_no, $booking->total_bayar);
-        // update booking
-        $this->riwayat->update_booking(
-            $booking_id,
-            ['status_booking' => STATUS_BOOKING_CANCELLED, 'cancelled_at'   => date('Y-m-d H:i:s')]
-        );
-        // insert riwayat status booking
-        $this->riwayat->insert_status_history([
-            'booking_id'          => $booking_id,
-            'status_booking'      => STATUS_BOOKING_CANCELLED,
-            'keterangan'          => 'Booking dibatalkan member',
-            'diubah_oleh_user_id' => $this->user['id']
-        ]);
-        // update pembayaran jika ada
-        $pembayaran = $this->riwayat->get_pembayaran($booking_id);
-        if ($pembayaran) {
-            // hanya update jika belum paid
-            if (
-                in_array(
-                    $pembayaran->status_pembayaran,
-                    [STATUS_PEMBAYARAN_UNPAID]
-                )
-            ) {
-                $this->riwayat->update_pembayaran(
-                    $pembayaran->id,
-                    [
-                        'status_pembayaran' => STATUS_PEMBAYARAN_EXPIRED,
-                        'updated_at' => date('Y-m-d H:i:s')
-                    ]
-                );
-                // riwayat pembayaran
-                $this->riwayat->insert_riwayat_pembayaran([
-                    'pembayaran_id'     => $pembayaran->id,
-                    'status_pembayaran' => 'expired',
-                    'keterangan'        => 'Booking dibatalkan member'
-                ]);
-            }
-        }
-        // buka slot kembali
-        $this->riwayat->release_slot($booking_id);
-        $this->db->trans_complete();
-        if ($this->db->trans_status() === false) {
+        $result = $this->payment_service->cancel_payment($booking_id, $this->user['id']);
+        if (!$result) {
             $this->session->set_flashdata('error', 'Gagal membatalkan booking');
         } else {
             $this->session->set_flashdata('success', 'Booking berhasil dibatalkan');
         }
-        return redirect('member/riwayat');
+
+        return redirect('riwayat_booking');
     }
 }

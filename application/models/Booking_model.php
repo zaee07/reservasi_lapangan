@@ -526,7 +526,7 @@ class Booking_model extends CI_Model
     {
         return $this->db
             ->where('id', $booking_id)
-            ->update('booking', ['status_booking' => $status]);
+            ->update('booking', ['status_booking' => $status, 'updated_at' => date('Y-m-d H:i:s')]);
     }
 
     public function checkin($booking_id)

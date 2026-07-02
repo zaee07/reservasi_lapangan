@@ -143,17 +143,11 @@
                 <hr>
 
                 <div class="d-grid gap-2">
-
-                    <a
-
-                        href="<?= base_url('payment/check/' . $booking->id) ?>"
-
-                        class="btn btn-success">
-
-                        Refresh Status
-
-                    </a>
-
+                    <button
+                        class="btn btn-success"
+                        onclick="checkPaymentStatus()">
+                        Cek Sekarang
+                    </button>
                 </div>
 
             </div>
@@ -166,9 +160,6 @@
 
 </div>
 <script>
-
-</script>
-<script>
     const expiredAt = <?= strtotime($booking->expired_at) * 1000 ?>;
     let countdownInterval = null;
     let paymentInterval = null;
@@ -179,6 +170,8 @@
         if (diff <= 0) {
             $("#countdown").text("00:00");
             clearInterval(countdownInterval);
+            // paymentInterval tetap berjalan
+            // menunggu server mengubah status booking menjadi expired
             // clearInterval(paymentInterval);
             // window.location ="<?= base_url('member/riwayat/detail/' . $booking->id) ?>";
 
@@ -201,7 +194,6 @@
     |--------------------------------------------------------------------------
     */
     function checkPaymentStatus() {
-
         $.get(
             "<?= base_url('payment/ajax_status/' . $pembayaran->invoice_no) ?>",
             function(res) {

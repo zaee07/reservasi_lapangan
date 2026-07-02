@@ -13,12 +13,7 @@ class Booking extends Member_Controller
 
     public function index()
     {
-        $tanggal = $this->input->get('tanggal');
-
-        if (!$tanggal) {
-            $tanggal = date('Y-m-d');
-        }
-
+        $tanggal = $this->input->get('tanggal') ?: date('Y-m-d');
         $data = [
             'title'      => 'Booking',
             'active'     => 'booking',
@@ -26,7 +21,6 @@ class Booking extends Member_Controller
             'tanggal'    => $tanggal,
             'jadwal'     => $this->booking->get_slot_tersedia($tanggal)
         ];
-
         $this->load->view('templates/user_header', $data);
     }
 
@@ -56,12 +50,6 @@ class Booking extends Member_Controller
             $this->session->set_flashdata('error', 'Slot tidak valid');
             redirect('booking');
         }
-
-        /*
-    |--------------------------------------------------------------------------
-    | VALIDASI LAPANGAN SAMA
-    |--------------------------------------------------------------------------
-    */
         $lapangan_id = $slots[0]->lapangan_id;
         foreach ($slots as $slot) {
             if ($slot->lapangan_id != $lapangan_id) {
@@ -69,71 +57,31 @@ class Booking extends Member_Controller
                 redirect('booking');
             }
         }
-
-        /*
-    |--------------------------------------------------------------------------
-    | SORT SLOT
-    |--------------------------------------------------------------------------
-    */
         usort($slots, function ($a, $b) {
             return strtotime($a->jam_mulai) - strtotime($b->jam_mulai);
         });
-
-        /*
-    |--------------------------------------------------------------------------
-    | VALIDASI BERURUTAN
-    |--------------------------------------------------------------------------
-    */
         for ($i = 0; $i < count($slots) - 1; $i++) {
             if ($slots[$i]->jam_selesai != $slots[$i + 1]->jam_mulai) {
                 $this->session->set_flashdata('error', 'Slot harus berurutan');
                 redirect('booking');
             }
         }
-
         $first_slot = $slots[0];
         $last_slot  = end($slots);
         $cabang = $this->cabang->get_by_id($first_slot->cabang_id);
-
-        /*
-        validasi booking berulang (pending)
-        */
-        $user_booking = $this->booking->get_last_booking_by_user_id($this->user['id']);
-        // var_dump($user_booking->);
-        // die();
-        // if ($user_booking->user_id == $this->user['id'] && $user_booking->status_booking == STATUS_BOOKING_PENDING) {
-        //     $this->session->set_flashdata('error', 'selesai pembayaran booking sebelumnya');
-        //     redirect('booking');
-        // }
         if ($this->booking->has_pending_booking($this->user['id'])) {
             $this->session->set_flashdata('error', 'Selesaikan pembayaran booking sebelumnya terlebih dahulu');
             redirect('booking');
         }
-
-        /*
-    |--------------------------------------------------------------------------
-    | PERHITUNGAN 
-    |--------------------------------------------------------------------------
-    */
         $harga_perjam = 20000;
         $jumlah_slot  = count($slots);
         $subtotal     = $harga_perjam * $jumlah_slot;
         $biaya_admin  = 0;
         $total_bayar  = $subtotal + $biaya_admin;
         $durasi_menit = $jumlah_slot * 60;
-        /*
-    |--------------------------------------------------------------------------
-    | KODE
-    |--------------------------------------------------------------------------
-    */
         $kode_booking = 'RSV-' . strtoupper($cabang->kode_cabang) . '-' . date('YmdHis') . rand(10, 99);
         $invoice_no = 'INV-' . strtoupper($cabang->kode_cabang) . '-' . date('YmdHis') . rand(10, 99);
 
-        /*
-    |--------------------------------------------------------------------------
-    | BOOKING
-    |--------------------------------------------------------------------------
-    */
         $booking = [
             'cabang_id'       => $first_slot->cabang_id,
             'lapangan_id'     => $first_slot->lapangan_id,
@@ -155,45 +103,25 @@ class Booking extends Member_Controller
             'expired_at'      => date('Y-m-d H:i:s', strtotime('+10 minutes'))
         ];
 
-        /*
-        |--------------------------------------------------------------------------
-        | Mulai DB TRANSAJSI
-        | INSERT BOOKING
-        |--------------------------------------------------------------------------
-        */
         $this->db->trans_begin();
         $booking_id = $this->booking->insert_booking($booking);
-
         if (!$booking_id) {
             $this->db->trans_rollback();
             $this->session->set_flashdata('error', 'Booking gagal dibuat');
             redirect('booking');
         }
-
-        /*
-    |--------------------------------------------------------------------------
-    | RIWAYAT BOOKING
-    |--------------------------------------------------------------------------
-    */
         $this->booking->insert_status_history([
             'booking_id'         => $booking_id,
             'status_booking'     => STATUS_BOOKING_PENDING,
             'keterangan'         => 'Booking dibuat member',
             'diubah_oleh_user_id' => $this->user['id']
         ]);
-
-        /*
-    |--------------------------------------------------------------------------
-    | INSERT BOOKING SLOT
-    |--------------------------------------------------------------------------
-    */
         foreach ($slots as $slot) {
             $this->booking->insert_booking_slot([
                 'booking_id'      => $booking_id,
                 'jadwal_slot_id'  => $slot->id,
                 'harga'           => $harga_perjam
             ]);
-            // kunci slot sampai expired
             $updated = $this->booking->update_slot_available($slot->id);
             if (!$updated) {
                 $this->db->trans_rollback();
@@ -201,12 +129,6 @@ class Booking extends Member_Controller
                 redirect('booking');
             }
         }
-
-        /*
-    |--------------------------------------------------------------------------
-    | INSERT PEMBAYARAN
-    |--------------------------------------------------------------------------
-    */
         $pembayaran = [
             'booking_id'          => $booking_id,
             'invoice_no'          => $invoice_no,
@@ -215,33 +137,13 @@ class Booking extends Member_Controller
             'status_pembayaran'   => STATUS_PEMBAYARAN_UNPAID,
             'expired_at'          => date('Y-m-d H:i:s', strtotime('+10 minutes'))
         ];
-
         $this->db->insert('pembayaran', $pembayaran);
         $pembayaran_id = $this->db->insert_id();
-
         if (!$pembayaran_id) {
             $this->db->trans_rollback();
             $this->session->set_flashdata('error', 'Pembayaran gagal dibuat');
             redirect('booking');
         }
-        // $pembayaran = $this->pembayaran->get_by_booking($booking_id);
-
-        // if ($pembayaran) {
-
-        //     $this->db
-        //         ->where('booking_id', $booking_id)
-        //         ->update('pembayaran', $data);
-        // } else {
-
-        //     $this->db
-        //         ->insert('pembayaran', $data);
-        // }
-
-        /*
-    |--------------------------------------------------------------------------
-    | RIWAYAT PEMBAYARAN
-    |--------------------------------------------------------------------------
-    */
         $this->db->insert(
             'riwayat_status_pembayaran',
             [
@@ -250,12 +152,6 @@ class Booking extends Member_Controller
                 'keterangan'         => 'Menunggu Pembayaran'
             ]
         );
-
-        /*
-    |--------------------------------------------------------------------------
-    | COMMIT
-    |--------------------------------------------------------------------------
-    */
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             $this->session->set_flashdata('error', 'Booking gagal');

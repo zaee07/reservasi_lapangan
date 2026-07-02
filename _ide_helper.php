@@ -36,6 +36,7 @@
  * @property Reservasi_model $reservasi
  * @property Riwayat_model $riwayat
  * @property Pdf                   $pdf
+ * @property Payment_service                   $payment_service
  */
 class CI_Controller {}
 
