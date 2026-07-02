@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/sweetalert2.min.css') ?>">
     <script src="<?= base_url('assets/js/sweetalert2.all.min.js') ?>"></script>
     <link rel="stylesheet" href="<?= base_url() ?>assets/vendor/fonts/boxicons.css" />
-    <!-- Icon -->
+    <script src="<?= base_url() ?>assets/vendor/libs/jquery/jquery.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 

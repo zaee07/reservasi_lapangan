@@ -8,6 +8,7 @@ class Cron extends CI_Controller
         parent::__construct();
         $this->load->model('Booking_model', 'booking');
         $this->load->model('Riwayat_model', 'riwayat');
+        $this->load->library('pakasir');
     }
 
     public function expired_booking()
@@ -31,7 +32,12 @@ class Cron extends CI_Controller
             ]);
             $pembayaran = $this->riwayat->get_pembayaran($booking->id);
             if ($pembayaran) {
-                $this->riwayat->update_pembayaran($pembayaran->id, ['status_pembayaran' => STATUS_PEMBAYARAN_EXPIRED]);
+                $result = $this->pakasir->cancel_transaction($pembayaran->invoice_no, $booking->total_bayar);
+                log_message(
+                    'debug',
+                    'Cancel Gateway : ' . json_encode($result)
+                );
+                $this->riwayat->update_pembayaran($pembayaran->id, ['status_pembayaran' => STATUS_PEMBAYARAN_EXPIRED, 'raw_response' => json_encode($result)]);
                 $this->riwayat->insert_riwayat_pembayaran([
                     'pembayaran_id'     => $pembayaran->id,
                     'status_pembayaran' => STATUS_PEMBAYARAN_EXPIRED,
@@ -41,6 +47,9 @@ class Cron extends CI_Controller
             $this->db->trans_complete();
         }
         echo date('Y-m-d H:i:s') . ' | ' . count($bookings) . ' booking expired';
+        echo "<pre>";
+        print_r($result);
+        die();
     }
 
     public function complete_booking()

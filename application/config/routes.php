@@ -61,7 +61,7 @@ $route['register'] = 'auth/register';
 $route['logout'] = 'auth/logout';
 $route['cron/expired-booking'] = 'cron/expired_booking';
 $route['cron/completed-booking'] = 'cron/complete_booking';
-
+$route['cron/payment-expired'] = 'member/payment/expired';
 /**
  * route member
  */
@@ -70,6 +70,11 @@ $route['jadwal_lapangan'] = 'member/jadwal/index';
 $route['booking']        = 'member/booking/index';
 $route['booking/proses']      = 'member/booking/proses';
 $route['booking/sukses/(:num)'] = 'member/booking/sukses/$1';
+$route['payment/(:num)'] = 'member/payment/index/$1';
+$route['payment/index/(:num)'] = 'member/payment/index/$1';
+$route['payment/check/(:num)'] = 'member/payment/check/$1';
+$route['payment/ajax_status/(:any)'] = 'member/payment/ajax_status/$1';
+$route['payment/success/(:any)'] = 'member/payment/success/$1';
 $route['riwayat_booking'] = 'member/riwayat/index';
 $route['riwayat_booking/detail/(:num)'] = 'member/riwayat/detail/$1';
 $route['riwayat_booking/cancel/(:num)'] = 'member/riwayat/cancel/$1';

@@ -40,7 +40,7 @@
                 <div class="d-flex gap-2">
                     <a href="<?= base_url('riwayat_booking/detail/' . $r->id) ?>" class="btn btn-sm btn-outline-primary"> Detail</a>
                     <?php if ($r->status_booking == STATUS_BOOKING_PENDING) : ?>
-                        <a href="<?= base_url('riwayat/cancel/' . $r->id) ?>"
+                        <a href="<?= base_url('riwayat_booking/cancel/' . $r->id) ?>"
                             onclick="return confirm('Batalkan booking?')"
                             class="btn btn-sm btn-outline-danger">
                             Batalkan

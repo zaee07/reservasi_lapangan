@@ -8,6 +8,7 @@ class Riwayat extends Member_Controller
     {
         parent::__construct();
         $this->load->model('Riwayat_model', 'riwayat');
+        $this->load->model('Pembayaran_model', 'pembayaran');
     }
 
     public function index()
@@ -71,49 +72,52 @@ class Riwayat extends Member_Controller
     public function cancel($booking_id = null)
     {
         $booking = $this->riwayat->get_detail_booking($booking_id, $this->user['id']);
+        $pembayaran = $this->pembayaran->get_by_booking($booking->id);
         if (!$booking) {
             show_404();
         }
         // hanya pending
-        if ($booking->status_booking != 'pending') {
+        if ($booking->status_booking != 'pending') { // || strtotime($booking->tanggal_main) < time()) {
             $this->session->set_flashdata('error', 'Booking tidak dapat dibatalkan');
             return redirect('member/riwayat');
         }
         $this->db->trans_start();
+        $this->load->library('pakasir');
+        $this->pakasir->cancel_transaction($pembayaran->invoice_no, $booking->total_bayar);
         // update booking
         $this->riwayat->update_booking(
             $booking_id,
-            ['status_booking' => 'cancelled', 'cancelled_at'   => date('Y-m-d H:i:s')]
+            ['status_booking' => STATUS_BOOKING_CANCELLED, 'cancelled_at'   => date('Y-m-d H:i:s')]
         );
         // insert riwayat status booking
         $this->riwayat->insert_status_history([
             'booking_id'          => $booking_id,
-            'status_booking'      => 'cancelled',
+            'status_booking'      => STATUS_BOOKING_CANCELLED,
             'keterangan'          => 'Booking dibatalkan member',
             'diubah_oleh_user_id' => $this->user['id']
         ]);
         // update pembayaran jika ada
-        $pembayaran = $this->riwayat
-            ->get_pembayaran($booking_id);
+        $pembayaran = $this->riwayat->get_pembayaran($booking_id);
         if ($pembayaran) {
             // hanya update jika belum paid
             if (
                 in_array(
                     $pembayaran->status_pembayaran,
-                    ['unpaid', 'pending']
+                    [STATUS_PEMBAYARAN_UNPAID]
                 )
             ) {
                 $this->riwayat->update_pembayaran(
                     $pembayaran->id,
                     [
-                        'status_pembayaran' => 'expired'
+                        'status_pembayaran' => STATUS_PEMBAYARAN_EXPIRED,
+                        'updated_at' => date('Y-m-d H:i:s')
                     ]
                 );
                 // riwayat pembayaran
                 $this->riwayat->insert_riwayat_pembayaran([
                     'pembayaran_id'     => $pembayaran->id,
                     'status_pembayaran' => 'expired',
-                    'keterangan'        => 'Booking dibatalkan karena Pembayaran expired'
+                    'keterangan'        => 'Booking dibatalkan member'
                 ]);
             }
         }

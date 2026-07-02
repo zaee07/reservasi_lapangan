@@ -413,6 +413,18 @@ class Booking_model extends CI_Model
             ->get()
             ->result();
     }
+    public function payment_expired($booking_id)
+    {
+        return $this->db
+            ->where('id', $booking_id)
+            ->update(
+                'booking',
+                [
+                    'status_booking' => STATUS_BOOKING_EXPIRED,
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]
+            );
+    }
 
     public function insert_status_history($data)
     {

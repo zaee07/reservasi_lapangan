@@ -71,6 +71,9 @@
                 </strong>
 
             </div>
+            <div class="">
+                <a href="<?= base_url('payment/' . $booking->id) ?>">lanjutkan pembayaran</a>
+            </div>
 
         </div>
 

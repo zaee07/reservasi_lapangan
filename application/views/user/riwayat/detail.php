@@ -69,7 +69,14 @@
         <?php if ($booking->status_booking == STATUS_BOOKING_PENDING) : ?>
             <div class="d-grid">
                 <a
-                    href="<?= base_url('riwayat/cancel/' . $booking->id) ?>"
+                    href="<?= base_url('payment/' . $booking->id) ?>"
+                    class="btn btn-success">
+                    lanjutkan pembayaran
+                </a>
+            </div>
+            <div class="d-grid">
+                <a
+                    href="<?= base_url('riwayat_booking/cancel/' . $booking->id) ?>"
                     onclick="return confirm('Batalkan booking?')"
                     class="btn btn-danger">
                     Batalkan Booking
