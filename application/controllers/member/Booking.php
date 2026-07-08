@@ -30,6 +30,12 @@ class Booking extends Member_Controller
         ];
         $this->load->view('templates/user_header', $data);
     }
+    private function redirectBooking()
+    {
+        $tanggal = $this->input->post('tanggal');
+        $kode = $this->input->post('kode_cabang');
+        redirect('booking?' . http_build_query(['tanggal' => $tanggal, 'kode_cabang' => $kode]));
+    }
 
     public function proses()
     {
@@ -37,7 +43,7 @@ class Booking extends Member_Controller
 
         if (!$slot_ids) {
             $this->session->set_flashdata('error', 'Pilih minimal 1 slot');
-            redirect('booking');
+            $this->redirectBooking();
         }
 
         $slots = [];
@@ -48,20 +54,20 @@ class Booking extends Member_Controller
             }
             if ($slot->status_slot != STATUS_SLOT_AVAILABLE) {
                 $this->session->set_flashdata('error', 'Ada slot yang sudah dibooking');
-                redirect('booking');
+                $this->redirectBooking();
             }
             $slots[] = $slot;
         }
 
         if (empty($slots)) {
             $this->session->set_flashdata('error', 'Slot tidak valid');
-            redirect('booking');
+            $this->redirectBooking();
         }
         $lapangan_id = $slots[0]->lapangan_id;
         foreach ($slots as $slot) {
             if ($slot->lapangan_id != $lapangan_id) {
                 $this->session->set_flashdata('error', 'Slot harus dari lapangan yang sama');
-                redirect('booking');
+                $this->redirectBooking();
             }
         }
         usort($slots, function ($a, $b) {
@@ -70,7 +76,7 @@ class Booking extends Member_Controller
         for ($i = 0; $i < count($slots) - 1; $i++) {
             if ($slots[$i]->jam_selesai != $slots[$i + 1]->jam_mulai) {
                 $this->session->set_flashdata('error', 'Slot harus berurutan');
-                redirect('booking');
+                $this->redirectBooking();
             }
         }
         $first_slot = $slots[0];
@@ -78,7 +84,7 @@ class Booking extends Member_Controller
         $cabang = $this->cabang->get_by_id($first_slot->cabang_id);
         if ($this->booking->has_pending_booking($this->user['id'])) {
             $this->session->set_flashdata('error', 'Selesaikan pembayaran booking sebelumnya terlebih dahulu');
-            redirect('booking');
+            $this->redirectBooking();
         }
         $harga_perjam = 20000;
         $jumlah_slot  = count($slots);
@@ -115,7 +121,7 @@ class Booking extends Member_Controller
         if (!$booking_id) {
             $this->db->trans_rollback();
             $this->session->set_flashdata('error', 'Booking gagal dibuat');
-            redirect('booking');
+            $this->redirectBooking();
         }
         $this->booking->insert_status_history([
             'booking_id'         => $booking_id,
@@ -133,7 +139,7 @@ class Booking extends Member_Controller
             if (!$updated) {
                 $this->db->trans_rollback();
                 $this->session->set_flashdata('error', 'Slot sudah dibooking orang lain');
-                redirect('booking');
+                $this->redirectBooking();
             }
         }
         $pembayaran = [
@@ -149,7 +155,7 @@ class Booking extends Member_Controller
         if (!$pembayaran_id) {
             $this->db->trans_rollback();
             $this->session->set_flashdata('error', 'Pembayaran gagal dibuat');
-            redirect('booking');
+            $this->redirectBooking();
         }
         $this->db->insert(
             'riwayat_status_pembayaran',
@@ -162,7 +168,7 @@ class Booking extends Member_Controller
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             $this->session->set_flashdata('error', 'Booking gagal');
-            redirect('booking');
+            $this->redirectBooking();
         }
         $this->db->trans_commit();
         $this->session->set_flashdata('success', 'Booking berhasil dibuat');

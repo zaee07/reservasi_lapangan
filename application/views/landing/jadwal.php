@@ -97,6 +97,9 @@
                     <button class="btn btn-primary">Cek Jadwal</button>
                 </div>
             </form>
+            <?php if (empty($jadwal)) : ?>
+                <div class="alert alert-warning"> Jadwal belum tersedia </div>
+            <?php endif; ?>
             <?php foreach ($jadwal as $nama_cabang => $lapangans): ?>
                 <div class="card card-cabang shadow-sm mb-4">
                     <div class="card-header bg-primary text-white">

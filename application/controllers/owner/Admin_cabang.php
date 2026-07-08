@@ -34,11 +34,21 @@ class Admin_cabang extends Owner_Controller
         $this->load->view('templates/header', $data);
     }
 
+    public function valid_no_hp($no_hp)
+    {
+        if (preg_match('/^08[0-9]{8,11}$/', $no_hp) || preg_match('/^\+62[0-9]{9,12}$/', $no_hp)) {
+            return TRUE;
+        }
+        $this->form_validation->set_message('valid_no_hp', 'Format nomor telepon tidak valid');
+        return FALSE;
+    }
+
     public function store()
     {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user.email]');
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
+        $this->form_validation->set_rules('no_hp', 'Nomor Telepon', 'trim|callback_valid_no_hp');
         $this->form_validation->set_rules('password', 'Password Baru', 'required|min_length[6]');
         $this->form_validation->set_rules('password_konfirmasi', 'Konfirmasi Password', 'required|matches[password]');
         $this->form_validation->set_rules('cabang_id', 'Cabang', 'required');
@@ -104,7 +114,8 @@ class Admin_cabang extends Owner_Controller
     {
         $admin = $this->admin->get_by_id($id);
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('no_hp', 'Nomor Telepon', 'trim|callback_valid_no_hp');
         $this->form_validation->set_rules('cabang_id', 'Cabang', 'required');
 
         if ($this->form_validation->run() == FALSE) {

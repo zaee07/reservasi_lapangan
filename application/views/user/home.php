@@ -14,10 +14,10 @@
     <div class="card-body p-3">
         <div class="row align-items-center">
             <div class="col-7">
-                <h5 class="fw-bold  mb-2">Main Seru, Harga Hemat!</h5>
+                <h5 class="fw-bold border-stroke text-warning mb-2">Main Seru, Harga Hemat!</h5>
                 <p class="mb-2 small">Diskon 20% setiap hari hanya untuk member</p>
                 <a href="<?= base_url('jadwal_lapangan') ?>"
-                    class="btn btn-light rounded-pill px-4 py-2 fw-semibold shadow-sm">
+                    class="btn btn-outline-light btn rounded-pill px-4 py-2 fw-semibold shadow-sm">
                     <i class="bi bi-calendar-check me-1"></i>
                     Mulai Booking
                 </a>

@@ -39,7 +39,7 @@ class Booking_model extends CI_Model
     public function get_slot_tersedia($tanggal, $cabang = null)
     {
         $this->db
-            ->select('jadwal_slot.*,lapangan.nama_lapangan,cabang.nama_cabang')
+            ->select('jadwal_slot.*, lapangan.nama_lapangan, lapangan.jenis_lantai, cabang.nama_cabang')
             ->from('jadwal_slot')
             ->join('lapangan', 'lapangan.id = jadwal_slot.lapangan_id')
             ->join('cabang', 'cabang.id = jadwal_slot.cabang_id')

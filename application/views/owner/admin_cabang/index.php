@@ -20,7 +20,7 @@
                     <tr>
                         <th>Foto</th>
                         <th>Nama</th>
-                        <th>Email</th>
+                        <!-- <th>Email</th> -->
                         <th>Cabang</th>
                         <th>No HP</th>
                         <th>Status</th>
@@ -39,7 +39,7 @@
                                 <?php endif; ?>
                             </td>
                             <td><?= $a->nama ?></td>
-                            <td><?= $a->email ?></td>
+                            <!-- <td><?= $a->email ?></td> -->
                             <td><?= $a->nama_cabang ?></td>
                             <td><?= $a->no_hp ?></td>
                             <td>

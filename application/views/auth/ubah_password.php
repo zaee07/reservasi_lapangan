@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
         <span class="text-muted fw-light">
-            <a href="<?= base_url('dashboard') ?>" class="text-muted fw-light">Dashboard</a> /
+            <a href="<?= base_url('auth') ?>" class="text-muted fw-light">Dashboard</a> /
         </span>
         Ubah Password
     </h4>

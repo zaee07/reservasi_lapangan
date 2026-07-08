@@ -10,7 +10,7 @@
                 alt="chart success"
                 class="rounded" />
             </div>
-            <div class="dropdown">
+            <!-- <div class="dropdown">
               <button
                 class="btn p-0"
                 type="button"
@@ -21,13 +21,13 @@
                 <i class="bx bx-dots-vertical-rounded"></i>
               </button>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                <a class="dropdown-item" href="<?= base_url('produk') ?>">View More</a>
+                <a class="dropdown-item" href="<?= base_url('admin/transaksi') ?>">View More</a>
                 <?php if (has_role([1, 4])) : ?>
-                  <a class="dropdown-item" href="<?= base_url('produk/tambah') ?>">Add New Product</a>
+                  <a class="dropdown-item" href="<?= base_url('admin/transaksi') ?>">Add New Product</a>
                 <?php endif; ?>
-                <a class="dropdown-item" href="<?= base_url('produk/export/pdf') ?>">Download Data Booking</a>
+                <a class="dropdown-item" href="<?= base_url('admin/transaksi') ?>">Download Data Booking</a>
               </div>
-            </div>
+            </div> -->
           </div>
           <span class="fw-semibold d-block mb-1">Total Booking Hari ini</span>
           <h3 class="card-title mb-2"><?= !empty($booking_list_hari_ini) ? count($booking_list_hari_ini) : 0 ?></h3>
@@ -44,7 +44,7 @@
                 alt="Credit Card"
                 class="rounded" />
             </div>
-            <div class="dropdown">
+            <!-- <div class="dropdown">
               <button
                 class="btn p-0"
                 type="button"
@@ -60,7 +60,7 @@
                   <a class="dropdown-item" href="<?= base_url('pos') ?>">Add New Penjualan</a>
                 <?php endif; ?>
               </div>
-            </div>
+            </div> -->
           </div>
           <span>Pendapatan Hari ini</span>
           <h3 class="card-title text-nowrap mb-1">Rp. <?= number_format($pendapatan_hari_ini, 0, ',', '.') ?></h3>
@@ -74,7 +74,7 @@
             <div class="avatar flex-shrink-0">
               <img src="../assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
             </div>
-            <div class="dropdown">
+            <!-- <div class="dropdown">
               <button
                 class="btn p-0"
                 type="button"
@@ -89,7 +89,7 @@
                 <a class="dropdown-item" href="<?= base_url('transaksi/exportPerhari/pdf') ?>">Download Laporan Hari Ini (PDF)</a>
                 <a class="dropdown-item" href="<?= base_url('transaksi/exportPerhari/csv') ?>">Download Laporan Hari Ini (CSV)</a>
               </div>
-            </div>
+            </div> -->
           </div>
           <span class="d-block mb-1">Checkin Hari ini</span>
           <h3 class="card-title text-nowrap mb-2"><?= $checkin_hari_ini ?></h3>
@@ -104,7 +104,7 @@
             <div class="avatar flex-shrink-0">
               <img src="../assets/img/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
             </div>
-            <div class="dropdown">
+            <!-- <div class="dropdown">
               <button
                 class="btn p-0"
                 type="button"
@@ -118,9 +118,9 @@
                 <a class="dropdown-item" href="<?= base_url('transaksi') ?>">View More</a>
                 <a class="dropdown-item" href="<?= base_url('transaksi/exportPerbulan/pdf') ?>">Download Laporan (PDF)</a>
                 <a class="dropdown-item" href="<?= base_url('transaksi/exportPerbulan/csv') ?>">Download Laporan (CSV)</a>
-                <!-- <a class="dropdown-item" href="javascript:void(0);">Delete</a> -->
+                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
               </div>
-            </div>
+            </div> -->
           </div>
           <span class="fw-semibold d-block mb-1">Penjualan Bulan Ini</span>
           <h3 class="card-title mb-2">Rp. <?= number_format($pendapatan_bulan_ini, 0, ',', '.') ?></h3>
@@ -296,14 +296,21 @@ foreach ($terlaris as $row) {
   const lapanganOptions = {
     chart: {
       type: 'bar',
-      height: 320,
+      height: 350,
       toolbar: {
         show: false
       }
     },
     plotOptions: {
       bar: {
-        horizontal: true
+        horizontal: false,
+        columnWidth: '25%',
+        maxBarWidth: 10,
+        borderRadius: 80,
+        borderRadiusApplication: 'end',
+        dataLabels: {
+          position: 'center',
+        }
       }
     },
     dataLabels: {

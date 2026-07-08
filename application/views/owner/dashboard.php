@@ -35,56 +35,61 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-6 mb-2">
+      <div class="card h-100">
+        <!-- <div class="card mb-2"> -->
+        <div class="card-header">
+          Ranking Cabang
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Cabang</th>
+                <th>Booking</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($ranking_cabang as $c): ?>
+                <tr>
+                  <td><?= $c->nama_cabang ?></td>
+                  <td><?= $c->total_booking ?></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-2">
+      <div class="card h-100">
+        <div class="card-header">
+          <h5 class="mb-0">Top Cabang</h5>
+        </div>
+        <div class="card-body">
+          <?php if (empty($top_cabang)): ?>
+            <div class="text-center text-muted">Belum ada data</div>
+          <?php else: ?>
+            <?php
+            $rank = 1;
+            foreach ($top_cabang as $c):
+            ?>
+              <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                <div>
+                  <span class="badge bg-label-primary me-2">#<?= $rank++ ?></span><?= $c->nama_cabang ?>
+                </div>
+                <div class="fw-bold text-success">
+                  Rp <?= number_format($c->total, 0, ',', '.') ?>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="card mb-2">
-    <div class="card-header">
-      Ranking Cabang
-    </div>
-    <div class="card-body">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Cabang</th>
-            <th>Booking</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($ranking_cabang as $c): ?>
-            <tr>
-              <td><?= $c->nama_cabang ?></td>
-              <td><?= $c->total_booking ?></td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="col-md-6 mb-2">
-    <div class="card h-100">
-      <div class="card-header">
-        <h5 class="mb-0">Top Cabang</h5>
-      </div>
-      <div class="card-body">
-        <?php if (empty($top_cabang)): ?>
-          <div class="text-center text-muted">Belum ada data</div>
-        <?php else: ?>
-          <?php
-          $rank = 1;
-          foreach ($top_cabang as $c):
-          ?>
-            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-              <div>
-                <span class="badge bg-label-primary me-2">#<?= $rank++ ?></span><?= $c->nama_cabang ?>
-              </div>
-              <div class="fw-bold text-success">
-                Rp <?= number_format($c->total, 0, ',', '.') ?>
-              </div>
-            </div>
-          <?php endforeach; ?>
-        <?php endif; ?>
-      </div>
-    </div>
-  </div>
-  <div class="card">
     <div class="card-header">
       Top 5 Lapangan Terlaris
     </div>

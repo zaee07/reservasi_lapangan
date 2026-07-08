@@ -31,7 +31,7 @@
         <div class="card-body text-center">
           <i class="bx bx-qr-scan display-4 text-primary"></i>
           <h5 class="mt-2"> Scan QR</h5>
-          <a href="<?= base_url('petugas/checkin') ?>" class="btn btn-primary"> Mulai Scan</a>
+          <a href="<?= base_url('checkin') ?>" class="btn btn-primary"> Mulai Scan</a>
         </div>
       </div>
     </div>
@@ -40,12 +40,12 @@
         <div class="card-body text-center">
           <i class="bx bx-user-plus display-4 text-success"></i>
           <h5 class="mt-2"> Booking Walk In</h5>
-          <a href="<?= base_url('petugas/walkin') ?>" class="btn btn-success"> Buat Booking</a>
+          <a href="<?= base_url('walkin') ?>" class="btn btn-success"> Buat Booking</a>
         </div>
       </div>
     </div>
   </div>
-  <div class="card mb-4">
+  <!-- <div class="card mb-4">
     <div class="card-header">
       <h5 class="mb-0"> Sedang Berlangsung</h5>
     </div>
@@ -97,5 +97,5 @@
         </div>
       <?php endforeach; ?>
     </div>
-  </div>
+  </div> -->
 </div>

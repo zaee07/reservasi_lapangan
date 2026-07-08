@@ -151,7 +151,7 @@ class Walkin extends Petugas_Controller
             'subtotal' => $subtotal,
             'biaya_admin' => $biaya_admin,
             'total_bayar' => $total_bayar,
-            'bonus_kok' => $tipe == 'member' ? $jumlah_slot : null,
+            'bonus_kok' => $tipe == 'member' ? $jumlah_slot : 0,
             'status_booking' => STATUS_BOOKING_CHECKIN,
             'confirmed_at' => date('Y-m-d H:i:s'),
             'checked_in_at' => date('Y-m-d H:i:s')

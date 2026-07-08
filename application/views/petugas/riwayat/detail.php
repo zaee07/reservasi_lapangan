@@ -28,8 +28,8 @@
                             <div><?= $booking->nama_cabang ?></div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <small class="text-muted">Lapangan</small>
-                            <div><?= $booking->nama_lapangan ?></div>
+                            <small class="text-muted">Lapangan | bonus kok</small>
+                            <div><?= $booking->nama_lapangan . '  |  ' . $booking->bonus_kok ?></div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <small class="text-muted">Pemesan</small>

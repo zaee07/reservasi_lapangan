@@ -24,6 +24,8 @@
     </div>
 <?php endif; ?>
 <form action="<?= base_url('booking/proses') ?>" method="POST">
+    <input type="hidden" name="tanggal" value="<?= $tanggal ?>">
+    <input type="hidden" name="kode_cabang" value="<?= $kode_cabang ?>">
     <?php foreach ($jadwal as $nama_cabang => $lapangan) : ?>
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-white">
@@ -32,7 +34,8 @@
             <div class="card-body">
                 <?php foreach ($lapangan as $nama_lapangan => $slots) : ?>
                     <div class="mb-4">
-                        <div class="fw-semibold mb-2"><?= $nama_lapangan ?></div>
+                        <!-- <img src="" alt="gambar"> -->
+                        <div class="fw-semibold mb-2"><?= $nama_lapangan . ' - ' . $slots[0]->jenis_lantai ?></div>
                         <div class="d-flex flex-wrap gap-2">
                             <?php foreach ($slots as $slot) : ?>
                                 <input
@@ -52,6 +55,9 @@
             </div>
         </div>
     <?php endforeach; ?>
+    <?php if (empty($jadwal)) : ?>
+        <div class="alert alert-warning"> Lapangan belum tersedia </div>
+    <?php endif; ?>
     <?php if (!empty($jadwal)) : ?>
         <div class="position-fixed bottom-0 start-0 end-0 bg-white border-top shadow-lg p-3"
             style="z-index:999; margin-bottom:70px;">

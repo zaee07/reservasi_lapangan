@@ -86,12 +86,12 @@
               <div data-i18n="Basic">Jadwal</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'reservasi') ? 'active' : ''; ?>">
+          <!-- <li class="menu-item <?= ($active == 'reservasi') ? 'active' : ''; ?>">
             <a href="<?= base_url('admin/reservasi') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-calendar"></i>
               <div data-i18n="Basic">Reservasi</div>
             </a>
-          </li>
+          </li> -->
           <li class="menu-item <?= ($active == 'admin' && $this->uri->segment(2) == 'transaksi') ? 'active' : ''; ?>">
             <a href="<?= base_url('admin/transaksi') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-credit-card"></i>
@@ -147,19 +147,19 @@
         <?php endif;
         if (has_role([1])) :
         ?>
-          <li class="menu-item <?= ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'dashboard') ? 'active' : ''; ?>">
-            <a href="<?= base_url('petugas/dashboard') ?>" class="menu-link">
+          <li class="menu-item <?= ($this->uri->segment(2) == 'owner' || $this->uri->segment(2) == 'dashboard') ? 'active' : ''; ?>">
+            <a href="<?= base_url('owner/dashboard') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'member') ? 'active' : ''; ?>">
+          <li class="menu-item <?= ($active == 'owner' && $this->uri->segment(2) == 'member') ? 'active' : ''; ?>">
             <a href="<?= base_url('owner/member') ?>" class="menu-link">
               <i class="menu-icon tf-icons bx bx-user"></i>
               <div data-i18n="Basic">Member</div>
             </a>
           </li>
-          <li class="menu-item <?= ($active == 'cabang') ? 'active' : ''; ?>">
+          <li class="menu-item <?= ($active == 'cabang' || $active == 'admin_cabang') ? 'active' : ''; ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons bx bx-map-pin"></i>
               <div data-i18n="Layouts">Cabang</div>

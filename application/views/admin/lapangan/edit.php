@@ -186,11 +186,11 @@
                         </option>
                     </select>
                 </div> -->
-                <a href="<?= base_url('lapangan/regenerate_slot/' . $lapangan->id) ?>" class="btn btn-warning" onclick="return confirm('Generate ulang slot 30 hari?')">
+                <a href="<?= base_url('lapangan/regenerate_slot/' . $lapangan->id) ?>" class="btn btn-warning mt-3" onclick="return confirm('Generate ulang slot 30 hari?')">
                     Regenerate Slot 30 Hari
                 </a>
-                <button class="btn btn-primary"> Update </button>
-                <a href="<?= base_url('lapangan') ?>" class="btn btn-secondary">Kembali</a>
+                <button class="btn btn-primary mt-3"> Update </button>
+                <a href="<?= base_url('lapangan') ?>" class="btn btn-secondary mt-3">Kembali</a>
             </form>
         </div>
     </div>
