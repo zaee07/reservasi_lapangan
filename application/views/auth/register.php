@@ -37,21 +37,21 @@
         </div>
     </div>
     <div class="mb-3 form-password-toggle">
-        <label class="d-flex justify-content-between" for="password_konfirmasi">Konfirmasi Password</label>
+        <div class="d-flex justify-content-between">
+            <label class="form-label" for="password_konfirmasi">Konfirmasi Password</label>
+        </div>
         <div class="input-group input-group-merge">
             <input
                 type="password"
                 id="password_konfirmasi"
                 name="password_konfirmasi"
                 class="form-control"
-                autocomplete="new-password"
                 required
-                placeholder="Minimal 6 karakter"
-                aria-describedby="password_konfirmasi"
-                required />
-            <span class="input-group-text cursor-pointer toggle-password"><i class="bx bx-hide"></i></span>
+                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                aria-describedby="password_konfirmasi" />
+            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+            <?= form_error('password_konfirmasi', '<small class="text-danger">', '</small>') ?>
         </div>
-        <?= form_error('password_konfirmasi', '<small class="text-danger">', '</small>') ?>
     </div>
     <button type="submit" class="btn btn-success w-100">Daftar</button>
 </form>
